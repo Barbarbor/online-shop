@@ -11,12 +11,20 @@ User = require('./models/User');
 const Associate = () => {
 
 
+
     User.belongsToMany(Product, {through: Like});
+
+    User.belongsToMany(Product, {through: Like, foreignKey: 'UserId'});
+
     User.hasMany(CartItem);
     User.hasMany(Order);
     Product.belongsTo(Category, {foreignKey: 'CategoryId'});
     Product.belongsTo(Subcategory, {foreignKey: 'CategoryId'});
+
     Product.belongsToMany(User, {through: Like});
+
+    Product.belongsToMany(User, {through: Like, foreignKey: 'ProductId'});
+
     Product.hasMany(CartItem);
     Product.hasMany(OrderItem);
     Subcategory.belongsTo(sequelize.models.Category, { foreignKey: 'CategoryId' });

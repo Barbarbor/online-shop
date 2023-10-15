@@ -14,6 +14,14 @@ orderitemRoutes.post('/order-items', async (req, res) => {
         });
 
         return res.status(201).json(orderItem);
+
+        const orderItems = req.body;
+
+        // Create a new order item
+        const createdOrderItems  = await OrderItem.bulkCreate(orderItems);
+
+        return res.status(201).json(createdOrderItems);
+
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: 'Unable to add an order item' });

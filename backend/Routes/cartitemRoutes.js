@@ -20,12 +20,12 @@ cartitemRoutes.post('/cartitems', async (req, res) => {
         return res.status(500).json({ error: 'Unable to add cart item' });
     }
 });
-cartitemRoutes.get('/cartitems/:UserId', async (req, res) => {
+cartitemRoutes.get('/cartitems', async (req, res) => {
     try {
-        const UserId = req.params.UserId;
+
 
         // Find all cart items for the user
-        const cartItems = await CartItem.findAll({ where: { UserId } });
+        const cartItems = await CartItem.findAll();
 
         return res.status(200).json(cartItems);
     } catch (error) {
