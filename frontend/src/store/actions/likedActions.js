@@ -1,19 +1,17 @@
-// likedActions.js
+// likeActions.js
 import axios from 'axios';
-import {HOST} from '../../constants';
-export const fetchLikedProductDetails = (likedProductIds) => {
+import { HOST } from '../../constants';
+
+export const fetchLikedProducts = (userId) => {
     return async (dispatch) => {
         try {
-            const productDetails = await Promise.all(
-                likedProductIds.map((productId) =>
-                    axios.get(`${HOST}/products/${productId}`)
-                )
-            );
+            // Make a GET request to fetch liked products by user ID
+            const response = await axios.get(`${HOST}/api/likes?UserId=${userId}`);
 
-            dispatch({ type: 'SET_LIKED_PRODUCT_DETAILS', payload: productDetails });
+            // Dispatch the action with the fetched liked products
+            dispatch({ type: 'FETCH_LIKED_PRODUCTS', payload: response.data });
         } catch (error) {
             console.error(error);
         }
     };
 };
-

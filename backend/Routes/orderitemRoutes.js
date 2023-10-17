@@ -4,16 +4,7 @@ const OrderItem = require('../models/OrderItem');
 orderitemRoutes.post('/order-items', async (req, res) => {
     try {
         const { quantity, subtotal,ProductId, OrderId } = req.body;
-
-        // Create a new order item
-        const orderItem = await OrderItem.create({
-            quantity:quantity,
-            subtotal:subtotal,
-            ProductId:ProductId,
-            OrderId: OrderId
-        });
-
-        return res.status(201).json(orderItem);
+        
 
         const orderItems = req.body;
 

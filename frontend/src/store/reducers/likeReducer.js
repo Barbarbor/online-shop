@@ -14,9 +14,15 @@ const likeReducer = (state = initialState, action) => {
                 ...state,
                 products: state.products.filter(id => id !== action.payload),
             };
+        case 'FETCH_LIKED_PRODUCTS':
+            return {
+                ...state,
+                likedProducts: action.payload,
+            };
         default:
             return state;
     }
+
 };
 
 export default likeReducer;

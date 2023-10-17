@@ -20,7 +20,7 @@ function MainPage() {
         <div>
             <NavPanel />
             <Container>
-                <CategoriesDropdown />
+
                 <Row>
                     {loading ? (
                         <p>Loading products...</p>

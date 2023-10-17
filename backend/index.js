@@ -4,9 +4,6 @@ const app = express();
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
 
-
-const PORT = process.env.PORT || 3001;
-
 const jwt = require('jsonwebtoken');
 const PORT = process.env.PORT || 3001;
 const jwtAuth = require('./auth/authMiddleware');

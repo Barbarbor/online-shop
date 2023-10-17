@@ -1,9 +1,3 @@
-
-const express = require('express')
-const likeRoutes = express.Router();
-
-module.exports = likeRoutes;
-
 const express = require('express');
 const likeRoutes = express.Router();
 const Like = require('../models/Like'); // Import your models

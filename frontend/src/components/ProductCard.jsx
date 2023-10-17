@@ -3,7 +3,7 @@ import { Card, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../store/actions/cartActions';
 import { likeProduct } from '../store/actions/likeActions'; // Import the like actions
-import heart from '../icons/heart.svg';
+import heart from '../assets/icons/heart.svg';
 import { ReactSVG } from 'react-svg';
 
 function ProductCard({ product }) {
