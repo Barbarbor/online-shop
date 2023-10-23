@@ -16,9 +16,9 @@ function NavPanel() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
                 {/* Categories Dropdown */}
-
+                <CategoriesDropdown />
                     {/* Integrate the CategoriesDropdown component here */}
-                    <CategoriesDropdown />
+
 
 
                 {/* Rest of the navigation items */}

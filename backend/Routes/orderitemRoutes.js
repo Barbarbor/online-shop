@@ -1,6 +1,7 @@
 const express = require('express')
 const orderitemRoutes = express.Router();
 const OrderItem = require('../models/OrderItem');
+const Like = require("../models/Like");
 orderitemRoutes.post('/order-items', async (req, res) => {
     try {
         const { quantity, subtotal,ProductId, OrderId } = req.body;
@@ -27,6 +28,25 @@ orderitemRoutes.get('/order-items', async (req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: 'Unable to fetch order items' });
+    }
+});
+orderitemRoutes.delete('/order-items/orderitemId', async (req, res) => {
+    try {
+        const { orderitemId } = req.params;
+
+        // Find the cart item by its ID and delete it
+        const orderitem = await OrderItem.findByPk(orderitemId);
+
+        if (!orderitem) {
+            return res.status(404).json({ error: 'Orderitem not found' });
+        }
+
+        await orderitem.destroy();
+
+        return res.status(204).send(); // No content, successfully deleted
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Unable to delete Orderitem' });
     }
 });
 module.exports = orderitemRoutes;

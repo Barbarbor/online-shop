@@ -5,6 +5,7 @@ import { removeFromCart } from '../store/actions/cartActions';
 import { createOrder } from '../store/actions/orderActions';
 import {fetchAllProducts} from "../store/actions/mainPageActions";
 import { fetchCartItems } from '../store/actions/cartItemActions';
+import NavPanel from "./NavPanel";
 function Cart() {
     const cartItems = useSelector((state) => state.cartItem.items);
     const total = useSelector((state) => state.cart.total);
@@ -22,6 +23,7 @@ function Cart() {
 
     return (
         <div>
+            <NavPanel/>
             <h2>Your Shopping Cart</h2>
             {cartItems.map((item) => (
                 <div key={item.id}>

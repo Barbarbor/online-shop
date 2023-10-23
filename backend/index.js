@@ -21,7 +21,7 @@ const productRoutes = require('./Routes/productRoutes');
 const subcategoryRoutes = require('./Routes/subcategoryRoutes');
 const userRoutes = require('./Routes/userRoutes');
 const mediaUploadRouter = require('./mediaUpload');
-
+const searchRoutes = require('./Routes/searchRoutes');
 // Start the server
 
 const uploadRoutes = require('./Routes/uploadRoutes');
@@ -53,7 +53,7 @@ app.use('/api',likeRoutes);
 app.use('/api',categoryRoutes);
 app.use('/api',subcategoryRoutes);
 app.use('/api',userRoutes);
-
+app.use('/api',searchRoutes);
 app.use('/api',uploadRoutes);
 
 app.get('/api', (req, res) => {

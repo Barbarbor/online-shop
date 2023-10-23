@@ -1,6 +1,7 @@
 const express = require('express')
 const productRoutes = express.Router();
-const Product  = require('../models/Product'); // Import your Product model
+const Product  = require('../models/Product');
+const User = require("../models/User"); // Import your Product model
 
 
 
@@ -54,6 +55,74 @@ productRoutes.get('/products/:productId', async (req, res) => {
         console.error(error);
         return res.status(500).json({ error: 'Unable to fetch product details' });
     }
-});
 
+});
+productRoutes.get('/products/subcategory/:subcategoryId', async(req,res) =>{
+    try {
+        const subcategoryId = req.params.subcategoryId;
+        const products = await Product.findAll({where: {SubcategoryId: subcategoryId}});
+        if (!products) {
+            console.log({error: 'Products not found'});
+        }
+        return res.status(200).json(products);
+    }   catch(error){
+        console.error(error);
+        return res.status(500).json({error:"Unable to fetch products"});
+    }
+
+});
+productRoutes.get('/products/category/:categoryId', async(req,res) => {
+    try {
+        const categoryId = req.params.categoryId;
+        const products = await Product.findAll({where: {CategoryId: categoryId}});
+        if (!products) {
+            console.log({error: 'Products not found'});
+        }
+        return res.status(200).json(products);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({error: "Unable to fetch products"});
+    }
+});
+productRoutes.delete('/products/:productId', async(req,res) =>{
+    try {
+        const {productId} = req.params;
+        const product = await Product.findByPk(productId);
+        if(!product){
+            return res.status(404).json({error:'Product not found'});
+        }
+        await product.destroy();
+        return res.status(204).send();
+    } catch(error){
+        return res.status(500).json({error: 'Unable to delete Product'});
+    }
+
+});
+productRoutes.put('/products/:productId', async (req, res) => {
+    try {
+        const { productId } = req.params;
+        const product = await Product.findByPk(productId);
+
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+
+        // Update the product fields based on the request body
+        const { name, description, price, CategoryId, SubcategoryId, photography_url } = req.body;
+
+        product.name = name || product.name;
+        product.description = description || product.description;
+        product.price = price || product.price;
+        product.CategoryId = CategoryId || product.CategoryId;
+        product.SubcategoryId = SubcategoryId || product.SubcategoryId;
+        product.photography_url = photography_url || product.photography_url;
+
+        await product.save();
+
+        return res.status(200).json(product);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Unable to update Product' });
+    }
+});
 module.exports = productRoutes;

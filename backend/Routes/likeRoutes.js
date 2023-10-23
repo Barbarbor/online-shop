@@ -2,6 +2,7 @@ const express = require('express');
 const likeRoutes = express.Router();
 const Like = require('../models/Like'); // Import your models
 const Product = require('../models/Product');
+const CartItem = require("../models/CartItem");
 // Route for creating a like
 likeRoutes.post('/likes', async (req, res) => {
     try {
@@ -54,5 +55,23 @@ likeRoutes.get('/likes', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch liked products' });
     }
 });
+likeRoutes.delete('/likes/:likeId', async (req, res) => {
+    try {
+        const { likeId } = req.params;
 
+        // Find the cart item by its ID and delete it
+        const like = await Like.findByPk(likeId);
+
+        if (!like) {
+            return res.status(404).json({ error: 'like not found' });
+        }
+
+        await like.destroy();
+
+        return res.status(204).send(); // No content, successfully deleted
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Unable to delete like' });
+    }
+});
 module.exports = likeRoutes;

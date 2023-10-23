@@ -5,7 +5,7 @@ import CategoriesDropdown from './CategoriesDropdown';
 import ProductCard from './ProductCard';
 import { useDispatch, useSelector } from 'react-redux'; // Import the necessary hooks
 import { fetchAllProducts } from '../store/actions/mainPageActions'; // Import the action
-
+import Search from './Search';
 function MainPage() {
     const dispatch = useDispatch();
     const products = useSelector((state) => state.mainPage.products);
@@ -19,8 +19,9 @@ function MainPage() {
     return (
         <div>
             <NavPanel />
-            <Container>
 
+            <Container>
+                <Search />
                 <Row>
                     {loading ? (
                         <p>Loading products...</p>

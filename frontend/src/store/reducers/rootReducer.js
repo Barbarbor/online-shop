@@ -9,6 +9,7 @@ import cartReducer from "./cartReducer";
 import cartItemReducer from "./cartItemReducer";
 import likeReducer from "./likeReducer";
 import likedReducer from "./likedReducer";
+import searchReducer from "./searchReducer";
 // Combine all your reducers here
 const rootReducer = combineReducers({
     category: categoryReducer,
@@ -24,6 +25,8 @@ const rootReducer = combineReducers({
 
     likes: likeReducer,
     liked: likedReducer,
+
+    search: searchReducer
 });
 
 export default rootReducer;

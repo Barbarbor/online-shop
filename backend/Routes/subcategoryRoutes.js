@@ -1,6 +1,7 @@
 const express = require('express')
 const subcategoryRoutes = express.Router();
 const Subcategory = require('../models/Subcategory');
+const Category = require("../models/Category");
 subcategoryRoutes.post('/subcategories', async (req, res) => {
     try {
         const { name, CategoryId} = req.body;
@@ -43,5 +44,19 @@ subcategoryRoutes.get('/categories/:categoryId/subcategories', async (req, res) 
         console.error(error);
         return res.status(500).json({ error: 'Unable to fetch subcategories' });
     }
+});
+subcategoryRoutes.delete('/subcategories/:subcategoryId', async(req,res) =>{
+    try {
+        const {subcategoryId} = req.params;
+        const subcategory = await Subcategory.findByPk(subcategoryId);
+        if(!subcategory){
+            return res.status(404).json({error:'Subcategory not found'});
+        }
+        await subcategory.destroy();
+        return res.status(204).send();
+    } catch(error){
+        return res.status(500).json({error: 'Unable to delete Subcategory'});
+    }
+
 });
 module.exports = subcategoryRoutes;

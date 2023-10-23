@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProduct } from '../store/actions/productActions'; // Update the path
 import ProductDetail from './ProductDetail';
+import NavPanel from "./NavPanel";
 
 function ProductDetailPage() {
     const { productId } = useParams();
@@ -20,6 +21,7 @@ function ProductDetailPage() {
 
     return (
         <div>
+            <NavPanel/>
             {loading ? (
                 <p>Loading product details...</p>
             ) : error ? (

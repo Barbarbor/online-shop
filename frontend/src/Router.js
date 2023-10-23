@@ -11,7 +11,11 @@ import Registration from "./components/auth/Registration";
 import Login from "./components/auth/Login";
 import Cart from './components/Cart';
 import Liked from "./components/Liked";
+import SearchResults from "./components/SearchResults";
+import SubcategoryProducts from "./components/SubcategoryProducts";
+import { useParams } from 'react-router-dom';
 function AppRouter() {
+    const { subcategoryId } = useParams();
     return (
         <Router>
             <Routes>
@@ -26,6 +30,12 @@ function AppRouter() {
                 <Route path={"/login"} element={<Login/>} />
                 <Route path={"/cart"} element={<Cart/>} />
                 <Route path={"/liked"} element={<Liked/>} />
+                <Route path={"/search-results/:searchQuery"} element={<SearchResults/>} />
+                <Route
+                    path="/category/:subcategoryId"
+                    element={<SubcategoryProducts  />}
+
+                />
             </Routes>
         </Router>
     );

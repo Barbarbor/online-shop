@@ -1,6 +1,7 @@
 const express = require('express')
 const userRoutes = express.Router();
 const User = require('../models/User');
+const Subcategory = require("../models/Subcategory");
 userRoutes.post('/users', async(req,res) =>{
     try {
         const { username, email, password } = req.body;
@@ -29,6 +30,44 @@ userRoutes.get('/users', async (req, res) => {
         return res.status(500).json({ error: 'Unable to fetch users' });
     }
 });
+userRoutes.delete('/users/:userId', async(req,res) =>{
+    try {
+        const {userId} = req.params;
+        const user = await User.findByPk(userId);
+        if(!user){
+            return res.status(404).json({error:'User not found'});
+        }
+        await user.destroy();
+        return res.status(204).send();
+    } catch(error){
+        return res.status(500).json({error: 'Unable to delete User'});
+    }
 
+});
+userRoutes.put('/users/:userId', async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const { username, email, password } = req.body;
 
+        // Find the user by ID
+        const user = await User.findByPk(userId);
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Update user properties
+        user.username = username || user.username;
+        user.email = email || user.email;
+        user.password = password || user.password;
+
+        // Save the updated user
+        await user.save();
+
+        return res.status(200).json(user);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Unable to update user' });
+    }
+});
 module.exports = userRoutes;

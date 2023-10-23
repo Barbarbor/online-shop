@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLikedProducts } from '../store/actions/likeActions';
-
+import NavPanel from "./NavPanel";
 function Liked() {
     const userId = 1; // Replace with the actual user's ID
     const likedProducts = useSelector((state) => state.likes.likedProducts);
@@ -13,7 +13,9 @@ function Liked() {
     }, [dispatch, userId]);
 
     return (
+
         <div>
+            <NavPanel/>
             <h1>Liked Products</h1>
             <ul>
                 {likedProducts && likedProducts.length > 0 ? (

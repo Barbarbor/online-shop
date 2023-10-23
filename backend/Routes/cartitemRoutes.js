@@ -33,4 +33,23 @@ cartitemRoutes.get('/cartitems', async (req, res) => {
         return res.status(500).json({ error: 'Unable to fetch cart items' });
     }
 });
+cartitemRoutes.delete('/cartitems/:cartitemId', async (req, res) => {
+    try {
+        const { cartitemId } = req.params;
+
+        // Find the cart item by its ID and delete it
+        const cartItem = await CartItem.findByPk(cartitemId);
+
+        if (!cartItem) {
+            return res.status(404).json({ error: 'Cart item not found' });
+        }
+
+        await cartItem.destroy();
+
+        return res.status(204).send(); // No content, successfully deleted
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Unable to delete cart item' });
+    }
+});
 module.exports = cartitemRoutes;
