@@ -1,47 +1,40 @@
-// UserManagement.js
-import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // You'll need Axios for making HTTP requests
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUser, deleteUser, fetchUsers } from '../../store/actions/userManagementActions';
 import UserForm from '../forms/UserForm';
 import {HOST} from "../../constants";
+import { Button, ListGroup } from 'react-bootstrap'; // Import Bootstrap components as needed
+
 const UserManagement = () => {
-    const [users, setUsers] = useState([]);
+    const dispatch = useDispatch();
+    const users = useSelector((state) => state.userManagement.users);
 
     useEffect(() => {
-        fetchUsers();
-    }, []);
+        dispatch(fetchUsers());
+    }, [dispatch]);
 
-    const fetchUsers = async () => {
-        try {
-            const response = await axios.get(`${HOST}/api/users`);
-            setUsers(response.data);
-        } catch (error) {
-            console.error('Error fetching users:', error);
-        }
+    const handleDeleteUser = (userId) => {
+        dispatch(deleteUser(userId));
     };
-
-    const addUser = async (userData) => {
-        try {
-            const response = await axios.post(`${HOST}/api/users`, userData);
-            setUsers([...users, response.data]);
-        } catch (error) {
-            console.error('Error adding user:', error);
-        }
-    };
-
 
     return (
         <div className="user-management">
             <h1>User Management</h1>
-            {/* Render the UserForm component */}
-            <UserForm addUser={addUser} />
-            <ul>
-                {users.map((user) => (
-                    <li key={user.id}>
-                        {user.username} - {user.email}
+            <UserForm addUser={(userData) => dispatch(addUser(userData))} />
 
-                    </li>
+            <ListGroup>
+                {users.map((user) => (
+                    <ListGroup.Item key={user.id}>
+                        {user.username} - {user.email}
+                        <Button
+                            variant="danger"
+                            onClick={() => handleDeleteUser(user.id)}
+                        >
+                            Delete
+                        </Button>
+                    </ListGroup.Item>
                 ))}
-            </ul>
+            </ListGroup>
         </div>
     );
 };

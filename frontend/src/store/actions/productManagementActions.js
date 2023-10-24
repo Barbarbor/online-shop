@@ -11,6 +11,9 @@ export const ADD_PRODUCT_REQUEST = 'ADD_PRODUCT_REQUEST';
 export const ADD_PRODUCT_SUCCESS = 'ADD_PRODUCT_SUCCESS';
 export const ADD_PRODUCT_FAILURE = 'ADD_PRODUCT_FAILURE';
 
+export const DELETE_PRODUCT_REQUEST = 'DELETE_PRODUCT_REQUEST';
+export const DELETE_PRODUCT_SUCCESS = 'DELETE_PRODUCT_SUCCESS';
+export const DELETE_PRODUCT_FAILURE = 'DELETE_PRODUCT_FAILURE';
 // Action creators
 export const fetchProductsRequest = () => ({
     type: FETCH_PRODUCTS_REQUEST,
@@ -40,6 +43,18 @@ export const addProductFailure = (error) => ({
     error,
 });
 
+export const deleteProductRequest = () =>({
+    type: DELETE_PRODUCT_REQUEST,
+})
+export const deleteProductSuccess = (id) =>({
+    type: DELETE_PRODUCT_SUCCESS,
+    payload: id,
+})
+export const deleteProductFailure = (error) =>({
+    type: DELETE_PRODUCT_FAILURE,
+    error,
+})
+
 export const fetchProducts = () => {
     return async (dispatch) => {
         dispatch(fetchProductsRequest());
@@ -63,3 +78,16 @@ export const addProduct = (productData) => {
         }
     };
 };
+
+export const deleteProduct = (productId) =>{
+    return async(dispatch) => {
+        dispatch(deleteProductRequest());
+        try {
+            await axios.delete(`${HOST}/api/products/${productId}`);
+            dispatch(deleteProductSuccess(productId));
+        } catch (error) {
+            dispatch(deleteProductFailure(error));
+        }
+
+    };
+    };

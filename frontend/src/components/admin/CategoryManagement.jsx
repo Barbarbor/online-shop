@@ -1,7 +1,9 @@
+
 import React, { useEffect } from 'react';
-import CategoryForm from '../forms/CategoryForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories, addCategory } from '../../store/actions/categoryManagementActions';
+import CategoryForm from '../forms/CategoryForm';
+import { fetchCategories, addCategory, deleteCategory } from '../../store/actions/categoryManagementActions';
+import { Button, ListGroup } from 'react-bootstrap';
 
 const CategoryManagement = () => {
     const dispatch = useDispatch();
@@ -16,15 +18,29 @@ const CategoryManagement = () => {
         dispatch(addCategory(newCategory));
     };
 
+    const handleDeleteCategory = (categoryId) => {
+        dispatch(deleteCategory(categoryId));
+    };
+
     return (
         <div className="category-management">
             <h1>Category Management</h1>
             <CategoryForm onSubmit={handleAddCategory} />
-            <ul>
-                {categories.map((category, index) => (
-                    <li key={category.id}>{category.name}</li>
-                ))}
-            </ul>
+
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                <ListGroup>
+                    {categories.map((category) => (
+                        <ListGroup.Item key={category.id}>
+                            {category.name}
+                            <Button variant="danger" onClick={() => handleDeleteCategory(category.id)}>
+                                Delete
+                            </Button>
+                        </ListGroup.Item>
+                    ))}
+                </ListGroup>
+            )}
         </div>
     );
 };

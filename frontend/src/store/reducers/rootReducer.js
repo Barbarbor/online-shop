@@ -10,6 +10,7 @@ import cartItemReducer from "./cartItemReducer";
 import likeReducer from "./likeReducer";
 import likedReducer from "./likedReducer";
 import searchReducer from "./searchReducer";
+import userManagementReducer from "./userManagementReducer";
 // Combine all your reducers here
 const rootReducer = combineReducers({
     category: categoryReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     categoryManagement:categoryManagementReducer,
     subcategoryManagement: subcategoryManagementReducer,
     productManagement: productManagementReducer,
+    userManagement: userManagementReducer,
 
     cart: cartReducer,
     cartItem:cartItemReducer,

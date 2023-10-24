@@ -5,7 +5,7 @@ categoryRoutes.post('/categories',async (req,res) =>{
     try {
         const {name} = req.body;
 
-        const category = Category.create({name:name});
+        const category = await Category.create({name:name});
         return res.status(201).json(category);
     }
     catch (error) {

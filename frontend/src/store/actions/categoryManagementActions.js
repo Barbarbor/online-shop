@@ -9,6 +9,35 @@ export const ADD_CATEGORY_REQUEST = 'ADD_CATEGORY_REQUEST';
 export const ADD_CATEGORY_SUCCESS = 'ADD_CATEGORY_SUCCESS';
 export const ADD_CATEGORY_FAILURE = 'ADD_CATEGORY_FAILURE';
 
+export const DELETE_CATEGORY_REQUEST ='DELETE_CATEGORY_REQUEST';
+export const DELETE_CATEGORY_SUCCESS ='DELETE_CATEGORY_SUCCESS';
+export const DELETE_CATEGORY_FAILURE ='DELETE_CATEGORY_FAILURE';
+
+export const addCategoryRequest = () => ({
+    type: ADD_CATEGORY_REQUEST,
+});
+export const addCategorySuccess = (category) => ({
+    type: ADD_CATEGORY_SUCCESS,
+    payload:category,
+});
+export const addCategoryFailure = (error) => ({
+    type: ADD_CATEGORY_FAILURE,
+    error,
+});
+
+export const deleteCategoryRequest = () => ({
+    type: DELETE_CATEGORY_REQUEST,
+});
+export const deleteCategorySuccess = (id) => ({
+    type: DELETE_CATEGORY_SUCCESS,
+    payload:id,
+});
+export const deleteCategoryFailure = (error) => ({
+    type: DELETE_CATEGORY_FAILURE,
+    error,
+});
+
+
 export const fetchCategories = () => {
     return async (dispatch) => {
         dispatch({ type: FETCH_CATEGORIES_REQUEST });
@@ -23,12 +52,26 @@ export const fetchCategories = () => {
 
 export const addCategory = (newCategory) => {
     return async (dispatch) => {
-        dispatch({ type: ADD_CATEGORY_REQUEST });
+        dispatch(addCategoryRequest());
         try {
             const response = await axios.post(`${HOST}/api/categories`, newCategory);
-            dispatch({ type: ADD_CATEGORY_SUCCESS, payload: response.data });
+            dispatch(addCategorySuccess(response.data));
         } catch (error) {
-            dispatch({ type: ADD_CATEGORY_FAILURE, error });
+            dispatch(addCategoryFailure(error));
         }
     };
+};
+
+export const deleteCategory = (categoryId) => {
+    return async(dispatch) => {
+        dispatch(deleteCategoryRequest());
+        try{
+            await axios.delete(`${HOST}/api/categories/${categoryId}`);
+            dispatch(deleteCategorySuccess(categoryId));
+        } catch (error){
+            dispatch(deleteCategoryFailure(error));
+        }
+
+
+};
 };
