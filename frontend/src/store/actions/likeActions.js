@@ -1,9 +1,9 @@
 import {HOST} from '../../constants';
 import axios from 'axios';
 
-export const LIKED_PRODUCTS_REQUEST = 'LIKED_PRODUCTS_REQUEST';
-export const LIKED_PRODUCTS_SUCCESS = 'LIKED_PRODUCTS_SUCCESS';
-export const LIKED_PRODUCTS_FAILURE = 'LIKED_PRODUCTS_FAILURE';
+export const FETCH_LIKED_PRODUCTS_REQUEST = 'LIKED_PRODUCTS_REQUEST';
+export const FETCH_LIKED_PRODUCTS_SUCCESS = 'LIKED_PRODUCTS_SUCCESS';
+export const FETCH_LIKED_PRODUCTS_FAILURE = 'LIKED_PRODUCTS_FAILURE';
 
 export const LIKE_PRODUCT_REQUEST = 'LIKE_PRODUCT_REQUEST';
 export const LIKE_PRODUCT_SUCCESS = 'LIKE_PRODUCT_SUCCESS';
@@ -13,14 +13,14 @@ export const UNLIKE_PRODUCT_REQUEST = 'UNLIKE_PRODUCT_REQUEST';
 export const UNLIKE_PRODUCT_SUCCESS = 'UNLIKE_PRODUCT_SUCCESS';
 export const UNLIKE_PRODUCT_FAILURE = 'UNLIKE_PRODUCT_FAILURE';
 export const fetchLikedProductsRequest = () => ({
-    type: LIKED_PRODUCTS_REQUEST,
+    type: FETCH_LIKED_PRODUCTS_REQUEST,
 });
 export const fetchLikedProductsSuccess = (likes) => ({
-    type: LIKED_PRODUCTS_SUCCESS,
+    type: FETCH_LIKED_PRODUCTS_SUCCESS,
     payload: likes,
 });
 export const fetchLikedProductsFailure = (error) => ({
-    type: LIKED_PRODUCTS_FAILURE,
+    type: FETCH_LIKED_PRODUCTS_FAILURE,
     error,
 })
 
@@ -77,12 +77,12 @@ export const fetchLikedProducts = (userId) => {
     };
 };
 
-export const unlikeProduct = (likeId) => {
+export const unlikeProduct = (productId) => {
     return async(dispatch) => {
         dispatch(unlikeProductRequest());
         try{
-            await axios.delete(`${HOST}/api/likes/${likeId}`);
-            dispatch(unlikeProductSuccess(likeId));
+            await axios.delete(`${HOST}/api/likes/${productId}`);
+            dispatch(unlikeProductSuccess(productId));
         } catch(error){
             dispatch(unlikeProductFailure(error));
         }

@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize')
+ const { Sequelize } = require('sequelize')
 const sequelize = new Sequelize('shop-database', 'alexxpain', '123derebez', {
 
     host: 'localhost',

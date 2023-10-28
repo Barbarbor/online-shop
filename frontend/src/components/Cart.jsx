@@ -4,17 +4,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart } from '../store/actions/cartActions';
 import { createOrder } from '../store/actions/orderActions';
 import {fetchAllProducts} from "../store/actions/mainPageActions";
-import { fetchCartItems } from '../store/actions/cartItemActions';
+import { fetchCartItems } from '../store/actions/cartActions';
 import NavPanel from "./NavPanel";
+import ProductCard from "./ProductCard";
+import {Button} from 'react-bootstrap';
 function Cart() {
-    const cartItems = useSelector((state) => state.cartItem.items);
-    const total = useSelector((state) => state.cart.total);
     const dispatch = useDispatch();
+
+    const cartItems = useSelector((state) => state.cart.items);
+    const products = useSelector((state) =>state.cart.products );
+    const total = useSelector((state) => state.cart.total);
     useEffect(() => {
         dispatch(fetchCartItems());
-    }, [dispatch]);
-    const handleRemoveFromCart = (productId) => {
-        dispatch(removeFromCart(productId));
+        },[dispatch]);
+    const handleRemoveFromCart = (product) => {
+        dispatch(removeFromCart(product));
     };
 
     const handleBuy = () => {
@@ -23,16 +27,16 @@ function Cart() {
 
     return (
         <div>
-            <NavPanel/>
+            <NavPanel />
             <h2>Your Shopping Cart</h2>
-            {cartItems.map((item) => (
-                <div key={item.id}>
-                    <p>{item.name} - ${item.price}</p>
-                    <button onClick={() => handleRemoveFromCart(item.id)}>Remove from Cart</button>
+            {products.map((product) => (
+                <div key={product.id}>
+                    <ProductCard product={product} />
+                    <Button onClick={() => handleRemoveFromCart(product)}>Remove from Cart</Button>
                 </div>
             ))}
             <p>Total: ${total}</p>
-            <button onClick={handleBuy}>Buy</button>
+            <Button onClick={handleBuy}>Buy</Button>
         </div>
     );
 }

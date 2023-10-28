@@ -1,26 +1,32 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../store/actions/cartActions';
-import { likeProduct } from '../store/actions/likeActions'; // Import the like actions
+import { likeProduct } from '../store/actions/likeActions';
+import { unlikeProduct } from '../store/actions/likeActions';
+import {fetchLikedProducts} from "../store/actions/likeActions";
 import heart from '../assets/icons/heart.svg';
 import { ReactSVG } from 'react-svg';
 
-function ProductCard({ product }) {
+function ProductCard({ product, isLiked }) {
+    const userId = 1;
     const dispatch = useDispatch();
-    const likedProducts = useSelector((state) => state.likes.products);
-
-    const isLiked = likedProducts.includes(product.id);
-
+    const [liked, setLiked] = useState(isLiked);
     const handleLikeClick = () => {
         dispatch(likeProduct(product.id));
+        setLiked(true);
+    };
+
+    const handleUnlikeClick = () => {
+        dispatch(unlikeProduct(product.id));
+        setLiked(false);
     };
 
     const handleAddToCart = () => {
         dispatch(addToCart(product));
     };
 
-    const iconSize = 24; // Adjust the icon size here
+    const iconSize = 24;
 
     return (
         <Card>
@@ -29,18 +35,21 @@ function ProductCard({ product }) {
                 <Card.Title>{product.name}</Card.Title>
                 <Button onClick={handleAddToCart}>Add to Cart</Button>
 
-                {isLiked ? (
+                {liked ? (
                     <ReactSVG
-                        onClick={handleLikeClick}
+                        onClick={handleUnlikeClick} // Handle unlike
                         src={heart}
                         beforeInjection={(svg) => {
                             svg.setAttribute('width', iconSize);
                             svg.setAttribute('height', iconSize);
-                            svg.setAttribute('fill', 'red');
+                            svg.setAttribute('fill', 'red'); // Initially red for liked products
                         }}
                         alt="Liked"
                         className="heart-icon"
+
                     />
+
+
                 ) : (
                     <ReactSVG
                         onClick={handleLikeClick}

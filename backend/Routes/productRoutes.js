@@ -2,7 +2,7 @@ const express = require('express')
 const productRoutes = express.Router();
 const Product  = require('../models/Product');
 const User = require("../models/User"); // Import your Product model
-
+const CartItem = require("../models/CartItem");
 
 
 
@@ -37,8 +37,20 @@ productRoutes.get('/products', async (req, res) => {
         res.status(500).json({ error: 'Unable to fetch products' });
     }
 });
+productRoutes.get('/cartitems/products', async(req,res) => {
+    try {
+        const cartItems = await CartItem.findAll();
+        const productIds = cartItems.map((cartItem) => cartItem.id)
+        const products = await Product.findAll({where: {id: productIds}});
+        if (!products) {
+            return res.status(404).json({error: "Products not found"});
+        }
+        res.status(200).json(products);
+    } catch (error) {
+    return res.status(500).json({error: "Unable to fetch cartitem products"});
+}
+});
 
-module.exports = productRoutes;
 productRoutes.get('/products/:productId', async (req, res) => {
     try {
         const productId = req.params.productId;

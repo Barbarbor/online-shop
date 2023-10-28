@@ -55,12 +55,12 @@ likeRoutes.get('/likes', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch liked products' });
     }
 });
-likeRoutes.delete('/likes/:likeId', async (req, res) => {
+likeRoutes.delete('/likes/:productId', async (req, res) => {
     try {
-        const { likeId } = req.params;
+        const { productId } = req.params;
 
         // Find the cart item by its ID and delete it
-        const like = await Like.findByPk(likeId);
+        const like = await Like.findOne({where:{ProductId: productId}});
 
         if (!like) {
             return res.status(404).json({ error: 'like not found' });

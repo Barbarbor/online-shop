@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLikedProducts } from '../store/actions/likeActions';
 import NavPanel from "./NavPanel";
+import ProductCard from "./ProductCard";
 function Liked() {
     const userId = 1; // Replace with the actual user's ID
-    const likedProducts = useSelector((state) => state.likes.likedProducts);
+    const likedProducts = useSelector((state) => state.likes.products);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -17,15 +18,15 @@ function Liked() {
         <div>
             <NavPanel/>
             <h1>Liked Products</h1>
-            <ul>
+
                 {likedProducts && likedProducts.length > 0 ? (
                     likedProducts.map((product) => (
-                        <li key={product.id}>{product.name}</li>
+                        <ProductCard key={product.id} product={product}/>
                     ))
                 ) : (
                     <p>No liked products found.</p>
                 )}
-            </ul>
+
         </div>
     );
 }

@@ -5,7 +5,6 @@ import NavPanel from "./NavPanel";
 import Search from "./Search";
 function SearchResults() {
     const searchResults = useSelector((state) => state.search.results);
-
     return (
         <div>
             <NavPanel/>
