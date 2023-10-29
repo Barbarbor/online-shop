@@ -1,16 +1,16 @@
 // productManagementReducer.js
 
 import {
-    FETCH_PRODUCTS_REQUEST,
-    FETCH_PRODUCTS_SUCCESS,
-    FETCH_PRODUCTS_FAILURE,
+    FETCH_ALL_PRODUCTS_REQUEST,
+    FETCH_ALL_PRODUCTS_SUCCESS,
+    FETCH_ALL_PRODUCTS_FAILURE,
     ADD_PRODUCT_REQUEST,
     ADD_PRODUCT_SUCCESS,
     ADD_PRODUCT_FAILURE,
     DELETE_PRODUCT_REQUEST,
     DELETE_PRODUCT_SUCCESS,
     DELETE_PRODUCT_FAILURE,
-} from '../actions/productManagementActions';
+} from '../actions';
 
 const initialState = {
     products: [],
@@ -20,7 +20,7 @@ const initialState = {
 
 const productManagementReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_PRODUCTS_REQUEST:
+        case FETCH_ALL_PRODUCTS_REQUEST:
         case ADD_PRODUCT_REQUEST:
         case DELETE_PRODUCT_REQUEST:
             return {
@@ -28,7 +28,7 @@ const productManagementReducer = (state = initialState, action) => {
                 loading: true,
                 error: null,
             };
-        case FETCH_PRODUCTS_SUCCESS:
+        case FETCH_ALL_PRODUCTS_SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -47,7 +47,7 @@ const productManagementReducer = (state = initialState, action) => {
                 loading: false,
                 products: updatedProducts,
             }
-        case FETCH_PRODUCTS_FAILURE:
+        case FETCH_ALL_PRODUCTS_FAILURE:
         case ADD_PRODUCT_FAILURE:
         case DELETE_PRODUCT_FAILURE:
             return {

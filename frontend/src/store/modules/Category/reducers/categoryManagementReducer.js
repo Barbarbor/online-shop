@@ -10,7 +10,7 @@ import {
     DELETE_CATEGORY_REQUEST,
     DELETE_CATEGORY_SUCCESS,
     DELETE_CATEGORY_FAILURE,
-} from '../actions/categoryManagementActions';
+} from '../actions';
 
 const initialState = {
     categories: [],

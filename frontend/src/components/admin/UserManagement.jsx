@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addUser, deleteUser, fetchUsers } from '../../store/actions/userManagementActions';
+import { addUser, deleteUser, fetchUsers } from '../../store/modules/User/actions';
 import UserForm from '../forms/UserForm';
 import {HOST} from "../../constants";
 import { Button, ListGroup } from 'react-bootstrap'; // Import Bootstrap components as needed

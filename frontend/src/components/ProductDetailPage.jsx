@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProduct } from '../store/actions/productActions'; // Update the path
+import { fetchProduct } from '../store/modules/Product/actions'; // Update the path
 import ProductDetail from './ProductDetail';
 import NavPanel from "./NavPanel";
 

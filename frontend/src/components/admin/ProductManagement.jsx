@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ProductForm from '../forms/ProductForm';
-import { fetchProducts, addProduct, deleteProduct } from '../../store/actions/productManagementActions';
-import { fetchCategories } from '../../store/actions/categoryManagementActions';
-import { fetchSubcategories } from '../../store/actions/subcategoryManagementActions';
+import { fetchAllProducts, addProduct, deleteProduct } from '../../store/modules/Product/actions';
+import { fetchCategories } from '../../store/modules/Category/actions';
+import { fetchAllSubcategories } from '../../store/modules/Subcategory/actions';
 import { Button, ListGroup } from 'react-bootstrap';
 
 const ProductManagement = () => {
@@ -14,9 +14,9 @@ const ProductManagement = () => {
     const subcategories = useSelector((state) => state.subcategoryManagement.subcategories);
 
     useEffect(() => {
-        dispatch(fetchProducts());
+        dispatch(fetchAllProducts());
         dispatch(fetchCategories());
-        dispatch(fetchSubcategories());
+        dispatch(fetchAllSubcategories());
     }, [dispatch]);
 
     const handleAddProduct = (newProduct) => {

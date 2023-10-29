@@ -9,7 +9,7 @@ import{
     REMOVE_FROM_CART_REQUEST,
     REMOVE_FROM_CART_SUCCESS,
     REMOVE_FROM_CART_FAILURE,
-} from "../actions/cartActions";
+} from "../actions";
 
 const initialState = {
     items: [],

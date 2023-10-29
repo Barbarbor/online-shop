@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import SubcategoryForm from '../forms/SubcategoryForm';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    fetchSubcategories,
+    fetchAllSubcategories,
     addSubcategory,
     deleteSubcategory
-} from '../../store/actions/subcategoryManagementActions';
-import { fetchCategories } from '../../store/actions/categoryManagementActions';
+} from '../../store/modules/Subcategory/actions';
+import { fetchCategories } from '../../store/modules/Category/actions';
 import { Button, ListGroup } from 'react-bootstrap';
 
 const SubcategoryManagement = () => {
@@ -16,7 +16,7 @@ const SubcategoryManagement = () => {
     const loading = useSelector((state) => state.subcategoryManagement.loading);
 
     useEffect(() => {
-        dispatch(fetchSubcategories());
+        dispatch(fetchAllSubcategories());
         dispatch(fetchCategories());
     }, [dispatch]);
 

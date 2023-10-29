@@ -38,8 +38,13 @@ subcategoryRoutes.get('/categories/:categoryId/subcategories', async (req, res) 
         const subcategories = await Subcategory.findAll({
             where: { CategoryId: categoryId },
         });
-
-        return res.status(200).json(subcategories);
+        if(!subcategories)
+        {
+            return res.status(404).json({error:"Subcategories not found"});
+        }
+        else {
+            return res.status(200).json(subcategories);
+        }
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: 'Unable to fetch subcategories' });

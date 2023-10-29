@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchProducts } from '../store/actions/searchActions';
+import { fetchSearchedProducts } from '../store/modules/Product/actions';
 import { Form, ListGroup, Overlay, Popover } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 function Search() {
     const [searchQuery, setSearchQuery] = useState('');
-    const searchResults = useSelector((state) => state.search.results);
+    const searchResults = useSelector((state) => state.searchedProducts.products);
     const dispatch = useDispatch();
     const [showDropdown, setShowDropdown] = useState(false);
     const [target, setTarget] = useState(null);
     const navigate = useNavigate();
     const handleSearch = () => {
-        dispatch(searchProducts(searchQuery));
+        dispatch(fetchSearchedProducts(searchQuery));
         navigate(`/search-results/${searchQuery}`);
     };
 
     const handleInputChange = (e) => {
         const query = e.target.value;
         setSearchQuery(query);
-        dispatch(searchProducts(query));
+        dispatch(fetchSearchedProducts(query));
         setShowDropdown(query !== ''); // Show the dropdown when the query is not empty
         setTarget(e.target);
     };

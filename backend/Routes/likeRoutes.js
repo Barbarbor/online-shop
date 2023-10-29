@@ -23,7 +23,7 @@ likeRoutes.post('/likes', async (req, res) => {
             ProductId: ProductId,
         });
 
-        res.status(201).json({ success: true, like: newLike });
+        res.status(201).json({newLike });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Failed to create like' });

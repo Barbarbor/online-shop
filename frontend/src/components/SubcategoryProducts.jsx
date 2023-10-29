@@ -1,17 +1,21 @@
-import React, {  useEffect } from "react";
+import React, { useEffect } from "react";
 import ProductCard from "./ProductCard";
-import { connect } from 'react-redux';
-import { fetchSubcategoryProducts } from '../store/actions/categoryActions';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import NavPanel from "./NavPanel";
+import{fetchSubcategoryProducts} from "../store/modules/Product/actions";
 
-function SubcategoryProducts({  products, loading, error, fetchSubcategoryProducts }) {
+function SubcategoryProducts() {
     const { subcategoryId } = useParams();
+    const dispatch = useDispatch();
+    const products = useSelector(state => state.product.products);
+    const loading = useSelector(state => state.product.loading);
+    const error = useSelector(state => state.product.error);
+
     useEffect(() => {
         console.log('Fetching data for subcategoryId:', subcategoryId);
-        // Fetch subcategory products when the component mounts
-        fetchSubcategoryProducts(subcategoryId);
-    }, [subcategoryId, fetchSubcategoryProducts]);
+        dispatch(fetchSubcategoryProducts(subcategoryId));
+    }, [subcategoryId, dispatch]);
 
     if (loading) {
         return <div>Loading...</div>;
@@ -22,25 +26,13 @@ function SubcategoryProducts({  products, loading, error, fetchSubcategoryProduc
     }
 
     return (
-
         <div>
-            <NavPanel/>
-            {/* Render the products */}
+            <NavPanel />
             {products.map((product) => (
-                <ProductCard key={product.id} product={product}/>
+                <ProductCard key={product.id} product={product} />
             ))}
         </div>
     );
 }
 
-const mapStateToProps = (state) => ({
-    products: state.category.products,
-    loading: state.category.loading,
-    error: state.category.error,
-});
-
-const mapDispatchToProps = {
-    fetchSubcategoryProducts,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SubcategoryProducts);
+export default SubcategoryProducts;

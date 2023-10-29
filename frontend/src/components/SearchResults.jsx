@@ -4,7 +4,7 @@ import ProductCard from './ProductCard';
 import NavPanel from "./NavPanel";
 import Search from "./Search";
 function SearchResults() {
-    const searchResults = useSelector((state) => state.search.results);
+    const searchResults = useSelector((state) => state.searchedProducts.products);
     return (
         <div>
             <NavPanel/>

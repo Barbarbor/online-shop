@@ -1,10 +1,8 @@
 // Cart.js
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart } from '../store/actions/cartActions';
-import { createOrder } from '../store/actions/orderActions';
-import {fetchAllProducts} from "../store/actions/mainPageActions";
-import { fetchCartItems } from '../store/actions/cartActions';
+import { removeFromCart,fetchCartItems } from '../store/modules/Cart/actions';
+import { createOrder } from '../store/modules/Order/actions';
 import NavPanel from "./NavPanel";
 import ProductCard from "./ProductCard";
 import {Button} from 'react-bootstrap';

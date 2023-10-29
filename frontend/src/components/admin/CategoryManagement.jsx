@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CategoryForm from '../forms/CategoryForm';
-import { fetchCategories, addCategory, deleteCategory } from '../../store/actions/categoryManagementActions';
+import { fetchCategories, addCategory, deleteCategory } from '../../store/modules/Category/actions';
 import { Button, ListGroup } from 'react-bootstrap';
 
 const CategoryManagement = () => {

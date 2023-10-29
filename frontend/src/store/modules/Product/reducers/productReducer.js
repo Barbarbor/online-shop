@@ -2,7 +2,8 @@ import {
     FETCH_PRODUCT_REQUEST,
     FETCH_PRODUCT_SUCCESS,
     FETCH_PRODUCT_FAILURE,
-} from '../actions/productActions';
+
+} from '../actions';
 
 const initialState = {
     product: null,

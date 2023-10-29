@@ -1,14 +1,13 @@
 import React, {useState,useEffect} from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../store/actions/cartActions';
-import { likeProduct } from '../store/actions/likeActions';
-import { unlikeProduct } from '../store/actions/likeActions';
-import {fetchLikedProducts} from "../store/actions/likeActions";
+import { addToCart } from '../store/modules/Cart/actions';
+import { likeProduct,unlikeProduct } from '../store/modules/Like/actions';
+import {fetchLikedProducts} from "../store/modules/Product/actions";
 import heart from '../assets/icons/heart.svg';
 import { ReactSVG } from 'react-svg';
 
-function ProductCard({ product, isLiked }) {
+function ProductCard({ product, isLiked, inCart }) {
     const userId = 1;
     const dispatch = useDispatch();
     const [liked, setLiked] = useState(isLiked);
@@ -33,7 +32,12 @@ function ProductCard({ product, isLiked }) {
             <Card.Img variant="top" src={`http://localhost:3001/media/${product.photography_url}`} alt={product.name} />
             <Card.Body>
                 <Card.Title>{product.name}</Card.Title>
-                <Button onClick={handleAddToCart}>Add to Cart</Button>
+                {!inCart ?
+                    (<Button onClick={handleAddToCart}>Add to Cart</Button>)
+                    : (
+                        <Button>Already in cart</Button>
+                ) }
+
 
                 {liked ? (
                     <ReactSVG
