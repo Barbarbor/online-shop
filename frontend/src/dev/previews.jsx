@@ -3,6 +3,7 @@ import {ComponentPreview, Previews} from '@react-buddy/ide-toolbox'
 import {PaletteTree} from './palette'
 import ProductManagement from "../components/admin/ProductManagement";
 import CategoryManagement from "../components/admin/CategoryManagement";
+import CartItemCard from "../components/CartItemCard";
 
 const ComponentPreviews = () => {
     return (
@@ -12,6 +13,9 @@ const ComponentPreviews = () => {
             </ComponentPreview>
             <ComponentPreview path="/CategoryManagement">
                 <CategoryManagement/>
+            </ComponentPreview>
+            <ComponentPreview path="/CartItemCard">
+                <CartItemCard/>
             </ComponentPreview>
         </Previews>
     )

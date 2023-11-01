@@ -6,7 +6,7 @@ import{
 const initialState ={
     category:null,
     subcategory:null,
-    filteredProducts:[],
+    products:[],
     loading:false,
     error:null
 };
@@ -23,7 +23,7 @@ const productsFilteredReducer = (state=initialState,action) =>{
                 ...state,
                 category: action.payload[0].CategoryId,
                 subcategory: action.payload[0].SubcategoryId,
-                filteredProducts: action.payload,
+                products: action.payload,
                 loading: false,
             };
         case FETCH_SUBCATEGORY_PRODUCTS_FAILURE:

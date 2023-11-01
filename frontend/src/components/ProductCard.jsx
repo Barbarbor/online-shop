@@ -39,33 +39,33 @@ function ProductCard({ product, isLiked, inCart }) {
                 ) }
 
 
-                {liked ? (
-                    <ReactSVG
-                        onClick={handleUnlikeClick} // Handle unlike
-                        src={heart}
-                        beforeInjection={(svg) => {
-                            svg.setAttribute('width', iconSize);
-                            svg.setAttribute('height', iconSize);
-                            svg.setAttribute('fill', 'red'); // Initially red for liked products
-                        }}
-                        alt="Liked"
-                        className="heart-icon"
+                        {liked ? (
+                            <ReactSVG
+                                onClick={handleUnlikeClick} // Handle unlike
+                                src={heart}
+                                beforeInjection={(svg) => {
+                                    svg.setAttribute('width', iconSize);
+                                    svg.setAttribute('height', iconSize);
+                                    svg.setAttribute('fill', 'red'); // Initially red for liked products
+                                }}
+                                alt="Liked"
+                                className="heart-icon"
 
-                    />
+                            />
 
 
-                ) : (
-                    <ReactSVG
-                        onClick={handleLikeClick}
-                        src={heart}
-                        beforeInjection={(svg) => {
-                            svg.setAttribute('width', iconSize);
-                            svg.setAttribute('height', iconSize);
-                        }}
-                        alt="Like"
-                        className="heart-icon"
-                    />
-                )}
+                        ) : (
+                            <ReactSVG
+                                onClick={handleLikeClick}
+                                src={heart}
+                                beforeInjection={(svg) => {
+                                    svg.setAttribute('width', iconSize);
+                                    svg.setAttribute('height', iconSize);
+                                }}
+                                alt="Like"
+                                className="heart-icon"
+                            />
+                        )}
             </Card.Body>
         </Card>
     );

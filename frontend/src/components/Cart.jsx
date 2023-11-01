@@ -5,6 +5,7 @@ import { removeFromCart,fetchCartItems } from '../store/modules/Cart/actions';
 import { createOrder } from '../store/modules/Order/actions';
 import NavPanel from "./NavPanel";
 import ProductCard from "./ProductCard";
+import CartItemCard from "./CartItemCard";
 import {Button} from 'react-bootstrap';
 function Cart() {
     const dispatch = useDispatch();
@@ -27,10 +28,10 @@ function Cart() {
         <div>
             <NavPanel />
             <h2>Your Shopping Cart</h2>
-            {products.map((product) => (
-                <div key={product.id}>
-                    <ProductCard product={product} />
-                    <Button onClick={() => handleRemoveFromCart(product)}>Remove from Cart</Button>
+            {cartItems.map((cartItem,productIndex) => (
+                <div key={cartItem.id}>
+                    <CartItemCard product={products[productIndex]} cartItem={cartItem} Liked={true} />
+
                 </div>
             ))}
             <p>Total: ${total}</p>
