@@ -10,7 +10,7 @@ Order = require('./models/Order');
 OrderItem = require('./models/OrderItem');
 Product = require('./models/Product');
 Subcategory = require('./models/Subcategory');
-Like.sync({force:true}).then(result=>{
+OrderItem.sync({force:true}).then(result=>{
     console.log(result);
 })
     .catch(err=> console.log(err));

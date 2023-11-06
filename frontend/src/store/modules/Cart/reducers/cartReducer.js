@@ -9,6 +9,9 @@ import{
     REMOVE_FROM_CART_REQUEST,
     REMOVE_FROM_CART_SUCCESS,
     REMOVE_FROM_CART_FAILURE,
+    UPDATE_CARTITEM_QUANTITY_REQUEST,
+    UPDATE_CARTITEM_QUANTITY_SUCCESS,
+    UPDATE_CARTITEM_QUANTITY_FAILURE,
 } from "../actions";
 
 const initialState = {
@@ -18,14 +21,23 @@ const initialState = {
     loading:false,
     error:null,
 };
-const calculateTotal = (products) => {
-    return products.reduce((total, product) => total + product.price, 0);
+const calculateTotal = (cartItems, products) => {
+    return cartItems.reduce((total, cartItem) => {
+        const product = products.find(p => p.id === cartItem.ProductId);
+        if (product) {
+            // Multiply the product's price by the cart item's quantity
+            total += product.price * cartItem.quantity;
+        }
+        return total;
+    }, 0);
 };
+
 const cartReducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_CARTITEMS_REQUEST:
         case ADD_TO_CART_REQUEST:
         case REMOVE_FROM_CART_REQUEST:
+        case UPDATE_CARTITEM_QUANTITY_REQUEST:
             return {
                 ...state,
                 loading: true,
@@ -38,7 +50,7 @@ const cartReducer = (state = initialState, action) => {
                 ...state,
                 items: fetchedCartItems,
                 products: fetchedProducts,
-                total: calculateTotal(fetchedProducts),
+                total: calculateTotal(fetchedCartItems,fetchedProducts),
                 loading: false,
                 error: null,
             };
@@ -59,17 +71,34 @@ const cartReducer = (state = initialState, action) => {
             const updatedCartitems = state.items.filter((cartitem) => cartitem.id !== action.payload.cartitemId);
             const removedProduct = state.products.find(action.payload.productId);
             const updatedProducts = state.products.filter((product) => product.id !== removedProduct);
+
             return{
                 ...state,
                 items: updatedCartitems,
                 products: updatedProducts,
-                total: state.total - removedProduct.price,
+                total: calculateTotal(updatedCartitems,updatedProducts),
                 loading: false,
+                error:null,
+            };
+        case UPDATE_CARTITEM_QUANTITY_SUCCESS:
+            const updatedCartItem = action.payload;
+            const updatedItemIndex = state.items.findIndex(
+                (item) => item.id === updatedCartItem.id
+            );
+            const updatedItems = [...state.items];
+            updatedItems[updatedItemIndex] = updatedCartItem;
+            const updatedTotal = calculateTotal(updatedItems, state.products);
+            return{
+                ...state,
+                items: updatedItems,
+                total:updatedTotal,
+                loading:false,
                 error:null,
             };
         case FETCH_CARTITEMS_FAILURE:
         case ADD_TO_CART_FAILURE:
         case REMOVE_FROM_CART_FAILURE:
+        case UPDATE_CARTITEM_QUANTITY_FAILURE:
             return{
                 ...state,
                 loading: false,

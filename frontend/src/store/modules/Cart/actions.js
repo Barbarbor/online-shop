@@ -13,6 +13,10 @@ export const FETCH_CARTITEMS_REQUEST = 'FETCH_CARTITEM_REQUEST';
 export const FETCH_CARTITEMS_SUCCESS = 'FETCH_CARTITEM_SUCCESS';
 export const FETCH_CARTITEMS_FAILURE = 'FETCH_CARTITEM_FAILURE';
 
+export const UPDATE_CARTITEM_QUANTITY_REQUEST = 'UPDATE_CARTITEM_QUANTITY_REQUEST';
+export const UPDATE_CARTITEM_QUANTITY_SUCCESS = 'UPDATE_CARTITEM_QUANTITY_SUCCESS';
+export const UPDATE_CARTITEM_QUANTITY_FAILURE = 'UPDATE_CARTITEM_QUANTITY_FAILURE';
+
 
 export const addToCartRequest = () => ({
     type:ADD_TO_CART_REQUEST,
@@ -22,7 +26,7 @@ export const addToCartSuccess = (product,cartitem) => ({
     payload:{product:product,cartitem:cartitem},
 });
 export const addToCartFailure = (error) => ({
-    type:ADD_TO_CART_SUCCESS,
+    type:ADD_TO_CART_FAILURE,
     error,
 });
 
@@ -31,7 +35,7 @@ export const removeFromCartRequest = () => ({
     type:REMOVE_FROM_CART_REQUEST,
 });
 export const removeFromCartSuccess = (cartitemId, productId) => ({
-    type:REMOVE_FROM_CART_REQUEST,
+    type:REMOVE_FROM_CART_SUCCESS,
     payload: {cartitemId:cartitemId,productId:productId},
 });
 export const removeFromCartFailure = (error) => ({
@@ -52,6 +56,18 @@ export const fetchCartItemsFailure = (error) => ({
     error,
 });
 
+
+export const updateQuantityRequest = () => ({
+    type: UPDATE_CARTITEM_QUANTITY_REQUEST,
+});
+export const updateQuantitySuccess = (updatedCartItem) => ({
+    type: UPDATE_CARTITEM_QUANTITY_SUCCESS,
+    payload:updatedCartItem,
+});
+export const updateQuantityFailure = (error) => ({
+    type: UPDATE_CARTITEM_QUANTITY_FAILURE,
+    error,
+});
 
 
 export const addToCart = (product) => {
@@ -77,7 +93,8 @@ export const removeFromCart = (cartitem) => {
             const cartitemId = cartitem.id;
             const productId = cartitem.ProductId;
             await axios.delete(`${HOST}/api/cartitems/${cartitemId}`);
-            dispatch(removeFromCartSuccess(cartitemId,productId));
+            console.log(`CartItemid:${cartitemId}, productId:${productId}`)
+            dispatch(removeFromCartSuccess({cartitemId:cartitemId,productId:productId}));
         } catch(error){
             dispatch(removeFromCartFailure(error));
         }
@@ -98,3 +115,15 @@ export const fetchCartItems = () => {
     };
 };
 
+export const updateQuantity = (cartItem, updatedQuantity) => {
+    return async(dispatch) => {
+        dispatch(updateQuantityRequest());
+        try{
+            const response = await axios.put(`${HOST}/api/cartitems/${cartItem.id}`,{updatedQuantity:updatedQuantity});
+            dispatch(updateQuantitySuccess(response.data));
+
+        } catch(error){
+            dispatch(updateQuantityFailure(error));
+        }
+    };
+};

@@ -3,13 +3,14 @@ const orderRoutes = express.Router();
 const Order = require('../models/Order');
 orderRoutes.post('/orders', async (req, res) => {
     try {
-        const { order_date, status, UserId } = req.body;
+        const { order_date, status, UserId,total } = req.body;
 
         // Create a new order
         const order = await Order.create({
             order_date:order_date,
             status:status,
-            UserId: UserId
+            UserId: UserId,
+            total:total,
         });
 
         return res.status(201).json(order);

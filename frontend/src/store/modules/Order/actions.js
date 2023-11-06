@@ -19,22 +19,22 @@ export const createOrderFailure = (error) => ({
     error,
 });
 
-export const createOrder = (cartItems) => {
+export const createOrder = (cartItems,total) => {
     return async (dispatch) => {
         dispatch(createOrderRequest());
         try {
             // Create the order
             const orderResponse = await axios.post(`${HOST}/api/orders`, {
-                order_date: new Date(),
-                status: 'Paid',
+                order_date: 1,
+                status: 'PAID',
                 UserId: 1, // Replace with user authentication when available
+                total:total,
             });
 
             // Create order items
             const orderItems = cartItems.map((item) => {
                 return {
                     quantity: item.quantity, // Use the quantity from the cart item
-                    subtotal: item.quantity * item.price, // Calculate subtotal
                     OrderId: orderResponse.data.id,
                     ProductId: item.ProductId,
                 };
@@ -44,7 +44,7 @@ export const createOrder = (cartItems) => {
             const orderItemsResponse = await axios.post(`${HOST}/api/order-items`, orderItems);
 
             // Dispatch actions
-            dispatch(createOrderSuccess(orderResponse.data,orderItemsResponse.data));
+            dispatch(createOrderSuccess({order:orderResponse.data,orderitems:orderItemsResponse.data}));
         } catch (error) {
             dispatch(createOrderFailure(error));
         }

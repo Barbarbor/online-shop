@@ -4,7 +4,7 @@ const OrderItem = require('../models/OrderItem');
 const Like = require("../models/Like");
 orderitemRoutes.post('/order-items', async (req, res) => {
     try {
-        const { quantity, subtotal,ProductId, OrderId } = req.body;
+        const { quantity,ProductId, OrderId } = req.body;
         
 
         const orderItems = req.body;
@@ -50,3 +50,8 @@ orderitemRoutes.delete('/order-items/orderitemId', async (req, res) => {
     }
 });
 module.exports = orderitemRoutes;
+
+
+
+const orderData = {status:"PAID",UserId:1,total:100,order_date:1};
+const orderItemsData = [{quantity:1,ProductId:1,OrderId:1},{quantity:2,ProductId:2,OrderId:1}];

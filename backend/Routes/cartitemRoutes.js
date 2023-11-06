@@ -2,6 +2,7 @@ const express = require('express')
 const cartitemRoutes = express.Router();
 const CartItem = require('../models/CartItem');
 const Product = require('../models/Product');
+
 // Create a new cart item
 cartitemRoutes.post('/cartitems', async (req, res) => {
     try {
@@ -29,7 +30,9 @@ cartitemRoutes.get('/cartitems', async (req, res) => {
 
 
         // Find all cart items for the user
-        const cartItems = await CartItem.findAll();
+        const cartItems = await CartItem.findAll({
+            order: [['id', 'ASC']] // Sort by id in ascending order
+        });
         const productIds = cartItems.map( (cartitem) => cartitem.ProductId );
         const products = await Product.findAll({where:{id:productIds}});
         const response = {cartitems:cartItems,products: products};
@@ -39,12 +42,12 @@ cartitemRoutes.get('/cartitems', async (req, res) => {
         return res.status(500).json({ error: 'Unable to fetch cart items' });
     }
 });
-cartitemRoutes.delete('/cartitems/:productId', async (req, res) => {
+cartitemRoutes.delete('/cartitems/:cartItemId', async (req, res) => {
     try {
-        const { productId } = req.params;
+        const { cartItemId } = req.params;
 
         // Find the cart item by its ID and delete it
-        const cartItem = await CartItem.findOne({where:{ProductId:productId}});
+        const cartItem = await CartItem.findByPk(cartItemId);
 
         if (!cartItem) {
             return res.status(404).json({ error: 'Cart item not found' });
@@ -56,6 +59,22 @@ cartitemRoutes.delete('/cartitems/:productId', async (req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: 'Unable to delete cart item' });
+    }
+});
+cartitemRoutes.put('/cartitems/:cartItemId', async(req,res) =>{
+    try {
+        const {cartItemId} = req.params;
+        const {updatedQuantity} = req.body;
+        const cartItem = await CartItem.findByPk(cartItemId);
+        if (!cartItem) {
+            return res.status(404).json({error: 'CartItem not found'});
+        }
+        cartItem.quantity = updatedQuantity;
+        await cartItem.save();
+        return res.status(200).json(cartItem);
+    }
+    catch(error){
+        return res.status(500).json({error:'Unable to update cartItem quantity'});
     }
 });
 module.exports = cartitemRoutes;
