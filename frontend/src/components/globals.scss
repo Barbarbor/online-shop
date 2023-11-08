@@ -1,0 +1,19 @@
+@import './colors';
+.button-like-icon {
+  background-color: $button-color;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+
+
+}
+
+.button-like-icon:hover {
+  background-color: $button-color-hover;
+}
+#trash {
+  margin-left: 10px;
+}

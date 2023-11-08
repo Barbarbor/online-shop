@@ -1,45 +1,23 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { removeFromCart,updateQuantity } from '../store/modules/Cart/actions';
+import {updateQuantity } from '../store/modules/Cart/actions';
 import{likeProduct,unlikeProduct} from "../store/modules/Like/actions";
 import { Card, CardMedia, CardContent, Typography, TextField, Button } from '@mui/material';
-import { ReactSVG } from 'react-svg';
-import Heart from '../assets/icons/heart.svg';
-import TrashIcon from '../assets/icons/trash-icon.svg';
-import heart from '../assets/icons/heart.svg';
 import './Cart.scss';
-
+import Like from'./Like';
+import Trash from './Trash';
 function CartItemCard({ cartItem, product, Liked }) {
-    const iconSize = 24;
-    const [isLiked, setIsLiked] = useState(Liked);
     const [quantity,setQuantity] = useState(cartItem.quantity);
     const dispatch = useDispatch();
-    let updateQuantityDebounced = null;
-    const handleRemoveFromCart = () => {
-        dispatch(removeFromCart(cartItem));
-    };
-
-    const handleLikeClick = () => {
-        dispatch(likeProduct(product.id));
-        setIsLiked(true);
-    };
-
-    const handleUnlikeClick = () => {
-        dispatch(unlikeProduct(product.id));
-        setIsLiked(false);
-    };
-
     const handleIncreaseQuantity = () => {
         setQuantity(quantity + 1);
         dispatch(updateQuantity(cartItem, quantity + 1));
         };
-
     const handleDecreaseQuantity = () => {
         if (quantity > 1) {
             setQuantity(quantity - 1);
             dispatch(updateQuantity(cartItem, quantity - 1));
         }
-
         };
 
     const handleUpdateQuantity = (event) => {
@@ -52,17 +30,14 @@ function CartItemCard({ cartItem, product, Liked }) {
         else {
             setQuantity(value);
             dispatch(updateQuantity(cartItem, value));
-
         }
     };
-
 
     const calculateTotalPrice = () => {
         return product.price * quantity;
     };
 
     return (
-
             <Card className="card-container">
                 <CardMedia
                     component="img"
@@ -77,46 +52,8 @@ function CartItemCard({ cartItem, product, Liked }) {
                         </Typography>
                     </CardContent>
                     <div className="card-icons">
-                        {isLiked ? (
-                            <button className="button">
-                                <ReactSVG
-                                    onClick={handleUnlikeClick}
-                                    src={heart}
-                                    beforeInjection={(svg) => {
-                                        svg.setAttribute('width', iconSize);
-                                        svg.setAttribute('height', iconSize);
-                                        svg.setAttribute('fill', 'red');
-                                    }}
-                                    alt="Liked"
-                                    className="like-icon"
-                                />
-                            </button>
-                        ) : (
-                            <button className="button">
-                                <ReactSVG
-                                    onClick={handleLikeClick}
-                                    src={heart}
-                                    beforeInjection={(svg) => {
-                                        svg.setAttribute('width', iconSize);
-                                        svg.setAttribute('height', iconSize);
-                                    }}
-                                    alt="Like"
-                                    className="unlike-icon"
-                                />
-                            </button>
-                        )}
-                        <button className="button" id='trash'>
-                            <ReactSVG
-                                src={TrashIcon}
-                                onClick={handleRemoveFromCart}
-                                beforeInjection={(svg) => {
-                                    svg.setAttribute('width', iconSize);
-                                    svg.setAttribute('height', iconSize);
-                                }}
-                                alt="Trash"
-                                className="trash-icon"
-                            />
-                        </button>
+                        <Like product={product} isLiked={Liked}/>
+                        <Trash cartItem={cartItem}/>
                     </div>
                 </div>
 

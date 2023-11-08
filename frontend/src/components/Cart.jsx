@@ -28,7 +28,7 @@ function Cart() {
             <div className='cart'>
             <div className='cart-items'>
 
-            <h2>Your Shopping Cart</h2>
+
             {cartItems.map((cartItem) => {
                 const product = products.find((product) => product.id === cartItem.ProductId);
                 if (product) {
