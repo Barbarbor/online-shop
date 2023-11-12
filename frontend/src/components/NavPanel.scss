@@ -1,0 +1,14 @@
+@import './_colors';
+.nav-panel{
+  height:auto;
+  background-color: gray;
+  justify-content: right;
+  .nav-panel-list{
+    display: flex;
+    flex-direction: row;
+
+    .nav-panel-item{
+
+    }
+  }
+}

@@ -1,0 +1,53 @@
+@import './_colors';
+.search-panel {
+  right:25%;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  margin-top:16px;
+  .search-results {
+    position: relative;
+
+    .search-input {
+
+      position: absolute;
+      right: 25%;
+      width: 800px;
+      z-index: 1200;
+      background-color: white;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .search-results-list {
+      margin-top:33px;
+      position: absolute;
+      z-index: 9999;
+      background-color: white;
+      right: 25%;
+
+      width: 800px;
+
+
+      .search-results-item {
+        height:40px;
+
+        width: 100%;
+        max-width: 800px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+
+      }
+    }
+  }
+  .search-button{
+    height:40px;
+    margin-left: 0;
+    background-color:$search-button-color;
+    border:1px solid $search-button-border-color;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  }
+  .search-button:hover{
+    background-color: $search-button-hover-color;
+  }
+}
