@@ -38,7 +38,7 @@ function CartItemCard({ cartItem, product, Liked }) {
     };
 
     return (
-            <Card className="card-container">
+            <Card className="card-container" raised={true}>
                 <CardMedia
                     component="img"
                     image="media/iphone14.png"

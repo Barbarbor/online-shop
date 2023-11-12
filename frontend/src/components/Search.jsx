@@ -1,26 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect,useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSearchedProducts } from '../store/modules/Product/actions';
-import { Form, ListGroup, Overlay, Popover } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-function Search() {
+import {TextField,List,ListItem,ListItemButton,ListItemText,Divider} from "@mui/material";
+import { ReactSVG } from 'react-svg';
+import SearchIcon from  '../assets/icons/search-icon.svg';
+import './Search.scss';
+function Search({defaultValue=''}) {
     const [searchQuery, setSearchQuery] = useState('');
     const searchResults = useSelector((state) => state.searchedProducts.products);
     const dispatch = useDispatch();
     const [showDropdown, setShowDropdown] = useState(false);
-    const [target, setTarget] = useState(null);
     const navigate = useNavigate();
+    const inputRef = useRef(null);
+    const iconSize = 28;
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (inputRef.current && !inputRef.current.contains(event.target)) {
+                // Clicked outside the search panel, hide the dropdown
+                setShowDropdown(false);
+            }
+        };
+
+        // Attach the event listener to the document
+        document.addEventListener('click', handleClickOutside);
+
+        // Cleanup the event listener on component unmount
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []); // Empty dependency array means this effect runs once when the component mounts
+
     const handleSearch = () => {
         dispatch(fetchSearchedProducts(searchQuery));
         navigate(`/search-results/${searchQuery}`);
     };
-
+    const handleListItemClick = (product) => {
+        setSearchQuery(product.name);
+        handleCloseDropdown();
+        handleInputChange({ target: { value: product.name } });
+    };
     const handleInputChange = (e) => {
         const query = e.target.value;
         setSearchQuery(query);
         dispatch(fetchSearchedProducts(query));
         setShowDropdown(query !== ''); // Show the dropdown when the query is not empty
-        setTarget(e.target);
+
     };
 
     const handleCloseDropdown = () => {
@@ -28,52 +53,49 @@ function Search() {
     };
 
     return (
-        <div>
-            <Form.Group>
-                <Form.Control
+        <div className='search-panel'>
+        <div className='search-results'>
+            <TextField
                     type="text"
                     placeholder="Search for products..."
-                    value={searchQuery}
+                    value={searchQuery || defaultValue}
+
                     onChange={handleInputChange}
-                    id="search-input"
-                />
-            </Form.Group>
-            {showDropdown && (
-                <Overlay
-                    show={showDropdown}
-                    target={target}
-                    placement="bottom"
-                >
-                    {({ placement, arrowProps, show: _show, popper, ...props }) => (
-                        <div
-                            {...props}
-                            style={{
-                                ...props.style,
-                                zIndex: 1000, // Make sure the dropdown is on top
-                                position: 'absolute',
-                                width: '100%', // Adjust the width as needed
-                            }}
-                        >
-                            <ListGroup>
-                                {searchResults.map((product) => (
-                                    <ListGroup.Item
-                                        key={product.id}
-                                        onClick={() => {
-                                            setSearchQuery(product.name);
-                                            handleCloseDropdown();
-                                        }}
-                                        action
-                                    >
-                                        {product.name}
-                                    </ListGroup.Item>
-                                ))}
-                            </ListGroup>
-                        </div>
-                    )}
-                </Overlay>
-            )}
-            <button onClick={handleSearch}>Search</button>
+                    onSelect={() => setShowDropdown(searchQuery !== '')}
+                    className='search-input'
+                    variant='outlined'
+                    size="small"
+                    ref={inputRef}
+            />
+            <List hidden={!showDropdown} className='search-results-list'>
+                {searchResults.map((product) => (
+                    <ListItem divider button
+                              className='search-results-item'
+                              onClick={() => handleListItemClick(product)}
+                              key={product.id}
+                    >
+                        <ListItemText
+                            primary={product.name}
+                            className='search-results-text'/>
+                    </ListItem>
+                ))}
+            </List>
         </div>
+            <button
+                onClick={handleSearch}
+                className='search-button'
+            >
+            <ReactSVG
+                src={SearchIcon}
+                beforeInjection={(svg) => {
+                    svg.setAttribute('width', iconSize);
+                    svg.setAttribute('height', iconSize);
+                    svg.setAttribute('fill','white');
+                }}
+                alt="Search-icon"/>
+            </button>
+        </div>
+
     );
 }
 

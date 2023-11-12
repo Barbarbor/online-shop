@@ -12,7 +12,7 @@ function OrderCard ({cartItems,total}) {
         return accumulator + currentItem.quantity;
     }, 0);
     return(
-        <Card className="order-container">
+        <Card className="order-container" raised={true}>
             <div className="order-info">
                 <p> Items in order: {totalQuantity}</p>
                 <p> Summ of order: {total}</p>

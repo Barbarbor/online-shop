@@ -2,11 +2,7 @@ import React, {useState,useEffect} from 'react';
 import { Card, Button,CardMedia, CardContent,CardHeader,Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../store/modules/Cart/actions';
-import { likeProduct,unlikeProduct } from '../store/modules/Like/actions';
-import {fetchLikedProducts} from "../store/modules/Product/actions";
-import heart from '../assets/icons/heart.svg';
 import Like from './Like';
-import { ReactSVG } from 'react-svg';
 import './ProductCard.scss';
 function ProductCard({ product, isLiked, inCart }) {
     const userId = 1;
@@ -19,12 +15,14 @@ function ProductCard({ product, isLiked, inCart }) {
     const iconSize = 24;
 
     return (
-        <Card className='product-card-container'>
-
+        <Card className='product-card-container' raised={true}>
+            <div className='product-card-like-icon'>
+            <Like product={product} isLiked={isLiked} />
+            </div>
                 <CardMedia
                     className='product-card-media'
                     component="img"
-                    src="media/iphone14.png"
+                    src="http://localhost:3000/media/iphone14.png"
                     alt={product.name} />
 
 
@@ -35,7 +33,7 @@ function ProductCard({ product, isLiked, inCart }) {
                 : (
                     <button className='button-in-cart'>To cart</button>
                 ) }
-                        <Like product={product} isLiked={isLiked}/>
+
         </Card>
     );
 }

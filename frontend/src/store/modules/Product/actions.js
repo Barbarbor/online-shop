@@ -182,6 +182,12 @@ export const fetchSearchedProducts = (searchQuery) => {
     };
 };
 
+export const fetchSearchedProductsWithoutDispatch = async (searchQuery) => {
+    const response = await axios.get(`${HOST}/api/product/search?searchQuery=${searchQuery}`);
+    return response.data;
+
+}
+
 export const fetchProduct = (productId) => {
     return async (dispatch) => {
         dispatch(fetchProductRequest());

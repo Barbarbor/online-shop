@@ -7,12 +7,14 @@ import SubcategoriesDropdown from "./SubcategoriesDropdown";
 import { ReactSVG } from 'react-svg';
 import CategoriesIcon from '../assets/icons/categories-icon.svg';
 import { Link } from 'react-router-dom';
-
+import {Drawer, List, ListItem, ListItemText,Container} from "@mui/material";
+import './Categories.scss';
 function CategoriesDropdown() {
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.category.categories);
     const [selectedCategoryId, setSelectedCategoryId] = useState(null);
-    const [showDropdown, setShowDropdown] = useState(false);
+    const [showDrawer, setShowDrawer] = useState(false);
+    const [target,setTarget] = useState(null);
     const subcategories = useSelector((state) => state.subcategory.subcategories)
     useEffect(() => {
         if (categories.length === 0) {
@@ -20,20 +22,21 @@ function CategoriesDropdown() {
         }
     }, [categories, dispatch]);
 
-    const handleCategoryClick = (categoryId) => {
+    const handleCategoryClick = (e,categoryId) => {
         if (selectedCategoryId === categoryId) {
             setSelectedCategoryId(null);
         } else {
             setSelectedCategoryId(categoryId);
+            setTarget(e.target);
             dispatch(fetchSubcategoriesOfCategory(categoryId));
         }
 
-        setShowDropdown(true);
     };
-
+    const handleToggleDrawer = () =>{
+        setShowDrawer(!showDrawer);
+    };
     return (
-        <Dropdown as="span" className="nav-dropdown">
-            <Dropdown.Toggle as="span" id="category-dropdown">
+
                 <div>
                     <ReactSVG
                         src={CategoriesIcon}
@@ -42,23 +45,36 @@ function CategoriesDropdown() {
                             svg.setAttribute('height', 24);
                         }}
                         className="nav-icon"
+                        onClick={handleToggleDrawer}
                     />
-                    <div>Categories</div>
+
+                    <Drawer
+                        anchor={'left'}
+                        open={showDrawer}
+                        onClose={handleToggleDrawer}
+                        className='categories-drawer'
+                        elevation={16}
+                        >
+                        <List className='categories-list'>
+                            {categories.map((category) => (
+                                <ListItem
+                                    className='categories-list-item'
+                                    onClick={(e) => handleCategoryClick(e,category.id)}
+
+
+                                >
+                                    {category.id === selectedCategoryId ? (
+                                        <ListItemText className='categories-list-item-text' sx={{color:'blue'}}  >{category.name}</ListItemText>
+                                    ):(
+                                        <ListItemText className='categories-list-item-text'  >{category.name}</ListItemText>) }
+
+                                    <SubcategoriesDropdown categoryId={category.id} isOpen={selectedCategoryId === category.id}   />   </ListItem>
+                            ))}
+                        </List>
+
+                    </Drawer>
                 </div>
-            </Dropdown.Toggle>
-            <Dropdown.Menu show={showDropdown}>
-                {categories.map((category) => (
-                    <Dropdown key={category.id} show={category.id === selectedCategoryId}>
-                        <Dropdown.Toggle as="span" id={`category-${category.id}`} className="category-item" onClick={() => handleCategoryClick(category.id)}>
-                            {category.name}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <SubcategoriesDropdown categoryId={category.id} subcategories={subcategories} />
-                        </Dropdown.Menu>
-                    </Dropdown>
-                ))}
-            </Dropdown.Menu>
-        </Dropdown>
+
     );
 }
 

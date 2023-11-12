@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import {  Row, Col } from 'react-bootstrap';
+import {Container,} from "@mui/material";
+
 import NavPanel from './NavPanel';
+import Grid from '@mui/material/Unstable_Grid2';
 import CategoriesDropdown from './CategoriesDropdown';
 import ProductCard from './ProductCard';
 import { useDispatch, useSelector } from 'react-redux'; // Import the necessary hooks
@@ -31,23 +34,25 @@ function MainPage() {
     return (
         <div>
             <NavPanel />
-
             <Container>
                 <Search />
-                <Row>
+                <Grid container columns={4}>
                     {loading ? (
                         <p>Loading products...</p>
                     ) : (
                         products.map((product) => (
-                            <Col key={product.id} sm={4}>
+                            <Grid item xs={1}>
+
                                 <ProductCard
+                                    key={product.id}
                                     product={product}
                                     isLiked={liked_products.some(likedProduct => likedProduct.id === product.id)}
                                     inCart={cart_products.some(cartProduct => cartProduct.id === product.id)} />
-                            </Col>
+
+                            </Grid>
                         ))
                     )}
-                </Row>
+                </Grid>
             </Container>
         </div>
     );

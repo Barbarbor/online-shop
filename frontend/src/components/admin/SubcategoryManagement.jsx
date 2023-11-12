@@ -32,9 +32,8 @@ const SubcategoryManagement = () => {
         <div className="subcategory-management">
             <h1>Subcategory Management</h1>
             <SubcategoryForm onSubmit={handleAddSubcategory} categories={categories} />
-            {loading ? (
-                <p>Loading...</p>
-            ) : (
+
+
                 <ListGroup>
                     {subcategories.map((subcategory) => (
                         <ListGroup.Item key={subcategory.id}>
@@ -48,7 +47,7 @@ const SubcategoryManagement = () => {
                         </ListGroup.Item>
                     ))}
                 </ListGroup>
-            )}
+
         </div>
     );
 };
