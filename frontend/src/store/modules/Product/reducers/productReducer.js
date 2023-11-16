@@ -7,8 +7,11 @@ import {
 
 const initialState = {
     product: null,
+    category:null,
+    subcategory:null,
     loading: false,
     error: null,
+
 };
 
 const productReducer = (state = initialState, action) => {
@@ -24,7 +27,9 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                product: action.payload,
+                product: action.payload.product,
+                category:action.payload.category,
+                subcategory: action.payload.subcategory,
             };
 
         case FETCH_PRODUCT_FAILURE:

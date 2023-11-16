@@ -4,6 +4,7 @@ import {removeFromCart} from "../store/modules/Cart/actions";
 import { ReactSVG } from 'react-svg';
 import React from "react";
 import './globals.scss';
+import DeleteIcon from '@mui/icons-material/Delete';
 function Trash({cartItem}) {
     const iconSize = 24;
     const dispatch = useDispatch();
@@ -12,14 +13,10 @@ function Trash({cartItem}) {
     };
     return (
         <button className="button" id='trash'>
-        <ReactSVG
-            src={TrashIcon}
+        <DeleteIcon
+
             onClick={handleRemoveFromCart}
-            beforeInjection={(svg) => {
-                svg.setAttribute('width', iconSize);
-                svg.setAttribute('height', iconSize);
-            }}
-            alt="Trash"
+
 
         />
         </button>

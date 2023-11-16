@@ -4,7 +4,7 @@ import { fetchSearchedProducts } from '../store/modules/Product/actions';
 import { useNavigate } from "react-router-dom";
 import {TextField,List,ListItem,ListItemButton,ListItemText,Divider} from "@mui/material";
 import { ReactSVG } from 'react-svg';
-import SearchIcon from  '../assets/icons/search-icon.svg';
+import SearchIcon from '@mui/icons-material/Search';
 import './Search.scss';
 function Search({defaultValue=''}) {
     const [searchQuery, setSearchQuery] = useState('');
@@ -14,6 +14,7 @@ function Search({defaultValue=''}) {
     const navigate = useNavigate();
     const inputRef = useRef(null);
     const iconSize = 28;
+
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (inputRef.current && !inputRef.current.contains(event.target)) {
@@ -28,6 +29,7 @@ function Search({defaultValue=''}) {
         // Cleanup the event listener on component unmount
         return () => {
             document.removeEventListener('click', handleClickOutside);
+
         };
     }, []); // Empty dependency array means this effect runs once when the component mounts
 
@@ -85,14 +87,8 @@ function Search({defaultValue=''}) {
                 onClick={handleSearch}
                 className='search-button'
             >
-            <ReactSVG
-                src={SearchIcon}
-                beforeInjection={(svg) => {
-                    svg.setAttribute('width', iconSize);
-                    svg.setAttribute('height', iconSize);
-                    svg.setAttribute('fill','white');
-                }}
-                alt="Search-icon"/>
+            <SearchIcon htmlColor='white'/>
+
             </button>
         </div>
 

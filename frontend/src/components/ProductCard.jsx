@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../store/modules/Cart/actions';
 import Like from './Like';
 import './ProductCard.scss';
+import {Link} from 'react-router-dom';
 function ProductCard({ product, isLiked, inCart }) {
     const userId = 1;
     const dispatch = useDispatch();
@@ -15,6 +16,7 @@ function ProductCard({ product, isLiked, inCart }) {
     const iconSize = 24;
 
     return (
+        <Link to={`/product/${product.id}`}>
         <Card className='product-card-container' raised={true}>
             <div className='product-card-like-icon'>
             <Like product={product} isLiked={isLiked} />
@@ -35,6 +37,7 @@ function ProductCard({ product, isLiked, inCart }) {
                 ) }
 
         </Card>
+        </Link>
     );
 }
 

@@ -4,32 +4,81 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProduct } from '../store/modules/Product/actions'; // Update the path
 import ProductDetail from './ProductDetail';
 import NavPanel from "./NavPanel";
-
+import {Breadcrumbs, Accordion,AccordionDetails,AccordionSummary,Typography,Paper,Card,CardContent} from "@mui/material";
+import { addToCart } from '../store/modules/Cart/actions';
+import Like from './Like';
+import './ProductDetail.scss';
+import Link from '@mui/material/Link';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 function ProductDetailPage() {
     const { productId } = useParams();
     const dispatch = useDispatch();
 
     // Fetch product details from Redux state
     const product = useSelector((state) => state.product.product);
+    const category = useSelector((state) => state.product.category);
+    const subcategory = useSelector((state) => state.product.subcategory);
     const loading = useSelector((state) => state.product.loading);
     const error = useSelector((state) => state.product.error);
+
+    const handleAddToCart = () => {
+        dispatch(addToCart(product));
+    };
 
     useEffect(() => {
         // Dispatch the action to fetch the product details based on the productId
         dispatch(fetchProduct(productId));
-    }, [dispatch, productId]);
-
+    }, []);
+    if (!product) {
+        return <div>loading...</div>;
+    }
+        //TODO: characteristics of product
     return (
-        <div>
-            <NavPanel/>
-            {loading ? (
-                <p>Loading product details...</p>
-            ) : error ? (
-                <p>Error: {error.message}</p>
-            ) : (
-                <ProductDetail product={product} />
-            )}
-        </div>
+
+       <div className='govno'>
+           <NavPanel/>
+        <Breadcrumbs  className='product-breadcrumbs'>
+            <Link underline='hover' color='inherit' href='/'>
+                <Typography>Main</Typography>
+            </Link>
+
+            <Link underline='hover' color='inherit' href="/">
+                <Typography>{category.name}</Typography>
+            </Link>
+
+            <Link underline='hover' color='inherit' href='/'>
+                <Typography>{subcategory.name}</Typography>
+            </Link>
+
+        </Breadcrumbs>
+         <Typography classname='product-detail-name'>{product.name} (name)</Typography>
+           <img className='product-detail-photo' src={'http://localhost:3000/media/iphone14.png'} alt='product-photo'/>
+        <Accordion className='product-detail-desc-accordion'>
+            <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+            >
+               <Typography>Description</Typography>
+            </AccordionSummary>
+            <AccordionDetails className='product-detail-desc-accordion-details'>
+                <Typography className='product-detail-desc-accordion-details-text'>
+                    {product.description}
+                </Typography>
+            </AccordionDetails>
+        </Accordion>
+        <Card className='product-detail-delivery-info-container' raised={true}>
+            <CardContent className='product-detail-delivery-info-items'>
+                <Typography className='product-detail-delivery-info-price'>
+                    {product.price}$
+                </Typography>
+                <button className='product-detail-delivery-info-add-to-cart' onClick={handleAddToCart} >Add to cart</button>
+            </CardContent>
+
+        </Card>
+
+    </div>
+
     );
 }
 

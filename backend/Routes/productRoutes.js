@@ -3,7 +3,8 @@ const productRoutes = express.Router();
 const Product  = require('../models/Product');
 const User = require("../models/User"); // Import your Product model
 const CartItem = require("../models/CartItem");
-
+const Category = require('../models/Category');
+const Subcategory = require('../models/Subcategory');
 
 
 // Create a new product with photo path
@@ -61,8 +62,9 @@ productRoutes.get('/products/:productId', async (req, res) => {
         if (!product) {
             return res.status(404).json({ error: 'Product not found' });
         }
-
-        return res.status(200).json(product);
+        const productCategory = await Category.findByPk(product.CategoryId);
+        const productSubcategory = await Subcategory.findByPk(product.SubcategoryId);
+        return res.status(200).json({product:product,category:productCategory,subcategory:productSubcategory});
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: 'Unable to fetch product details' });

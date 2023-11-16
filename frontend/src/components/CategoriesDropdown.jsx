@@ -8,6 +8,7 @@ import { ReactSVG } from 'react-svg';
 import CategoriesIcon from '../assets/icons/categories-icon.svg';
 import { Link } from 'react-router-dom';
 import {Drawer, List, ListItem, ListItemText,Container} from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
 import './Categories.scss';
 function CategoriesDropdown() {
     const dispatch = useDispatch();
@@ -38,13 +39,7 @@ function CategoriesDropdown() {
     return (
 
                 <div>
-                    <ReactSVG
-                        src={CategoriesIcon}
-                        beforeInjection={(svg) => {
-                            svg.setAttribute('width', 24);
-                            svg.setAttribute('height', 24);
-                        }}
-                        className="nav-icon"
+                    <MenuIcon
                         onClick={handleToggleDrawer}
                     />
 
@@ -60,14 +55,14 @@ function CategoriesDropdown() {
                                 <ListItem
                                     className='categories-list-item'
                                     onClick={(e) => handleCategoryClick(e,category.id)}
-
-
                                 >
-                                    {category.id === selectedCategoryId ? (
+                                    {category.id === selectedCategoryId ?
+                                        (
                                         <ListItemText className='categories-list-item-text' sx={{color:'blue'}}  >{category.name}</ListItemText>
-                                    ):(
-                                        <ListItemText className='categories-list-item-text'  >{category.name}</ListItemText>) }
-
+                                        ) :
+                                        (
+                                        <ListItemText className='categories-list-item-text'  >{category.name}</ListItemText>
+                                        ) }
                                     <SubcategoriesDropdown categoryId={category.id} isOpen={selectedCategoryId === category.id}   />   </ListItem>
                             ))}
                         </List>

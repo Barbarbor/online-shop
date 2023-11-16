@@ -93,9 +93,9 @@ export const fetchSearchedProductsFailure = (error) =>({
 export const fetchProductRequest = () => ({
     type: FETCH_PRODUCT_REQUEST,
 });
-export const fetchProductSuccess = (product) => ({
+export const fetchProductSuccess = (product,category,subcategory) => ({
     type: FETCH_PRODUCT_SUCCESS,
-    payload: product,
+    payload: {product:product,category:category,subcategory:subcategory},
 });
 export const fetchProductFailure = (error) => ({
     type: FETCH_PRODUCT_FAILURE,
@@ -193,7 +193,10 @@ export const fetchProduct = (productId) => {
         dispatch(fetchProductRequest());
         try {
             const response = await axios.get(`${HOST}/api/products/${productId}`);
-            dispatch(fetchProductSuccess(response.data));
+            const product = response.data.product;
+            const category = response.data.category;
+            const subcategory = response.data.subcategory;
+            dispatch(fetchProductSuccess(product,category,subcategory));
 
         } catch (error) {
             dispatch(fetchProductFailure(error))

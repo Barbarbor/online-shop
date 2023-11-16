@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import heart from '../assets/icons/heart.svg';
 import {likeProduct, unlikeProduct} from "../store/modules/Like/actions";
 import {ReactSVG} from "react-svg";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import './globals.scss';
+//TODO:make custom colors for icons
 function Like({product,isLiked}) {
     const [liked, setLiked] = useState(isLiked);
     const dispatch = useDispatch();
@@ -20,15 +22,9 @@ function Like({product,isLiked}) {
         <div>
             {liked ? (
                 <button className='button-like-icon'>
-                <ReactSVG
+                <FavoriteBorderIcon
                     onClick={handleUnlikeClick} // Handle unlike
-                    src={heart}
-                    beforeInjection={(svg) => {
-                        svg.setAttribute('width', iconSize);
-                        svg.setAttribute('height', iconSize);
-                        svg.setAttribute('fill', 'red'); // Initially red for liked products
-                    }}
-                    alt="Liked"
+                    htmlColor='red'
 
 
                 />
@@ -36,15 +32,9 @@ function Like({product,isLiked}) {
 
             ) : (
                 <button className='button-like-icon'>
-                <ReactSVG
+                <FavoriteBorderIcon
                     onClick={handleLikeClick}
-                    src={heart}
-                    beforeInjection={(svg) => {
-                        svg.setAttribute('width', iconSize);
-                        svg.setAttribute('height', iconSize);
-                    }}
-                    alt="Like"
-
+                    htmlcolor='gray'
                 />
                 </button>
             )}

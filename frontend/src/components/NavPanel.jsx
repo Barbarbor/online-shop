@@ -1,56 +1,42 @@
 import React from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { ReactSVG } from 'react-svg';
-import ShoppingCartIcon from '../assets/icons/shopping-cart-icon.svg';
-import HeartRedIcon from '../assets/icons/heart-red-icon.svg';
-import ReactIcon from '../assets/icons/react-icon.svg';
-import CategoriesIcon from '../assets/icons/categories-icon.svg'; // Hamburger icon for categories
 import CategoriesDropdown from './CategoriesDropdown'; // Import the CategoriesDropdown component
 import { Link } from 'react-router-dom';
-import{AppBar,List,ListItem,ListItemText} from "@mui/material";
+import{AppBar,List,ListItem,ListItemText,Toolbar} from "@mui/material";
 import './NavPanel.scss';
+import HomeIcon from '@mui/icons-material/Home';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 function NavPanel() {
 
     return (
         <AppBar className='nav-panel'>
             <List className='nav-panel-list'>
-             <ListItem className='nav-panel-item'><CategoriesDropdown />
+                <Link to={'/'} className='link-style'>
+                    <ListItem className='nav-panel-item nav-panel-item-left'>
+                        <HomeIcon
+                        />
+                        <ListItemText className='nav-panel-item-text-icon' >Home</ListItemText>
+
+                    </ListItem>
+                </Link>
+             <ListItem id='categories-icon' className='nav-panel-item nav-panel-item-left'><CategoriesDropdown />
                 <ListItemText className='item-text-icon'>Categories</ListItemText>
             </ListItem>
-                <ListItem className='nav-panel-item'>
-                    <ReactSVG
-                                src={ReactIcon}
-                                beforeInjection={(svg) => {
-                                    svg.setAttribute('width', 24);
-                                    svg.setAttribute('height', 24);
-                                }}
 
-                    />
-                          <ListItemText className='item-text-icon'>Home</ListItemText>
-
-                </ListItem>
-                        <ListItem className='nav-panel-item'>
-                            <ReactSVG
-                                src={ShoppingCartIcon}
-                                beforeInjection={(svg) => {
-                                    svg.setAttribute('width', 24);
-                                    svg.setAttribute('height', 24);
-                                }}
-
+                <Link to={'/cart'} className='link-style'>
+                        <ListItem className='nav-panel-item nav-panel-item-right' >
+                            <ShoppingCartIcon
                             />
                             <ListItemText className='item-text-icon'>Cart</ListItemText>
                         </ListItem>
-                        <ListItem cclassName='nav-panel-item'>
-                            <ReactSVG
-                                src={HeartRedIcon}
-                                beforeInjection={(svg) => {
-                                    svg.setAttribute('width', 24);
-                                    svg.setAttribute('height', 24);
-                                }}
-                                className="nav-icon"
-                            />
+                </Link>
+                <Link to={'/liked'} className='link-style'>
+                        <ListItem className='nav-panel-item nav-panel-item-right'>
+                            <FavoriteIcon/>
                             <ListItemText className='item-text-icon'>Liked</ListItemText>
                         </ListItem>
+                </Link>
 
             </List>
         </AppBar>
