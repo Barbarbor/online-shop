@@ -1,11 +1,14 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
-import heart from '../assets/icons/heart.svg';
-import {likeProduct, unlikeProduct} from "../store/modules/Like/actions";
-import {ReactSVG} from "react-svg";
+import {likeProduct, unlikeProduct} from "../../store/modules/Like/actions";
+
+import '../../styles/globals.scss';
+
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import './globals.scss';
+
 //TODO:make custom colors for icons
+
 function Like({product,isLiked}) {
     const [liked, setLiked] = useState(isLiked);
     const dispatch = useDispatch();

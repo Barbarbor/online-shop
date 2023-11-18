@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
-import {  Row, Col } from 'react-bootstrap';
-import {Container,} from "@mui/material";
 
-import NavPanel from './NavPanel';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllProducts, fetchLikedProducts } from '../../store/modules/Product/actions';
+import {fetchCartItems} from "../../store/modules/Cart/actions";
+
+import NavPanel from '../common/NavPanel';
+import CategoriesDropdown from '../common/CategoriesDropdown';
+import ProductCard from '../common/ProductCard';
+import Search from '../common/Search';
+
 import Grid from '@mui/material/Unstable_Grid2';
-import CategoriesDropdown from './CategoriesDropdown';
-import ProductCard from './ProductCard';
-import { useDispatch, useSelector } from 'react-redux'; // Import the necessary hooks
-import { fetchAllProducts, fetchLikedProducts } from '../store/modules/Product/actions'; // Import the action
-import {fetchCartItems} from "../store/modules/Cart/actions";
-import Search from './Search';
+import {Container} from "@mui/material";
 function MainPage() {
     const dispatch = useDispatch();
     const products = useSelector((state) => state.products.products);
@@ -21,16 +22,15 @@ function MainPage() {
         const fetchData = async () => {
             // Fetch liked products first
             await dispatch(fetchLikedProducts(userId));
-
+            await dispatch(fetchCartItems())
             // Then fetch all products
             dispatch(fetchAllProducts());
-            dispatch(fetchCartItems())
         };
 
         fetchData(); // Call the async function to fetch data in the desired order
     }, [dispatch, userId]);
 
-    console.log("liked products:", liked_products);
+
     return (
         <div>
             <NavPanel />

@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
+
 import { useDispatch } from 'react-redux';
-import {updateQuantity } from '../store/modules/Cart/actions';
-import{likeProduct,unlikeProduct} from "../store/modules/Like/actions";
-import { Card, CardMedia, CardContent, Typography, TextField, Button } from '@mui/material';
-import './Cart.scss';
-import Like from'./Like';
+import {updateQuantity } from '../../store/modules/Cart/actions';
+import{likeProduct,unlikeProduct} from "../../store/modules/Like/actions";
+
+import Like from './Like';
 import Trash from './Trash';
+
+import '../../styles/Cart.scss';
+
+import { Card, CardMedia, CardContent, Typography, TextField, Button } from '@mui/material';
+
 function CartItemCard({ cartItem, product, Liked }) {
     const [quantity,setQuantity] = useState(cartItem.quantity);
     const dispatch = useDispatch();

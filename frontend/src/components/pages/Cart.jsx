@@ -1,25 +1,29 @@
-// Cart.js
 import React, {useEffect} from 'react';
+
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart,fetchCartItems } from '../store/modules/Cart/actions';
-import OrderCard from "./OrderCard";
-import NavPanel from "./NavPanel";
-import ProductCard from "./ProductCard";
-import CartItemCard from "./CartItemCard";
-import {Button} from 'react-bootstrap';
-import './Cart.scss';
+import { removeFromCart,fetchCartItems } from '../../store/modules/Cart/actions';
+
+import OrderCard from "../common/OrderCard";
+import NavPanel from "../common/NavPanel";
+import CartItemCard from "../common/CartItemCard";
+
+import '../../styles/Cart.scss';
+
 function Cart() {
     const dispatch = useDispatch();
     const cartItems = useSelector((state) => state.cart.items);
     const products = useSelector((state) =>state.cart.products );
     const total = useSelector((state) => state.cart.total);
-
+    const loading = useSelector((state) => state.cart.loading );
     useEffect(() => {
         dispatch(fetchCartItems());
         },[dispatch]);
-    const handleRemoveFromCart = (product) => {
-        dispatch(removeFromCart(product));
-    };
+
+
+    if(loading)
+        return(
+            <div>Loading...</div>
+        )
 
     return (
 

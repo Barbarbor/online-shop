@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+
 import { useDispatch,useSelector } from 'react-redux';
-import {createOrder} from "../store/modules/Order/actions";
+import {createOrder} from "../../store/modules/Order/actions";
+
+import '../../styles/Cart.scss';
+
 import { Card, CardMedia, CardContent, Typography, TextField, Button } from '@mui/material';
-import './Cart.scss';
+
 function OrderCard ({cartItems,total}) {
     const dispatch = useDispatch();
     const handleCreateOrder = () =>{

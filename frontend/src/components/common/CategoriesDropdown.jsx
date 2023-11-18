@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Dropdown } from "react-bootstrap";
+
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories } from '../store/modules/Category/actions';
-import { fetchSubcategoriesOfCategory } from '../store/modules/Subcategory/actions';
+import { fetchCategories } from '../../store/modules/Category/actions';
+import { fetchSubcategoriesOfCategory } from '../../store/modules/Subcategory/actions';
+
 import SubcategoriesDropdown from "./SubcategoriesDropdown";
-import { ReactSVG } from 'react-svg';
-import CategoriesIcon from '../assets/icons/categories-icon.svg';
-import { Link } from 'react-router-dom';
+
+import '../../styles/Categories.scss';
+
 import {Drawer, List, ListItem, ListItemText,Container} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import './Categories.scss';
+
 function CategoriesDropdown() {
-    const dispatch = useDispatch();
-    const categories = useSelector((state) => state.category.categories);
     const [selectedCategoryId, setSelectedCategoryId] = useState(null);
     const [showDrawer, setShowDrawer] = useState(false);
-    const [target,setTarget] = useState(null);
+    const dispatch = useDispatch();
+    const categories = useSelector((state) => state.category.categories);
     const subcategories = useSelector((state) => state.subcategory.subcategories)
     useEffect(() => {
         if (categories.length === 0) {
@@ -28,7 +28,7 @@ function CategoriesDropdown() {
             setSelectedCategoryId(null);
         } else {
             setSelectedCategoryId(categoryId);
-            setTarget(e.target);
+
             dispatch(fetchSubcategoriesOfCategory(categoryId));
         }
 

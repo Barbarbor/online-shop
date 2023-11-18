@@ -1,19 +1,22 @@
 import React, { useState,useEffect,useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchSearchedProducts } from '../store/modules/Product/actions';
 import { useNavigate } from "react-router-dom";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSearchedProducts } from '../../store/modules/Product/actions';
+
+import '../../styles/Search.scss';
+
 import {TextField,List,ListItem,ListItemButton,ListItemText,Divider} from "@mui/material";
-import { ReactSVG } from 'react-svg';
 import SearchIcon from '@mui/icons-material/Search';
-import './Search.scss';
+
+// TODO: fix Search refresh display
 function Search({defaultValue=''}) {
     const [searchQuery, setSearchQuery] = useState('');
+    const [showDropdown, setShowDropdown] = useState(false);
     const searchResults = useSelector((state) => state.searchedProducts.products);
     const dispatch = useDispatch();
-    const [showDropdown, setShowDropdown] = useState(false);
     const navigate = useNavigate();
     const inputRef = useRef(null);
-    const iconSize = 28;
 
     useEffect(() => {
         const handleClickOutside = (event) => {

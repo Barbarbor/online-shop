@@ -1,10 +1,12 @@
-@import "./_colors";
+@import "colors";
 .product-card-container {
-  margin-top:70px;
+  margin-top:30px;
   width:250px;
   border: 1px solid black;
   display: flex;
   flex-direction: column;
+  height:250px;
+  margin-bottom: 55px;
 
   .product-card-like-icon{
     margin: 3px 3px 0 auto;
@@ -22,26 +24,20 @@
     color:white;
     border:1px solid $button-add-to-cart-border-color;
     border-radius: 5px;
-    margin: 0 auto 5px;
+    margin: 0 75px 5px;
+
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   }
   .button-add-to-cart:hover{
     background-color: $button-add-to-cart-hover;
   }
-  .button-in-cart{
-    width:100px;
-    background-color: $button-add-to-cart;
-    color:white;
-    border:1px solid $button-add-to-cart-border-color;
-    border-radius: 5px;
-    margin: 0 auto 5px;
 
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-
-  }
   .product-card-name{
     text-align:center;
     margin-bottom:3px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .product-card-price{
     color:green;
@@ -49,4 +45,7 @@
     margin-right: 5px;
     margin-bottom:5px;
   }
+}
+.product-card-container:hover{
+  cursor:pointer;
 }

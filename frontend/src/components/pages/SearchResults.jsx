@@ -1,13 +1,24 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import ProductCard from './ProductCard';
-import NavPanel from "./NavPanel";
-import Search from "./Search";
 import { useParams } from 'react-router-dom';
+
+import { useSelector } from 'react-redux';
+
+import ProductCard from '../common/ProductCard';
+import NavPanel from "../common/NavPanel";
+import Search from "../common/Search";
+
+//TODO: add some styling
 function SearchResults() {
     const {searchQuery} = useParams();
     const searchResults = useSelector((state) => state.searchedProducts.products);
-    console.log(searchResults);
+    const loading = useSelector((state) => state.searchedProducts.loading);
+
+    if(loading){
+        return(
+            <div>Loading...</div>
+        )
+    }
+
     return (
         <div>
             <NavPanel/>

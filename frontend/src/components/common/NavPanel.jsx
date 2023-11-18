@@ -1,9 +1,11 @@
 import React from "react";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import CategoriesDropdown from './CategoriesDropdown'; // Import the CategoriesDropdown component
 import { Link } from 'react-router-dom';
+
+import CategoriesDropdown from './CategoriesDropdown'; // Import the CategoriesDropdown component
+
+import '../../styles/NavPanel.scss';
+
 import{AppBar,List,ListItem,ListItemText,Toolbar} from "@mui/material";
-import './NavPanel.scss';
 import HomeIcon from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';

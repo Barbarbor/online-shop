@@ -1,18 +1,20 @@
 import React, {useState, useEffect } from "react";
-import { Dropdown } from "react-bootstrap";
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchSubcategoriesOfCategory } from '../store/modules/Subcategory/actions';
 import { useNavigate } from 'react-router-dom';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSubcategoriesOfCategory } from '../../store/modules/Subcategory/actions';
+
+import '../../styles/Categories.scss';
+
 import {Menu,MenuItem,Divider,Container} from "@mui/material";
-import './Categories.scss';
-function SubcategoriesDropdown({ categoryId, isOpen,anchorEl }) {
+
+function SubcategoriesDropdown({ categoryId, isOpen}) {
+    const [selectedIndex, setSelectedIndex] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const subcategories = useSelector( (state) => state.subcategory.subcategories);
-    const [selectedIndex, setSelectedIndex] = useState(null);
-    useEffect(() => {
-        dispatch(fetchSubcategoriesOfCategory(categoryId));
-    }, []);
+
+
     const handleSubcategoryClick = (subcategoryId) => {
         if (subcategoryId) {
             navigate(`/category/${subcategoryId}`);
@@ -21,7 +23,7 @@ function SubcategoriesDropdown({ categoryId, isOpen,anchorEl }) {
 
     return (
 
-        <Menu   className="subcategories-menu" open={isOpen}
+        <Menu className="subcategories-menu" open={isOpen}
                anchorReference="anchorPosition"
                anchorPosition={{ top: 10, left: 585 }}
                anchorOrigin={{

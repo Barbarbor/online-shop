@@ -1,15 +1,20 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProduct } from '../store/modules/Product/actions'; // Update the path
-import ProductDetail from './ProductDetail';
-import NavPanel from "./NavPanel";
+import { addToCart } from '../../store/modules/Cart/actions';
+import { fetchProduct } from '../../store/modules/Product/actions'; // Update the path
+
+import NavPanel from "../common/NavPanel";
+import Like from '../common/Like';
+import AddToCart from "../common/AddToCart";
+
+import '../../styles/ProductDetail.scss';
+
 import {Breadcrumbs, Accordion,AccordionDetails,AccordionSummary,Typography,Paper,Card,CardContent} from "@mui/material";
-import { addToCart } from '../store/modules/Cart/actions';
-import Like from './Like';
-import './ProductDetail.scss';
 import Link from '@mui/material/Link';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 function ProductDetailPage() {
     const { productId } = useParams();
     const dispatch = useDispatch();
@@ -35,7 +40,7 @@ function ProductDetailPage() {
         //TODO: characteristics of product
     return (
 
-       <div className='govno'>
+       <div className='product-detail-page'>
            <NavPanel/>
         <Breadcrumbs  className='product-breadcrumbs'>
             <Link underline='hover' color='inherit' href='/'>
