@@ -21,6 +21,10 @@ export const DELETE_SUBCATEGORY_REQUEST ='DELETE_SUBCATEGORY_REQUEST';
 export const DELETE_SUBCATEGORY_SUCCESS ='DELETE_SUBCATEGORY_SUCCESS';
 export const DELETE_SUBCATEGORY_FAILURE ='DELETE_SUBCATEGORY_FAILURE';
 
+export const DELETE_SUBCATEGORIES_REQUEST ='DELETE_SUBCATEGORIES_REQUEST';
+export const DELETE_SUBCATEGORIES_SUCCESS ='DELETE_SUBCATEGORIES_SUCCESS';
+export const DELETE_SUBCATEGORIES_FAILURE ='DELETE_SUBCATEGORIES_FAILURE';
+
 
 export const fetchSubcategoriesOfCategoryRequest = () => ({
     type:FETCH_SUBCATEGORIES_OF_CATEGORY_REQUEST,
@@ -65,14 +69,25 @@ export const deleteSubcategoryRequest = () => ({
     type: DELETE_SUBCATEGORY_REQUEST,
 });
 export const deleteSubcategorySuccess = (subcategoryId) => ({
-    type: DELETE_SUBCATEGORY_REQUEST,
+    type: DELETE_SUBCATEGORY_SUCCESS,
     payload:subcategoryId,
 });
 export const deleteSubcategoryFailure = (error) => ({
-    type: DELETE_SUBCATEGORY_REQUEST,
+    type: DELETE_SUBCATEGORY_FAILURE,
     error,
 });
 
+export const deleteSubcategoriesRequest = () => ({
+    type: DELETE_SUBCATEGORIES_REQUEST,
+});
+export const deleteSubcategoriesSuccess = (Ids) => ({
+    type: DELETE_SUBCATEGORIES_SUCCESS,
+    payload:Ids,
+});
+export const deleteSubcategoriesFailure = (error) => ({
+    type: DELETE_SUBCATEGORIES_FAILURE,
+    error,
+});
 
 export const fetchSubcategoriesOfCategory = (categoryId) => {
     return async (dispatch) => {
@@ -123,6 +138,20 @@ export const deleteSubcategory = (subcategoryId) => {
             dispatch(deleteSubcategorySuccess(subcategoryId));
         } catch (error){
             dispatch(deleteSubcategoryFailure(error));
+        }
+
+
+    };
+};
+
+export const deleteSubcategories = (subcategoryIds) => {
+    return async(dispatch) => {
+        dispatch(deleteSubcategoriesRequest());
+        try{
+            await axios.delete(`${HOST}/api/subcategories/multiple/delete-multiple`,{data:{subcategoryIds:subcategoryIds}});
+            dispatch(deleteSubcategoriesSuccess(subcategoryIds));
+        } catch (error){
+            dispatch(deleteSubcategoriesFailure(error));
         }
 
 

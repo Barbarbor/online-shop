@@ -10,6 +10,9 @@ import {
     DELETE_SUBCATEGORY_REQUEST,
     DELETE_SUBCATEGORY_SUCCESS,
     DELETE_SUBCATEGORY_FAILURE,
+    DELETE_SUBCATEGORIES_REQUEST,
+    DELETE_SUBCATEGORIES_SUCCESS,
+    DELETE_SUBCATEGORIES_FAILURE,
 } from '../actions';
 
 const initialState = {
@@ -23,6 +26,8 @@ const subcategoryManagementReducer = (state = initialState, action) => {
         case FETCH_ALL_SUBCATEGORIES_REQUEST:
         case ADD_SUBCATEGORY_REQUEST:
         case DELETE_SUBCATEGORY_REQUEST:
+        case DELETE_SUBCATEGORIES_REQUEST:
+
             return {
                 ...state,
                 loading: true,
@@ -49,10 +54,19 @@ const subcategoryManagementReducer = (state = initialState, action) => {
                 loading: false,
                 subcategories: updatedSubcategories,
             }
+        case DELETE_SUBCATEGORIES_SUCCESS:
+            const deletedSubcategoriesIds = action.payload;
+            const newSubcategories = state.subcategories.filter(subcategory => !deletedSubcategoriesIds.includes(subcategory.id) );
+            return {
+                ...state,
+                loading: false,
+                subcategories: newSubcategories,
+            }
 
         case FETCH_ALL_SUBCATEGORIES_FAILURE:
         case ADD_SUBCATEGORY_FAILURE:
         case DELETE_SUBCATEGORY_FAILURE:
+        case DELETE_SUBCATEGORIES_FAILURE:
             return {
                 ...state,
                 loading: false,

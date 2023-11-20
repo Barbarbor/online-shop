@@ -36,6 +36,9 @@ export const DELETE_PRODUCT_REQUEST = 'DELETE_PRODUCT_REQUEST';
 export const DELETE_PRODUCT_SUCCESS = 'DELETE_PRODUCT_SUCCESS';
 export const DELETE_PRODUCT_FAILURE = 'DELETE_PRODUCT_FAILURE';
 
+export const DELETE_PRODUCTS_REQUEST = 'DELETE_PRODUCTS_REQUEST';
+export const DELETE_PRODUCTS_SUCCESS = 'DELETE_PRODUCTS_SUCCESS';
+export const DELETE_PRODUCTS_FAILURE = 'DELETE_PRODUCTS_FAILURE';
 
 export const fetchAllProductsRequest = () => ({
     type:FETCH_ALL_PRODUCTS_REQUEST,
@@ -128,6 +131,17 @@ export const deleteProductFailure = (error) =>({
     error,
 })
 
+export const deleteProductsRequest = () =>({
+    type: DELETE_PRODUCTS_REQUEST,
+})
+export const deleteProductsSuccess = (ids) =>({
+    type: DELETE_PRODUCTS_SUCCESS,
+    payload: ids,
+})
+export const deleteProductsFailure = (error) =>({
+    type: DELETE_PRODUCTS_FAILURE,
+    error,
+})
 
 export const fetchAllProducts = () => {
     return async (dispatch) => {
@@ -226,6 +240,19 @@ export const deleteProduct = (productId) =>{
             dispatch(deleteProductSuccess(productId));
         } catch (error) {
             dispatch(deleteProductFailure(error));
+        }
+
+    };
+};
+
+export const deleteProducts = (productIds) =>{
+    return async(dispatch) => {
+        dispatch(deleteProductsRequest());
+        try {
+            await axios.delete(`${HOST}/api/products/multiple/delete-multiple`,{data:{productIds: productIds}});
+            dispatch(deleteProductsSuccess(productIds));
+        } catch (error) {
+            dispatch(deleteProductsFailure(error));
         }
 
     };

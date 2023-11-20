@@ -44,6 +44,28 @@ userRoutes.delete('/users/:userId', async(req,res) =>{
     }
 
 });
+userRoutes.delete('/users/multiple/delete-multiple', async (req, res) => {
+    try {
+        const { userIds } = req.body;
+
+        // Check if userIds is an array
+        if (!Array.isArray(userIds)) {
+            return res.status(400).json({ error: 'userIds must be an array' });
+        }
+
+        // Find and delete users with the specified IDs
+        await User.destroy({
+            where: {
+                id: userIds
+            }
+        });
+
+        return res.status(204).send();
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Unable to delete users' });
+    }
+});
 userRoutes.put('/users/:userId', async (req, res) => {
     try {
         const { userId } = req.params;

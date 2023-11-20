@@ -39,4 +39,27 @@ categoryRoutes.delete('/categories/:categoryId', async(req,res) =>{
     }
 
 });
+categoryRoutes.delete('/categories/multiple/delete-multiple', async (req, res) => {
+    try {
+        const { categoryIds } = req.body;
+
+        // Check if categoryIds is an array
+        if (!Array.isArray(categoryIds)) {
+            return res.status(400).json({ error: `categoryIds must be an array. Req body: ${categoryIds}` });
+        }
+
+        // Find and delete categories with the specified IDs
+        await Category.destroy({
+            where: {
+                id: categoryIds
+            }
+        });
+
+        return res.status(204).send();
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: `Unable to delete categories. categoryids: ${req.query.data}` });
+    }
+});
+
 module.exports = categoryRoutes;

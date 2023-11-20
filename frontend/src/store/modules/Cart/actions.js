@@ -34,9 +34,9 @@ export const addToCartFailure = (error) => ({
 export const removeFromCartRequest = () => ({
     type:REMOVE_FROM_CART_REQUEST,
 });
-export const removeFromCartSuccess = (cartitemId, productId) => ({
+export const removeFromCartSuccess = (cartitem) => ({
     type:REMOVE_FROM_CART_SUCCESS,
-    payload: {cartitemId:cartitemId,productId:productId},
+    payload: cartitem,
 });
 export const removeFromCartFailure = (error) => ({
     type:REMOVE_FROM_CART_FAILURE,
@@ -91,10 +91,8 @@ export const removeFromCart = (cartitem) => {
         dispatch(removeFromCartRequest());
         try {
             const cartitemId = cartitem.id;
-            const productId = cartitem.ProductId;
             await axios.delete(`${HOST}/api/cartitems/${cartitemId}`);
-            console.log(`CartItemid:${cartitemId}, productId:${productId}`)
-            dispatch(removeFromCartSuccess({cartitemId:cartitemId,productId:productId}));
+            dispatch(removeFromCartSuccess(cartitem));
         } catch(error){
             dispatch(removeFromCartFailure(error));
         }

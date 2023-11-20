@@ -64,4 +64,28 @@ subcategoryRoutes.delete('/subcategories/:subcategoryId', async(req,res) =>{
     }
 
 });
+subcategoryRoutes.delete('/subcategories/multiple/delete-multiple', async (req, res) => {
+    try {
+        const { subcategoryIds } = req.body;
+
+        // Check if subcategoryIds is an array
+        if (!Array.isArray(subcategoryIds)) {
+            return res.status(400).json({ error: 'subcategoryIds must be an array' });
+        }
+
+        // Find and delete subcategories with the specified IDs
+        await Subcategory.destroy({
+            where: {
+                id: subcategoryIds
+            }
+        });
+
+        return res.status(204).send();
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Unable to delete subcategories' });
+    }
+});
+
+
 module.exports = subcategoryRoutes;

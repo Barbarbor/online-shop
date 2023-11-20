@@ -15,6 +15,9 @@ export const DELETE_CATEGORY_REQUEST ='DELETE_CATEGORY_REQUEST';
 export const DELETE_CATEGORY_SUCCESS ='DELETE_CATEGORY_SUCCESS';
 export const DELETE_CATEGORY_FAILURE ='DELETE_CATEGORY_FAILURE';
 
+export const DELETE_CATEGORIES_REQUEST ='DELETE_CATEGORIES_REQUEST';
+export const DELETE_CATEGORIES_SUCCESS ='DELETE_CATEGORIES_SUCCESS';
+export const DELETE_CATEGORIES_FAILURE ='DELETE_CATEGORIES_FAILURE';
 
 export const fetchCategoriesRequest = () => ({
     type:FETCH_CATEGORIES_REQUEST,
@@ -54,6 +57,17 @@ export const deleteCategoryFailure = (error) => ({
     error,
 });
 
+export const deleteCategoriesRequest = () => ({
+    type: DELETE_CATEGORIES_REQUEST,
+});
+export const deleteCategoriesSuccess = (ids) => ({
+    type: DELETE_CATEGORIES_SUCCESS,
+    payload:ids,
+});
+export const deleteCategoriesFailure = (error) => ({
+    type: DELETE_CATEGORIES_FAILURE,
+    error,
+});
 
 export const fetchCategories = () => {
     return async (dispatch) => {
@@ -92,4 +106,17 @@ export const deleteCategory = (categoryId) => {
             dispatch(deleteCategoryFailure(error));
         }
     };
+};
+
+export const deleteCategories = (categoryIds) => {
+    return async(dispatch) => {
+        dispatch(deleteCategoriesRequest());
+        try {
+            await axios.delete(`${HOST}/api/categories/multiple/delete-multiple`, {data:{categoryIds:categoryIds}}) ;
+            dispatch(deleteCategoriesSuccess(categoryIds));
+        } catch (error) {
+
+            dispatch(deleteCategoriesFailure(error));
+    }
+};
 };

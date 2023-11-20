@@ -10,6 +10,9 @@ import {
     DELETE_CATEGORY_REQUEST,
     DELETE_CATEGORY_SUCCESS,
     DELETE_CATEGORY_FAILURE,
+    DELETE_CATEGORIES_REQUEST,
+    DELETE_CATEGORIES_SUCCESS,
+    DELETE_CATEGORIES_FAILURE,
 } from '../actions';
 
 const initialState = {
@@ -23,6 +26,7 @@ const categoryManagementReducer = (state = initialState, action) => {
         case FETCH_CATEGORIES_REQUEST:
         case ADD_CATEGORY_REQUEST:
         case DELETE_CATEGORY_REQUEST:
+        case DELETE_CATEGORIES_REQUEST:
             return {
                 ...state,
                 loading: true,
@@ -50,10 +54,19 @@ const categoryManagementReducer = (state = initialState, action) => {
                 loading: false,
                 categories: updatedCategories,
             }
+        case DELETE_CATEGORIES_SUCCESS:
+            const deletedCategoryIds = action.payload;
+            const newCategories = state.categories.filter(category => !deletedCategoryIds.includes(category.id));
+            return {
+                ...state,
+                loading: false,
+                categories: newCategories,
+            };
 
         case FETCH_CATEGORIES_FAILURE:
         case ADD_CATEGORY_FAILURE:
         case DELETE_CATEGORY_FAILURE:
+        case DELETE_CATEGORIES_FAILURE:
             return {
                 ...state,
                 loading: false,

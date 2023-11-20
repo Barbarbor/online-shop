@@ -68,9 +68,10 @@ const cartReducer = (state = initialState, action) => {
 
             };
         case REMOVE_FROM_CART_SUCCESS:
-            const updatedCartitems = state.items.filter((cartitem) => cartitem.id !== action.payload.cartitemId);
-            const removedProduct = state.products.find(action.payload.productId);
-            const updatedProducts = state.products.filter((product) => product.id !== removedProduct);
+            const removedCartitemId = action.payload.id;
+            const removedProductId = action.payload.ProductId;
+            const updatedCartitems = state.items.filter((cartitem) => cartitem.id !== removedCartitemId);
+            const updatedProducts = state.products.filter((product) => product.id !== removedProductId);
 
             return{
                 ...state,

@@ -8,6 +8,9 @@ import {
     ADD_USER_REQUEST,
     ADD_USER_SUCCESS,
     ADD_USER_FAILURE,
+    DELETE_USERS_REQUEST,
+    DELETE_USERS_SUCCESS,
+    DELETE_USERS_FAILURE,
 } from '../actions';
 
 const initialState = {
@@ -19,8 +22,9 @@ const initialState = {
 const userManagementReducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_USERS_REQUEST:
-        case DELETE_USER_REQUEST:
         case ADD_USER_REQUEST:
+        case DELETE_USER_REQUEST:
+        case DELETE_USERS_REQUEST:
             return {
                 ...state,
                 loading: true,
@@ -32,6 +36,13 @@ const userManagementReducer = (state = initialState, action) => {
                 loading: false,
                 users: action.payload,
             };
+
+        case ADD_USER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                users: [...state.users, action.payload],
+            };
         case DELETE_USER_SUCCESS:
             // Remove the deleted user from the state
             const updatedUsers = state.users.filter((user) => user.id !== action.payload);
@@ -40,15 +51,18 @@ const userManagementReducer = (state = initialState, action) => {
                 loading: false,
                 users: updatedUsers,
             };
-        case ADD_USER_SUCCESS:
-            return {
+        case DELETE_USERS_SUCCESS:
+            const deletedUsersIds = action.payload;
+            const newUsers = state.users.filter(user=>!deletedUsersIds.includes(user.id));
+            return{
                 ...state,
-                loading: false,
-                users: [...state.users, action.payload],
-            };
+                loading:false,
+                users:newUsers,
+            }
         case FETCH_USERS_FAILURE:
-        case DELETE_USER_FAILURE:
         case ADD_USER_FAILURE:
+        case DELETE_USER_FAILURE:
+        case DELETE_USERS_FAILURE:
             return {
                 ...state,
                 loading: false,

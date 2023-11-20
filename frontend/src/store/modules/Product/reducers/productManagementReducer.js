@@ -10,6 +10,9 @@ import {
     DELETE_PRODUCT_REQUEST,
     DELETE_PRODUCT_SUCCESS,
     DELETE_PRODUCT_FAILURE,
+    DELETE_PRODUCTS_REQUEST,
+    DELETE_PRODUCTS_SUCCESS,
+    DELETE_PRODUCTS_FAILURE,
 } from '../actions';
 
 const initialState = {
@@ -23,6 +26,7 @@ const productManagementReducer = (state = initialState, action) => {
         case FETCH_ALL_PRODUCTS_REQUEST:
         case ADD_PRODUCT_REQUEST:
         case DELETE_PRODUCT_REQUEST:
+        case DELETE_PRODUCTS_REQUEST:
             return {
                 ...state,
                 loading: true,
@@ -47,9 +51,19 @@ const productManagementReducer = (state = initialState, action) => {
                 loading: false,
                 products: updatedProducts,
             }
+        case DELETE_PRODUCTS_SUCCESS:
+            const deletedProductsIds = action.payload;
+            const newProducts = state.products.filter(product => !deletedProductsIds.includes(product.id));
+            return{
+                ...state,
+                loading: false,
+                products:newProducts,
+            }
+
         case FETCH_ALL_PRODUCTS_FAILURE:
         case ADD_PRODUCT_FAILURE:
         case DELETE_PRODUCT_FAILURE:
+        case DELETE_PRODUCTS_FAILURE:
             return {
                 ...state,
                 loading: false,

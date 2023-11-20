@@ -112,6 +112,28 @@ productRoutes.delete('/products/:productId', async(req,res) =>{
     }
 
 });
+productRoutes.delete('/products/multiple/delete-multiple', async (req, res) => {
+    try {
+        const { productIds } = req.body;
+
+        // Check if productIds is an array
+        if (!Array.isArray(productIds)) {
+            return res.status(400).json({ error: 'productIds must be an array' });
+        }
+
+        // Find and delete products with the specified IDs
+        await Product.destroy({
+            where: {
+                id: productIds
+            }
+        });
+
+        return res.status(204).send();
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Unable to delete products' });
+    }
+});
 productRoutes.put('/products/:productId', async (req, res) => {
     try {
         const { productId } = req.params;
