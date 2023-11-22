@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-
+import '../../styles/ProductForm.scss';
+import {TextField,InputLabel,Select,MenuItem,Input} from '@mui/material';
 const ProductForm = ({ onSubmit, categories = [], subcategories = [],  }) => {
     const { register, handleSubmit, reset } = useForm();
 
@@ -8,58 +9,83 @@ const ProductForm = ({ onSubmit, categories = [], subcategories = [],  }) => {
         data.CategoryId = parseInt(data.CategoryId);
         data.SubcategoryId = parseInt(data.SubcategoryId);
 
-
-
         onSubmit(data);
 
         reset();
+
     };
 
 
     return (
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
-            <input
+        <form onSubmit={handleSubmit(handleFormSubmit)} className='product-form'>
+            <InputLabel>Product Name </InputLabel>
+            <TextField
+
+                className='product-form-name'
                 type="text"
-                placeholder="Product Name"
+                placeholder="Iphone14"
+                size='small'
                 {...register('name', { required: true })}
             />
-
-            <textarea
-                placeholder="Product Description"
-                {...register('description', { required: true })}
-            />
-
-            <input
+            <InputLabel>Product Price</InputLabel>
+            <TextField
+                className='product-form-price'
                 type="number"
-                placeholder="Product Price"
+                placeholder="15000"
+                size='small'
                 {...register('price', { required: true, valueAsNumber: true })}
             />
 
+
+            <InputLabel>Category</InputLabel>
+            <Select
+                defaultValue={"select_category"}
+                size='small'
+                className='product-form-category-select'
+                {...register('CategoryId', { required: true })}>
+                <MenuItem disabled={true} value="select_category"> Select Category</MenuItem>
+                {categories.map((category) => (
+                    <MenuItem
+                        className='product-form-category-select-option'
+                        key={category.id}
+                        value={category.id}
+                    >
+                        {category.name}
+                    </MenuItem>
+                ))}
+            </Select>
+            <InputLabel> Subcategory</InputLabel>
+            <Select
+                defaultValue={"select_subcategory"}
+                size='small'
+                className='product-form-subcategory-select'
+                {...register('SubcategoryId', { required: true })}>
+                <MenuItem disabled={true} value="select_subcategory"> Select Subcategory</MenuItem>
+                {subcategories.map((subcategory) => (
+
+                    <MenuItem
+                        className='product-form-subcategory-select-option'
+                        key={subcategory.id}
+                        value={subcategory.id}>
+                        {subcategory.name}
+                    </MenuItem>
+                ))}
+            </Select>
+            <InputLabel>Product description</InputLabel>
+            <TextField
+                multiline={true}
+                className='product-form-description'
+                placeholder="Iphone 14. Some desc"
+                size='small'
+                {...register('description', { required: true })}
+            />
             <input
+                className='product-form-photo'
                 type="file"
                 accept="image/*"
                 {...register('productImage', { required: true })}
             />
-
-            <select  {...register('CategoryId', { required: true })}>
-                <option value="">Select Category</option>
-                {categories.map((category) => (
-                    <option  key={category.id} value={category.id}>
-                        {category.name}
-                    </option>
-                ))}
-            </select>
-
-            <select  {...register('SubcategoryId', { required: true })}>
-                <option value="">Select Subcategory</option>
-                {subcategories.map((subcategory) => (
-                    <option key={subcategory.id} value={subcategory.id}>
-                        {subcategory.name}
-                    </option>
-                ))}
-            </select>
-
-            <button type="submit">Add Product</button>
+            <button type="submit" className='product-form-submit-button'>Add Product</button>
         </form>
 
     );

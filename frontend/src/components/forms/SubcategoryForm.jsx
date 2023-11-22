@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { useForm } from 'react-hook-form';
-
+import '../../styles/SubcategoryForm.scss';
+import {TextField,Select,MenuItem,InputLabel} from '@mui/material';
 const SubcategoryForm = ({ onSubmit, categories }) => {
     const { register, handleSubmit, reset } = useForm();
 
@@ -13,16 +14,29 @@ const SubcategoryForm = ({ onSubmit, categories }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
-            <input type="text" {...register('name', { required: true })} placeholder="Subcategory Name" />
-            <select {...register('CategoryId', { required: true })}>
+        <form className='subcategory-form' onSubmit={handleSubmit(handleFormSubmit)}>
+            <InputLabel>Subcategory Name</InputLabel>
+            <TextField
+                className='subcategory-form-name'
+                type="text"
+                placeholder="Phones"
+                {...register('name', { required: true })}
+                />
+            <InputLabel>Category</InputLabel>
+            <Select
+                defaultValue={'select_category'}
+                className='subcategory-form-select'
+                {...register('CategoryId', { required: true })}>
+                <MenuItem disable={true} value={'select_category'}>Select category</MenuItem>
                 {categories.map((category) => (
-                    <option key={category.id} value={category.id}>
+                    <MenuItem
+                        className='subcategory-form-select-option'
+                        key={category.id} value={category.id}>
                         {category.name}
-                    </option>
+                    </MenuItem>
                 ))}
-            </select>
-            <button type="submit">Add Subcategory</button>
+            </Select>
+            <button className='subcategory-form-submit-button' type="submit">Add Subcategory</button>
         </form>
     );
 };

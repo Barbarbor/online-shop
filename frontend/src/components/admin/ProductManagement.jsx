@@ -5,7 +5,9 @@ import { fetchAllProducts, addProduct, deleteProduct, deleteProducts } from '../
 import {deleteCategories, fetchCategories} from '../../store/modules/Category/actions';
 import { fetchAllSubcategories,fetchSubcategoriesOfCategory } from '../../store/modules/Subcategory/actions';
 import {DataGrid} from "@mui/x-data-grid";
-
+import {Container} from "@mui/material";
+import NavPanel from '../common/NavPanel';
+import '../../styles/ProductForm.scss';
 const ProductManagement = () => {
     const dispatch = useDispatch();
     const products = useSelector((state) => state.productManagement.products);
@@ -41,13 +43,17 @@ const ProductManagement = () => {
     ]
 
     return (
+
         <div className="product-management">
-            <h1>Product Management</h1>
+
             <ProductForm onSubmit={handleAddProduct} categories={categories} subcategories={subcategories}  />
-            <button onClick={handleDeleteSelectedProducts}>Delete selected products</button>
-            {loading ? (
-                <p>Loading...</p>
-            ) : (
+            <div className='product-management-table'>
+            <button
+                className='product-management-delete-products'
+                onClick={handleDeleteSelectedProducts}
+                hidden={selectedRows.length === 0 ? (true): false}
+            >
+                Delete selected</button>
                 <DataGrid
                     columns={columns}
                     rows={products}
@@ -65,7 +71,7 @@ const ProductManagement = () => {
                     }}
 
                 />
-            ) }
+            </div>
 
         </div>
     );

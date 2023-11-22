@@ -4,7 +4,8 @@ import { addUser, deleteUser,deleteUsers, fetchUsers } from '../../store/modules
 import UserForm from '../forms/UserForm';
 import {HOST} from "../../constants";
 import {DataGrid} from "@mui/x-data-grid";
-
+import NavPanel from "../common/NavPanel";
+import '../../styles/UserForm.scss';
 const UserManagement = () => {
     const dispatch = useDispatch();
     const users = useSelector((state) => state.userManagement.users);
@@ -31,10 +32,15 @@ const UserManagement = () => {
 
     ]
     return (
-        <div className="user-management">
-            <h1>User Management</h1>
+        <div className="user-management" >
+            <NavPanel/>
             <UserForm addUser={(userData) => dispatch(addUser(userData))} />
-            <button onClick={handleDeleteSelectedUsers}>Delete selected users</button>
+            <div className='user-management-table'>
+            <button
+                className='user-management-delete-users'
+                onClick={handleDeleteSelectedUsers}
+                hidden={selectedRows.length === 0 ? (true): false}
+            >Delete selected users</button>
             <DataGrid
                 columns={columns}
                 rows={users}
@@ -52,7 +58,7 @@ const UserManagement = () => {
                 }}
 
             />
-
+            </div>
         </div>
     );
 };

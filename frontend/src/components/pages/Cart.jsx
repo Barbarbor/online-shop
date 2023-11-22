@@ -20,10 +20,7 @@ function Cart() {
         },[dispatch]);
 
 
-    if(loading)
-        return(
-            <div>Loading...</div>
-        )
+  
 
     return (
 

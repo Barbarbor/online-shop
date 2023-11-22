@@ -1,0 +1,41 @@
+@import 'form';
+
+.category-form {
+  @extend .form;
+  margin-right:80px;
+  .category-form-name {
+    margin-bottom: 10px;
+    .category-form-name-label{
+
+    }
+    .category-form-name-input {
+
+    }
+  }
+
+  .category-form-submit
+  {
+    @extend .button-submit;
+    margin-bottom: 5px;
+
+  }
+
+}
+.category-management{
+  margin-top:100px;
+  margin-left:100px;
+  display: flex;
+  flex-direction: row;
+
+}
+.category-management-table{
+  display: flex;
+  flex-direction: column;
+}
+.category-management-delete-categories{
+  @extend .button-delete;
+  width:180px;
+  margin-bottom:20px;
+  margin-left:auto;
+  margin-right:20px;
+}

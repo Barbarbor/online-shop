@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import CategoryForm from '../forms/CategoryForm';
 import { fetchCategories, addCategory, deleteCategory, deleteCategories } from '../../store/modules/Category/actions';
 import {DataGrid} from "@mui/x-data-grid";
-
+import NavPanel from "../common/NavPanel";
+import {Container} from "@mui/material";
+import '../../styles/CategoryForm.scss';
 const CategoryManagement = () => {
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.categoryManagement.categories);
@@ -37,15 +39,18 @@ const CategoryManagement = () => {
     ]
 
     return (
-        <div className="category-management">
-            <h1>Category Management</h1>
+        <div className="category-management" style={{marginTop:'100px',}}>
+            <NavPanel/>
             <CategoryForm onSubmit={handleAddCategory} />
-            <button onClick={handleDeleteSelectedCategories}>
-                Delete Selected Categories
+            <div className='category-management-table'>
+            <button
+                className='category-management-delete-categories'
+                onClick={handleDeleteSelectedCategories}
+                hidden={selectedRows.length === 0 ? (true): false}
+            >
+                Delete Categories
             </button>
-            {loading ? (
-                <p>Loading...</p>
-            ) : (
+
                 <DataGrid
                           columns={columns}
                           rows={categories}
@@ -63,7 +68,7 @@ const CategoryManagement = () => {
                             }}
 
                 />
-            ) }
+            </div>
         </div>
     );
 };

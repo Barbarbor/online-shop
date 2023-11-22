@@ -9,6 +9,8 @@ import {
     deleteSubcategories,
 } from '../../store/modules/Subcategory/actions';
 import {fetchCategories} from '../../store/modules/Category/actions';
+import NavPanel from "../common/NavPanel";
+import '../../styles/SubcategoryForm.scss';
 const SubcategoryManagement = () => {
     const dispatch = useDispatch();
     const subcategories = useSelector((state) => state.subcategoryManagement.subcategories);
@@ -44,9 +46,14 @@ const SubcategoryManagement = () => {
     ]
     return (
         <div className="subcategory-management">
-            <h1>Subcategory Management</h1>
+            <NavPanel/>
             <SubcategoryForm onSubmit={handleAddSubcategory} categories={categories} />
-            <button onClick={handleDeleteSelectedSubCategories}>Delete selected subcategories</button>
+            <div className='subcategory-management-table'>
+            <button
+                className='subcategory-management-delete-subcategories'
+                onClick={handleDeleteSelectedSubCategories}
+                hidden={selectedRows.length === 0 ? (true): false}
+            >Delete selected </button>
 
             <DataGrid
                 columns={columns}
@@ -65,7 +72,7 @@ const SubcategoryManagement = () => {
                 }}
 
             />
-
+            </div>
 
         </div>
     );

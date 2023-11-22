@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-
+import '../../styles/CategoryForm.scss';
+import {TextField,Input,InputLabel} from "@mui/material";
 const CategoryForm = ({ onSubmit }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -10,18 +11,20 @@ const CategoryForm = ({ onSubmit }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onFormSubmit)}>
-            <div className="form-group">
-                <label htmlFor="name">Category Name</label>
-                <input
-                    type="text"
+        <form className='category-form' onSubmit={handleSubmit(onFormSubmit)}>
+            <div className="category-form-name">
+                <InputLabel  className='category-form-name-label'>Category Name</InputLabel>
+                <TextField
+                    className='category-form-name-input'
+                    size='small'
                     id="name"
+                    placeholder="Electronics"
                     {...register('name', { required: true })}
                 />
-                {errors.name && <p className="error">Category name is required</p>}
+
             </div>
 
-            <button type="submit">Submit</button>
+            <button className='category-form-submit' type="submit">Submit</button>
         </form>
     );
 };
