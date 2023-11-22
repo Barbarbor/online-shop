@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import '../../styles/ProductForm.scss';
 import {TextField,InputLabel,Select,MenuItem,Input} from '@mui/material';
-const ProductForm = ({ onSubmit, categories = [], subcategories = [],  }) => {
+const ProductForm = ({ onSubmit, categories = [], subcategories = [],onSelectedCategory  }) => {
     const { register, handleSubmit, reset } = useForm();
 
     const handleFormSubmit = async (data) => {
@@ -39,11 +39,14 @@ const ProductForm = ({ onSubmit, categories = [], subcategories = [],  }) => {
 
             <InputLabel>Category</InputLabel>
             <Select
-                defaultValue={"select_category"}
+                defaultValue={0}
                 size='small'
                 className='product-form-category-select'
-                {...register('CategoryId', { required: true })}>
-                <MenuItem disabled={true} value="select_category"> Select Category</MenuItem>
+                {...register('CategoryId', { required: true })}
+                onChange={(e) => onSelectedCategory(e.target.value)}
+            >
+
+                <MenuItem disabled={true} value={0}> Select Category</MenuItem>
                 {categories.map((category) => (
                     <MenuItem
                         className='product-form-category-select-option'
@@ -56,11 +59,11 @@ const ProductForm = ({ onSubmit, categories = [], subcategories = [],  }) => {
             </Select>
             <InputLabel> Subcategory</InputLabel>
             <Select
-                defaultValue={"select_subcategory"}
+                defaultValue={0}
                 size='small'
                 className='product-form-subcategory-select'
                 {...register('SubcategoryId', { required: true })}>
-                <MenuItem disabled={true} value="select_subcategory"> Select Subcategory</MenuItem>
+                <MenuItem disabled={true} value={0 }> Select Subcategory</MenuItem>
                 {subcategories.map((subcategory) => (
 
                     <MenuItem

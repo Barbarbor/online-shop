@@ -40,7 +40,7 @@ const UserManagement = () => {
                 className='user-management-delete-users'
                 onClick={handleDeleteSelectedUsers}
                 hidden={selectedRows.length === 0 ? (true): false}
-            >Delete selected users</button>
+            >Delete selected </button>
             <DataGrid
                 columns={columns}
                 rows={users}

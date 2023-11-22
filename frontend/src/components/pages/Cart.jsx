@@ -20,12 +20,21 @@ function Cart() {
         },[dispatch]);
 
 
-  
+    if(cartItems.length === 0) {
+        return(
+            <div>
+                <NavPanel/>
+                <p style={{margin:'100px 0 0 50px'}}> The cart is empty.</p>
+            </div>
+
+        )
+    }
 
     return (
 
         <div>
             <NavPanel />
+
             <div className='cart'>
             <div className='cart-items'>
 

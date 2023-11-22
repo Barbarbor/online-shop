@@ -7,6 +7,8 @@ import ProductCard from '../common/ProductCard';
 import NavPanel from "../common/NavPanel";
 import Search from "../common/Search";
 
+import {Container} from "@mui/material";
+
 //TODO: add some styling
 function SearchResults() {
     const {searchQuery} = useParams();
@@ -20,7 +22,7 @@ function SearchResults() {
     }
 
     return (
-        <div>
+        <Container disableGutters={true}>
             <NavPanel/>
             <Search defaultValue={searchQuery}/>
             {searchResults.length === 0 ? (
@@ -34,7 +36,7 @@ function SearchResults() {
                     ))}
                 </div>
             )}
-        </div>
+        </Container>
     );
 }
 

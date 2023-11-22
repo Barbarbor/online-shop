@@ -15,15 +15,18 @@ const ProductManagement = () => {
     const categories = useSelector((state) => state.categoryManagement.categories);
     const subcategories = useSelector((state) => state.subcategoryManagement.subcategories );
     const [selectedRows, setSelectedRows] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState(null);
     useEffect(() => {
         dispatch(fetchAllProducts());
         dispatch(fetchCategories());
-        dispatch(fetchAllSubcategories());
     }, [dispatch]);
     const handleAddProduct = (newProduct) => {
         dispatch(addProduct(newProduct));
     };
-
+    const handleSelectCategory = (categoryId) =>{
+        setSelectedCategory(categoryId);
+        dispatch(fetchSubcategoriesOfCategory(categoryId));
+    }
 
     const handleDeleteSelectedProducts = () => {
         dispatch(deleteProducts(selectedRows));
@@ -31,6 +34,7 @@ const ProductManagement = () => {
     const handleSelectedRowsChange = (updatedSelectedRows) =>{
         setSelectedRows(updatedSelectedRows);
     };
+
     const columns = [
         {field:'id',headerName:'Id', width:90, type:'number'},
         {field:'name',headerName:'Name', width:200},
@@ -45,8 +49,8 @@ const ProductManagement = () => {
     return (
 
         <div className="product-management">
-
-            <ProductForm onSubmit={handleAddProduct} categories={categories} subcategories={subcategories}  />
+            <NavPanel/>
+            <ProductForm onSubmit={handleAddProduct} categories={categories} subcategories={subcategories} onSelectedCategory={handleSelectCategory}  />
             <div className='product-management-table'>
             <button
                 className='product-management-delete-products'

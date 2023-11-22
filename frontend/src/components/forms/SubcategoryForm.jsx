@@ -17,6 +17,7 @@ const SubcategoryForm = ({ onSubmit, categories }) => {
         <form className='subcategory-form' onSubmit={handleSubmit(handleFormSubmit)}>
             <InputLabel>Subcategory Name</InputLabel>
             <TextField
+                size='small'
                 className='subcategory-form-name'
                 type="text"
                 placeholder="Phones"
@@ -24,12 +25,14 @@ const SubcategoryForm = ({ onSubmit, categories }) => {
                 />
             <InputLabel>Category</InputLabel>
             <Select
+                size='small'
                 defaultValue={'select_category'}
                 className='subcategory-form-select'
                 {...register('CategoryId', { required: true })}>
-                <MenuItem disable={true} value={'select_category'}>Select category</MenuItem>
+                <MenuItem disabled={true} value={'select_category'}>Select category</MenuItem>
                 {categories.map((category) => (
                     <MenuItem
+                        size='small'
                         className='subcategory-form-select-option'
                         key={category.id} value={category.id}>
                         {category.name}

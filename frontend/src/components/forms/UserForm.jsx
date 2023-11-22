@@ -12,17 +12,23 @@ const UserForm = ({ addUser }) => {
 
     return (
         <form className='user-form' onSubmit={handleSubmit(onSubmit)}>
+            <InputLabel>Username</InputLabel>
             <TextField
+                size='small'
                 className='user-form-username'
                 type="text"
                 placeholder="Username"
                 {...register('username')}  />
+            <InputLabel>Email</InputLabel>
             <TextField
+                size='small'
                 className='user-form-email'
                 type="email"
                 placeholder="Email"
                 {...register('email')}  />
+            <InputLabel>Password</InputLabel>
             <TextField
+                size='small'
                 className='user-form-password'
                 type="password"
                 placeholder="Password"
