@@ -1,0 +1,141 @@
+// Глобальные стили для Card
+@import 'colors';
+
+  .card-container {
+    display: flex;
+    flex-direction: row;
+    max-width: 800px;
+    position: relative;
+    top:100px;
+    margin-left: 10px;
+    margin-top: 30px;
+    border: 1px solid black;
+    border-radius: 20px;
+    width:650px;
+    .card-media {
+      max-width: 200px;
+      max-height: 200px;
+      object-fit: contain;
+    }
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 0;
+
+      .card-icons {
+        display: flex;
+        flex-direction: row;
+        margin-left: 10px;
+        margin-bottom: 5px;
+
+        #trash {
+          margin-left: 10px;
+        }
+
+        .button {
+          background-color: $button-color;
+          width: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: none;
+          border-radius: 8px;
+
+
+        }
+
+        .button:hover {
+          background-color: $button-color-hover;
+        }
+
+      }
+    }
+    .quantity {
+      display: flex;
+      flex-direction: column;
+      margin-left: 200px;
+      margin-top:18px;
+      .total-price {
+        background-color: $total-price-color;
+        .price-text{
+          margin-left: 10px;
+        }
+      }
+    .quantity-control{
+      display:flex;
+      flex-direction: row;
+      margin-top:20px;
+    .decrease-button {
+      background-color: $button-decrease-color;
+      color:$button-minus-color;
+      width: 30px;
+      height:32px;
+      margin-right: 8px;
+      border-radius: 5px;
+      margin-top:4px;
+      border:1px solid $quantity-button-border-color;
+    }
+    .increase-button {
+      background-color: $button-increase-color;
+      color: $button-plus_color;
+      width: 30px;
+      height:32px;
+      margin-left: 8px;
+      border-radius: 5px;
+      margin-top:4px;
+      border:1px solid $quantity-button-border-color;
+    }
+    .increase-button:hover{
+      border-color: $quantity-button-border-hover-color;
+    }
+    .decrease-button:hover{
+      border-color: $quantity-button-border-hover-color;
+    }
+    .quantity-input-field {
+      max-width: 60px;
+      max-height: 60px;
+      border-radius: 1px;
+    }
+    }
+  } }
+
+.cart{
+  display: flex;
+  flex-direction: row;
+
+  .order-create-card{
+    margin-left: 200px;
+    margin-top: 50px;
+  }
+}
+.order-container{
+  width:400px;
+  height:400px;
+  position: relative;
+  top:80px;
+  right:15%;
+  border: 1px solid $order-card-border-color;
+  .order-info{
+    margin-top:30px;
+    margin-left: 20px;
+  }
+  .create-order-button{
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $button-create-order-color;
+    color: $button-create-order-text-color;
+    border-radius: 7px;
+    border: 1px solid $button-create-order-border-color;
+    width:300px;
+    height:45px;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  .create-order-button:hover{
+    background-color: $button-create-order-color-hover;
+  }
+}

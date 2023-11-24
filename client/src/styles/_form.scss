@@ -1,0 +1,30 @@
+@import 'colors';
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.button-submit,
+.button-delete {
+  width:100px;
+  background-color: $button-add-to-cart;
+  color:white;
+  border:1px solid $button-add-to-cart-border-color;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    background-color: $button-add-to-cart-hover;
+  }
+}
+.field-input{
+  border-radius: 5px;
+
+}
+.button-delete{
+  background-color: $button-delete-color;
+  &:hover{
+    background-color: $button-delete-color-hover;
+  }
+}

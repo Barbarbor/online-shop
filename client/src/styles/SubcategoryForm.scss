@@ -1,0 +1,36 @@
+@import 'form';
+.subcategory-form{
+  @extend .form;
+  margin-right:80px;
+  .subcategory-form-name{
+    margin-bottom:10px;
+  }
+  .subcategory-form-select{
+    .subcategory-form-select-option{
+
+    }
+  }
+  .subcategory-form-submit-button{
+    @extend .button-submit;
+    width:150px;
+    margin-top:10px;
+  }
+
+}
+.subcategory-management{
+  margin-top:100px;
+  margin-left:100px;
+  display: flex;
+  flex-direction: row;
+}
+.subcategory-management-table{
+  display: flex;
+  flex-direction: column;
+}
+.subcategory-management-delete-subcategories{
+  @extend .button-delete;
+  width:180px;
+  margin-bottom:20px;
+  margin-left:auto;
+  margin-right:20px;
+}

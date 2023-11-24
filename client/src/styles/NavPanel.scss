@@ -1,0 +1,50 @@
+@import 'colors';
+.nav-panel{
+
+  height:auto;
+
+  background-color: $nav-panel-color !important;
+  display: flex;
+  justify-content: space-between;
+
+  .nav-panel-list{
+    display: flex;
+    color:black;
+
+    .nav-panel-item{
+      flex:0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 20px;
+
+      &.nav-panel-item-left{
+        margin-right:auto;
+
+      }
+
+      &.nav-panel-item-right{
+        margin-left: auto;
+        margin-right:10px;
+      }
+      .nav-panel-item-text-icon{
+
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: #ccc7c7; /* Цвет фона при hover */
+      }
+
+    }
+
+
+    // #categories-icon:hover{
+    //   cursor: pointer;
+    // }
+  }
+}
+.link-style {
+  text-decoration: none; /* Убираем подчеркивание */
+  color: #000; /* Изменяем цвет текста */
+}
