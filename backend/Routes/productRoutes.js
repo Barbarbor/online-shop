@@ -29,9 +29,34 @@ productRoutes.post('/products', async (req, res) => {
 });
 
 // Get a list of products
+// productRoutes.get('/products', async (req, res) => {
+//     try {
+//         const products = await Product.findAll();
+//         res.status(200).json(products);
+//     } catch (error) {
+//         console.error('Error fetching products:', error);
+//         res.status(500).json({ error: 'Unable to fetch products' });
+//     }
+// });
 productRoutes.get('/products', async (req, res) => {
     try {
-        const products = await Product.findAll();
+        const { _page, _limit } = req.query;
+
+        // Если _page и _limit не предоставлены, получаем все продукты
+        if (!_page && !_limit) {
+            const allProducts = await Product.findAll();
+            res.status(200).json(allProducts);
+            return; // Выходим из обработчика после отправки ответа
+        }
+
+        const page = parseInt(_page, 10) || 1;
+        const limit = parseInt(_limit, 10) || 10;
+
+        const products = await Product.findAll({
+            offset: (page - 1) * limit,
+            limit: limit,
+        });
+
         res.status(200).json(products);
     } catch (error) {
         console.error('Error fetching products:', error);
