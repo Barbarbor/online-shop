@@ -63,6 +63,16 @@ productRoutes.get('/products', async (req, res) => {
         res.status(500).json({ error: 'Unable to fetch products' });
     }
 });
+productRoutes.get('/products/count', async (req, res) => {
+    try {
+        const totalProductsCount = await Product.count();
+
+        res.status(200).json(totalProductsCount);
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        res.status(500).json({ error: 'Unable to fetch products count' });
+    }
+});
 productRoutes.get('/cartitems/products', async(req,res) => {
     try {
         const cartItems = await CartItem.findAll();
