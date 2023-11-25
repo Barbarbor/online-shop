@@ -8,7 +8,7 @@ import '../../styles/Categories.scss';
 
 import {Menu,MenuItem,Divider,Container} from "@mui/material";
 
-function SubcategoriesDropdown({ categoryId, isOpen}) {
+function SubcategoriesDropdown({ categoryId, isOpen,anchorEl}) {
     const [selectedIndex, setSelectedIndex] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -24,16 +24,15 @@ function SubcategoriesDropdown({ categoryId, isOpen}) {
     return (
 
         <Menu className="subcategories-menu" open={isOpen}
-               anchorReference="anchorPosition"
-               anchorPosition={{ top: 10, left: 585 }}
-               anchorOrigin={{
-                   vertical: 'top',
-                   horizontal: 'left',
-               }}
-               transformOrigin={{
-                   vertical: 'bottom',
-                   horizontal: 'right',
-               }}
+                anchorEl={anchorEl}
+              anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+              }}
+              transformOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+              }}
                 disableAutoFocusItem
                 transitionDuration={0}
               >

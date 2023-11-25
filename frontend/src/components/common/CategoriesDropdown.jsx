@@ -17,6 +17,7 @@ function CategoriesDropdown() {
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.category.categories);
     const subcategories = useSelector((state) => state.subcategory.subcategories)
+    const [anchorEl,setAnchorEl] = useState(null);
     useEffect(() => {
         if (categories.length === 0) {
             dispatch(fetchCategories());
@@ -26,9 +27,10 @@ function CategoriesDropdown() {
     const handleCategoryClick = (e,categoryId) => {
         if (selectedCategoryId === categoryId) {
             setSelectedCategoryId(null);
+
         } else {
             setSelectedCategoryId(categoryId);
-
+            setAnchorEl(e.target);
             dispatch(fetchSubcategoriesOfCategory(categoryId));
         }
 
@@ -63,7 +65,7 @@ function CategoriesDropdown() {
                                         (
                                         <ListItemText className='categories-list-item-text'  >{category.name}</ListItemText>
                                         ) }
-                                    <SubcategoriesDropdown categoryId={category.id} isOpen={selectedCategoryId === category.id}   />   </ListItem>
+                                    <SubcategoriesDropdown categoryId={category.id} isOpen={selectedCategoryId === category.id} anchorEl={anchorEl}  />   </ListItem>
                             ))}
                         </List>
 

@@ -9,8 +9,9 @@ import{AppBar,List,ListItem,ListItemText,Toolbar} from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import useMediaQuery from "@mui/material/useMediaQuery";
 function NavPanel() {
-
+    const isMobile = useMediaQuery('(max-width:700px)');
     return (
         <AppBar className='nav-panel'>
             <List className='nav-panel-list'>
@@ -18,25 +19,26 @@ function NavPanel() {
                     <ListItem className='nav-panel-item nav-panel-item-left'>
                         <HomeIcon
                         />
-                        <ListItemText className='nav-panel-item-text-icon' >Home</ListItemText>
+                        {!isMobile? ( <ListItemText disableTypography={true}  className='nav-panel-item-text-icon' >Home</ListItemText>) : (<div></div>)}
+
 
                     </ListItem>
                 </Link>
              <ListItem id='categories-icon' className='nav-panel-item nav-panel-item-left'><CategoriesDropdown />
-                <ListItemText className='item-text-icon'>Categories</ListItemText>
+                 {!isMobile? (<ListItemText disableTypography={true} className='nav-panel-item-text-icon'>Categories</ListItemText>) :(<div></div>)}
             </ListItem>
 
                 <Link to={'/cart'} className='link-style'>
                         <ListItem className='nav-panel-item nav-panel-item-right' >
                             <ShoppingCartIcon
                             />
-                            <ListItemText className='item-text-icon'>Cart</ListItemText>
+                            {!isMobile?(<ListItemText disableTypography={true} className='nav-panel-item-text-icon'>Cart</ListItemText>):(<div></div>)}
                         </ListItem>
                 </Link>
                 <Link to={'/liked'} className='link-style'>
                         <ListItem className='nav-panel-item nav-panel-item-right'>
                             <FavoriteIcon/>
-                            <ListItemText className='item-text-icon'>Liked</ListItemText>
+                            {!isMobile?( <ListItemText disableTypography={true} className='nav-panel-item-text-icon'>Liked</ListItemText>):(<div></div>)}
                         </ListItem>
                 </Link>
 

@@ -6,7 +6,7 @@ import { fetchSearchedProducts } from '../../store/modules/Product/actions';
 
 import '../../styles/Search.scss';
 
-import {TextField,List,ListItem,ListItemButton,ListItemText,Divider} from "@mui/material";
+import {TextField,List,ListItem,ListItemButton,ListItemText,Divider,Container,Menu,MenuItem} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 
 // TODO: fix Search refresh display
@@ -49,8 +49,7 @@ function Search({defaultValue=''}) {
         const query = e.target.value;
         setSearchQuery(query);
         dispatch(fetchSearchedProducts(query));
-        setShowDropdown(query !== ''); // Show the dropdown when the query is not empty
-
+        setShowDropdown(query !== '');
     };
 
     const handleCloseDropdown = () => {
@@ -58,9 +57,9 @@ function Search({defaultValue=''}) {
     };
 
     return (
-        <div className='search-panel'>
-        <div className='search-results'>
-            <TextField
+        <Container className='search-panel'>
+
+            <TextField fullWidth={true}
                     type="text"
                     placeholder="Search for products..."
                     value={searchQuery || defaultValue}
@@ -72,6 +71,13 @@ function Search({defaultValue=''}) {
                     size="small"
                     ref={inputRef}
             />
+            <button
+                onClick={handleSearch}
+                className='search-button'
+            >
+                <SearchIcon htmlColor='white'/>
+
+            </button>
             <List hidden={!showDropdown} className='search-results-list'>
                 {searchResults.map((product) => (
                     <ListItem divider button
@@ -85,15 +91,9 @@ function Search({defaultValue=''}) {
                     </ListItem>
                 ))}
             </List>
-        </div>
-            <button
-                onClick={handleSearch}
-                className='search-button'
-            >
-            <SearchIcon htmlColor='white'/>
 
-            </button>
-        </div>
+
+        </Container>
 
     );
 }

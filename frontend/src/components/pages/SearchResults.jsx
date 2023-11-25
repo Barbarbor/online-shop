@@ -8,7 +8,7 @@ import NavPanel from "../common/NavPanel";
 import Search from "../common/Search";
 
 import {Container} from "@mui/material";
-
+import Grid from '@mui/material/Unstable_Grid2';
 //TODO: add some styling
 function SearchResults() {
     const {searchQuery} = useParams();
@@ -22,21 +22,24 @@ function SearchResults() {
     }
 
     return (
-        <Container disableGutters={true}>
+        <div>
             <NavPanel/>
+            <Container>
             <Search defaultValue={searchQuery}/>
             {searchResults.length === 0 ? (
                 <p>0 products were found for your request.</p>
             ) : (
-                <div>
-                    <h2>Search Results</h2>
-                    {searchResults.map((product) => (
-                        <ProductCard key={product.id} product={product} />
+                <Grid container columns={1}>
 
+                    {searchResults.map((product) => (
+                        <Grid item xs={1}>
+                        <ProductCard key={product.id} product={product} />
+                        </Grid>
                     ))}
-                </div>
+                </Grid>
             )}
-        </Container>
+            </Container>
+        </div>
     );
 }
 

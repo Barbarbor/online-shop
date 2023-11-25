@@ -16,7 +16,6 @@ function Like({product,isLiked}) {
         dispatch(likeProduct(product.id));
         setLiked(true);
     };
-    const iconSize = 24;
     const handleUnlikeClick = () => {
         dispatch(unlikeProduct(product.id));
         setLiked(false);

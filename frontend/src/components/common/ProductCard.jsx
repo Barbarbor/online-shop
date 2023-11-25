@@ -10,6 +10,7 @@ import AddToCart from "./AddToCart";
 import '../../styles/ProductCard.scss';
 
 import { Card, Button,CardMedia, CardContent,CardHeader,Typography } from '@mui/material';
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 function ProductCard({ product, isLiked, inCart }) {
     const userId = 1;
@@ -23,6 +24,7 @@ function ProductCard({ product, isLiked, inCart }) {
     const handleNavigationByClick = () =>{
         navigate(`product/${product.id}`);
     }
+
 
     return (
 
@@ -43,7 +45,7 @@ function ProductCard({ product, isLiked, inCart }) {
             <span className='product-card-name'>{product.name}</span>
             <span className='product-card-price'>{product.price} $</span>
 
-            <div  onClick={(e) => handleChildClick(e) } >
+            <div onClick={(e) => handleChildClick(e) } >
             <AddToCart product={product} inCartInitial={inCart}/>
             </div>
         </Card>

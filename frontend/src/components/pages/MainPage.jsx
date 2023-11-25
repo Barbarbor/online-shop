@@ -11,6 +11,7 @@ import Search from '../common/Search';
 
 import Grid from '@mui/material/Unstable_Grid2';
 import {Container} from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery"
 function MainPage() {
     const dispatch = useDispatch();
     const products = useSelector((state) => state.products.products);
@@ -18,6 +19,10 @@ function MainPage() {
     const liked_products = useSelector( (state) => state.likedProducts.products );
     const userId = 1;
     const cart_products = useSelector((state) => state.cart.products );
+    const isDesktop = useMediaQuery('(min-width:1001px)');
+    const isTablet = useMediaQuery('(max-width:1000px) and (min-width:701px)');
+    const isMobile = useMediaQuery('(max-width:700px)');
+
     useEffect(() => {
         const fetchData = async () => {
             // Fetch liked products first
@@ -36,7 +41,7 @@ function MainPage() {
             <NavPanel />
             <Container>
                 <Search />
-                <Grid container columns={4}>
+                <Grid container columns={isDesktop? 3:(isTablet? 2:(isMobile? 1:1))} spacing={4} justifyContent={'center'}>
                     {loading ? (
                         <p>Loading products...</p>
                     ) : (
