@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 import ProductForm from '../forms/ProductForm';
 
@@ -9,7 +8,7 @@ import { addProduct, deleteProducts, fetchAllMangementProducts } from '../../sto
 import { fetchCategories, fetchManagementCategories } from '../../store/modules/Category/categoryActions';
 import { fetchManagementSubcategories, fetchSubcategories, fetchSubcategoriesOfCategory } from '../../store/modules/Subcategory/subcategoryActions';
 import { IProduct } from '../../models/IProduct';
-
+import NavPanel from "../common/NavPanel";
 import '../../styles/ProductForm.scss';
 
 interface ProductManagementProps {}
@@ -54,21 +53,22 @@ const ProductManagement: React.FC<ProductManagementProps> = () => {
         { field: 'price', headerName: "Price", width: 90, type: "number" },
         { field: "CategoryId", headerName: "Category Id", width: 90, type: "number" },
         { field: "SubcategoryId", headerName: "Subcategory Id", width: 90, type: "number" },
-        { field: 'createdAt', headerName: 'Creation Date', width: 200 },
-        { field: 'updatedAt', headerName: 'Updated Date', width: 200 }
+        { field: 'createdAt', headerName: 'Creation Date', width: 200 }
+
     ];
 
     return (
-        <div className="product-management">
 
+        <div className="product-management">
+            <NavPanel/>
             <ProductForm onSubmit={handleAddProduct} categories={categories} subcategories={subcategories} onSelectedCategory={handleSelectCategory}  />
             <div className='product-management-table'>
-            <button
-                className='product-management-delete-products'
-                onClick={handleDeleteSelectedProducts}
-                hidden={selectedRows.length === 0 ? (true): false}
-            >
-                Delete selected</button>
+                <button
+                    className='product-management-delete-products'
+                    onClick={handleDeleteSelectedProducts}
+                    hidden={selectedRows.length === 0 ? (true): false}
+                >
+                    Delete selected</button>
                 <DataGrid
                     columns={columns}
                     rows={products}
@@ -80,7 +80,7 @@ const ProductManagement: React.FC<ProductManagementProps> = () => {
                     initialState={{
                         pagination: {
                             paginationModel: {
-                                pageSize: 10,
+                                pageSize: 9,
                             },
                         },
                     }}

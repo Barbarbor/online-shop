@@ -10,9 +10,10 @@ import '../../styles/Categories.scss';
 interface SubcategoriesDropdownProps {
     categoryId: number;
     isOpen: boolean;
+    anchorEl: HTMLElement | null
 }
 
-const SubcategoriesDropdown : FC<SubcategoriesDropdownProps> = ({categoryId, isOpen}) => {
+const SubcategoriesDropdown : FC<SubcategoriesDropdownProps> = ({categoryId, isOpen,anchorEl}) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const {subcategories} = useAppSelector(state => state.subcategoryManagementReducer);
@@ -30,20 +31,18 @@ const SubcategoriesDropdown : FC<SubcategoriesDropdownProps> = ({categoryId, isO
 
     return (
 
-        <Menu 
-            className="subcategories-menu" open={isOpen}
-            anchorReference="anchorPosition"
-            anchorPosition={{ top: 10, left: 585 }}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-            }}
-            transformOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-            }}
-            disableAutoFocusItem
-            transitionDuration={0}
+        <Menu className="subcategories-menu" open={isOpen}
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+              }}
+              transformOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+              }}
+              disableAutoFocusItem
+              transitionDuration={0}
         >
 
 

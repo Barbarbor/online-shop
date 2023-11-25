@@ -8,14 +8,16 @@ import Grid from '@mui/material/Unstable_Grid2';
 import {CircularProgress, Container, Pagination} from "@mui/material";
 import ProductCard from '../common/ProductCard';
 import Search from '../common/Search';
-
+import useMediaQuery from "@mui/material/useMediaQuery"
 const MainPage = () => {
     const userId = 1;
     const {products: productList, isLoading, error, limit, page, totalCount} = useAppSelector(state => state.productsGlobalReducer);
     const {products: cartProducts } = useAppSelector(state => state.cartReducer);
     const {products: likedProducts} = useAppSelector(state => state.productsLikedReducer);
     const dispatch = useAppDispatch();
-
+    const isDesktop = useMediaQuery('(min-width:1001px)');
+    const isTablet = useMediaQuery('(max-width:1000px) and (min-width:701px)');
+    const isMobile = useMediaQuery('(max-width:700px)');
     const handlePageChange = (event: ChangeEvent<unknown>, value: number) => {
         dispatch(setProductsCurrentPage(value));
     };
@@ -30,7 +32,7 @@ const MainPage = () => {
         <div>
             <Container>
                 <Search />
-                <Grid container columns={4}>
+                <Grid container columns={isDesktop? 3:(isTablet? 2:(isMobile? 1:1))} spacing={4} justifyContent={'center'}>
                     {isLoading ? (
                         <CircularProgress color="inherit" />
                     ) : (

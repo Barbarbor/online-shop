@@ -12,6 +12,7 @@ import '../../styles/Categories.scss';
 const CategoriesDropdown = () => {
     const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
     const [showDrawer, setShowDrawer] = useState<boolean>(false);
+    const [anchorEl,setAnchorEl] = useState<HTMLElement | null>(null);
     const {categories} = useAppSelector(state => state.categoryReducer)
     const {subcategories} = useAppSelector(state => state.subcategoryReducer)
     const dispatch = useAppDispatch();
@@ -22,10 +23,11 @@ const CategoriesDropdown = () => {
         }
     }, [dispatch, categories])
 
-    const handleCategoryClick = (e: MouseEvent<HTMLLIElement>, categoryId: number) => {
+    const handleCategoryClick = (e: MouseEvent<HTMLElement>, categoryId: number) => {
         if (selectedCategoryId === categoryId) {
             setSelectedCategoryId(null);
         } else {
+            setAnchorEl(e.currentTarget);
             setSelectedCategoryId(categoryId);
             dispatch(fetchSubcategoriesOfCategory(categoryId));
         }
@@ -53,7 +55,7 @@ const CategoriesDropdown = () => {
                         <ListItem
                             key={category.id}
                             className="categories-list-item"
-                            onClick={(e: React.MouseEvent<HTMLLIElement>) => handleCategoryClick(e, category.id)}
+                            onClick={(e: MouseEvent<HTMLElement>) => handleCategoryClick(e, category.id)}
                         >
                             <ListItemText
                                 className="categories-list-item-text"
@@ -62,7 +64,7 @@ const CategoriesDropdown = () => {
                                 {category.name}
                             </ListItemText>
                             
-                            <SubcategoriesDropdown categoryId={category.id} isOpen={selectedCategoryId === category.id}   />
+                            <SubcategoriesDropdown categoryId={category.id} isOpen={selectedCategoryId === category.id} anchorEl={anchorEl}   />
                         </ListItem>
                     ))}
                 </List>

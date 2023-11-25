@@ -1,6 +1,5 @@
 @import 'colors';
 .nav-panel{
-
   height:auto;
 
   background-color: $nav-panel-color !important;
@@ -28,20 +27,15 @@
         margin-right:10px;
       }
       .nav-panel-item-text-icon{
-
-      }
-
-      &:hover {
-        cursor: pointer;
-        background-color: #ccc7c7; /* Цвет фона при hover */
+        font-size:16px;
       }
 
     }
 
 
-    // #categories-icon:hover{
-    //   cursor: pointer;
-    // }
+    #categories-icon:hover{
+      cursor: pointer;
+    }
   }
 }
 .link-style {

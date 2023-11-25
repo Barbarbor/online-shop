@@ -5,8 +5,10 @@ import { useParams } from 'react-router-dom';
 
 import ProductCard from '../common/ProductCard';
 import Search from '../common/Search';
-import { CircularProgress } from '@mui/material';
+import NavPanel from "../common/NavPanel";
 
+import { CircularProgress,Container } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
 const SearchResults = () => {
     const {searchQuery} = useParams<string>();
     const {products: searchedProducts, isLoading} = useAppSelector(state => state.productsSearchedReducer);
@@ -19,17 +21,21 @@ const SearchResults = () => {
 
     return (
         <div>
+            <NavPanel/>
+            <Container>
             <Search defaultValue={searchQuery}/>
             {searchedProducts.length === 0 ? (
                 <p>0 products were found for your request.</p>
             ) : (
-                <div>
-                    <h2>Search Results</h2>
+                <Grid container columns={1}>
                     {searchedProducts.map((product) => (
+                        <Grid component='div' xs={1}>
                         <ProductCard key={product.id} product={product} isLiked={false} inCart={false}/>
+                        </Grid>
                     ))}
-                </div>
+                </Grid>
             )}
+            </Container>
         </div>
     ) 
 }

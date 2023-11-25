@@ -5,7 +5,7 @@ import { addSubcategory, deleteSubcategory, fetchManagementSubcategories } from 
 import { ISubcategory } from "../../models/ISubcategory";
 import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 import SubcategoryForm from "../forms/SubcategoryForm";
-
+import '../../styles/SubcategoryForm.scss';
 
 const SubcategoryManagement = () => {
     const {categories, isLoading: isCategoriesLoading} = useAppSelector(state => state.categoryManagementReducer);
@@ -71,3 +71,4 @@ const SubcategoryManagement = () => {
     );
 
 }
+export default SubcategoryManagement;

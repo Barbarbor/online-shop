@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ICategory } from '../../models/ICategory';
 import { InputLabel, TextField } from '@mui/material';
-
+import '../../styles/CategoryForm.scss';
 interface CategoryFormProps {
     onSubmit: SubmitHandler<ICategory>;
 }

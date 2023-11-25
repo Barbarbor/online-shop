@@ -8,7 +8,7 @@ import SearchResults from './pages/SearchResults';
 import SubcategoryProducts from './pages/SubcategoryProducts';
 import CategoryManagement from './admin/CategoryManagement';
 import ProductManagement from './admin/ProductManagement';
-
+import SubcategoryManagement from './admin/SubcategoryManagement';
 const AppRouter = () => {
     return (
         <BrowserRouter>
@@ -18,7 +18,7 @@ const AppRouter = () => {
                 <Route path="/product/:productId" element={<ProductDetailPage />} />
                 {/* <Route path={"/admin/users"} element={<UserManagement/>} /> */}
                 <Route path={"/admin/categories"} element={<CategoryManagement/>} />
-                {/* <Route path={"/admin/subcategories"} element={<SubcategoryManagement/>} /> */}
+                { <Route path={"/admin/subcategories"} element={<SubcategoryManagement/>} /> }
                 <Route path={"/admin/products"} element={<ProductManagement/>} />
                 {/* <Route path={"/register"} element={<Registration/>} /> */}
                 {/* <Route path={"/login"} element={<Login/>} /> */}

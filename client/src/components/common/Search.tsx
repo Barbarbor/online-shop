@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { fetchSearchedProducts } from '../../store/modules/Product/productActions';
 
 
-import {TextField,List,ListItemButton,ListItemText} from "@mui/material";
+import {TextField,List,ListItemButton,ListItemText,ListItem,Container} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import '../../styles/Search.scss';
 
@@ -64,36 +64,43 @@ const Search: FC<SearchProps> = ({defaultValue = ''}) => {
     };
 
     return (
-        <div className="search-panel">
-            <div className="search-results">
-                <TextField
-                    type="text"
-                    placeholder="Search for products..."
-                    value={searchQuery || defaultValue}
-                    onChange={handleInputChange}
-                    onSelect={() => setShowDropdown(searchQuery !== '')}
-                    className="search-input"
-                    variant="outlined"
-                    size="small"
-                    inputRef={inputRef}
-                />
-                <List hidden={!showDropdown} className="search-results-list">
-                    {searchedProducts.map((product) => (
-                        <ListItemButton
-                        divider
-                        className="search-results-item"
-                        onClick={() => handleListItemClick(product)}
-                        key={product.id}
-                        >
-                            <ListItemText primary={product.name} className="search-results-text" />
-                      </ListItemButton>
-                    ))}
-                </List>
-            </div>
-            <button onClick={handleSearch} className="search-button">
-                <SearchIcon htmlColor="white" />
+        <Container className='search-panel'>
+
+            <TextField fullWidth={true}
+                       type="text"
+                       placeholder="Search for products..."
+                       value={searchQuery || defaultValue}
+
+                       onChange={handleInputChange}
+                       onSelect={() => setShowDropdown(searchQuery !== '')}
+                       className='search-input'
+                       variant='outlined'
+                       size="small"
+                       ref={inputRef}
+            />
+            <button
+                onClick={handleSearch}
+                className='search-button'
+            >
+                <SearchIcon htmlColor='white'/>
+
             </button>
-        </div>
+            <List hidden={!showDropdown} className='search-results-list'>
+                {searchedProducts.map((product) => (
+                    <ListItem divider button
+                              className='search-results-item'
+                              onClick={() => handleListItemClick(product)}
+                              key={product.id}
+                    >
+                        <ListItemText
+                            primary={product.name}
+                            className='search-results-text'/>
+                    </ListItem>
+                ))}
+            </List>
+
+
+        </Container>
       );
 }
 

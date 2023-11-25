@@ -5,14 +5,17 @@ import { useEffect } from "react";
 import { fetchSubcategoryProducts } from "../../store/modules/Product/productActions";
 
 import ProductCard from "../common/ProductCard";
-import { CircularProgress } from "@mui/material";
+import NavPanel from "../common/NavPanel";
+import Search from '../common/Search';
+
+import { CircularProgress,Typography,Link,Breadcrumbs,Container } from "@mui/material";
 
 const SubcategoryProducts = () => {
     const {subcategoryId} = useParams();
     const parsedSubcategoryId = subcategoryId ? parseInt(subcategoryId, 10) : undefined;
 
     const dispatch = useAppDispatch();
-    const {products, isLoading, error} = useAppSelector(state => state.productsFilteredReducer);
+    const {products, isLoading} = useAppSelector(state => state.productsFilteredReducer);
 
     useEffect(() => {
         dispatch(fetchSubcategoryProducts(parsedSubcategoryId as number))
@@ -24,20 +27,16 @@ const SubcategoryProducts = () => {
         )
     }
 
-    if (error) {
-        return (
-            <div>
-                Error: {error}
-            </div>
-        )
-    }
 
     return (
-        <div>
+        <Container disableGutters={true}>
+            <NavPanel />
+            <Search/>
+
             {products.map((product) => (
                 <ProductCard key={product.id} product={product} inCart = {false} isLiked={true}/>
             ))}
-        </div>
+        </Container>
     )
 }
 

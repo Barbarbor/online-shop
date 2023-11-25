@@ -5,7 +5,8 @@ import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 import { SubmitHandler } from 'react-hook-form';
 import { ICategory } from '../../models/ICategory';
 import { addCategory, deleteCategories, fetchManagementCategories } from '../../store/modules/Category/categoryActions';
-
+import '../../styles/CategoryForm.scss';
+import NavPanel from "../common/NavPanel";
 const CategoryManagement = () => {
     const {categories, isLoading} = useAppSelector(state => state.categoryManagementReducer);
     const [selectedRows, setSelectedRows] = useState<number[]>([]);
@@ -36,15 +37,18 @@ const CategoryManagement = () => {
     ]
 
     return (
-        <div className="category-management">
-            <h1>Category Management</h1>
+        <div className="category-management" style={{marginTop:'100px',}}>
+            <NavPanel/>
             <CategoryForm onSubmit={handleAddCategory} />
-            <button onClick={handleDeleteSelectedCategories}>
-                Delete Selected Categories
-            </button>
-            {isLoading ? (
-                <p>Loading...</p>
-            ) : (
+            <div className='category-management-table'>
+                <button
+                    className='category-management-delete-categories'
+                    onClick={handleDeleteSelectedCategories}
+                    hidden={selectedRows.length === 0 ? (true): false}
+                >
+                    Delete Categories
+                </button>
+
                 <DataGrid
                     columns={columns}
                     rows={categories}
@@ -54,14 +58,15 @@ const CategoryManagement = () => {
                     rowSelectionModel={selectedRows}  // Add this line
                     onRowSelectionModelChange={(updatedSelectedRows) => handleSelectedRowsChange(updatedSelectedRows)}
                     initialState={{
-                          pagination: {
-                              paginationModel: {
-                                  pageSize: 10,
-                              },
-                          },
+                        pagination: {
+                            paginationModel: {
+                                pageSize: 10,
+                            },
+                        },
                     }}
+
                 />
-            ) }
+            </div>
         </div>
     );
 };
