@@ -23,16 +23,21 @@ const MainPage = () => {
     };
 
     useEffect(() => {
-        dispatch(fetchLikedProducts(userId))
-        dispatch(fetchLimitedProducts(page, limit));
-        dispatch(fetchCartItems());
+        //if(!productList)
+            dispatch(fetchLimitedProducts(page, limit));
+
+        //if(!cartProducts)
+            dispatch(fetchCartItems());
+       // if(!likedProducts)
+            dispatch(fetchLikedProducts(userId))
+
     }, [dispatch, userId, page])
 
     return (
         <div>
             <Container>
                 <Search />
-                <Grid container columns={isDesktop? 3:(isTablet? 2:(isMobile? 1:1))} spacing={4} justifyContent={'center'}>
+                <Grid container columns={isDesktop? 3:(isTablet? 2:(isMobile? 1:1))} spacing={4} >
                     {isLoading ? (
                         <CircularProgress color="inherit" />
                     ) : (

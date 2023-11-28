@@ -19,9 +19,7 @@ const SubcategoriesDropdown : FC<SubcategoriesDropdownProps> = ({categoryId, isO
     const {subcategories} = useAppSelector(state => state.subcategoryManagementReducer);
     const [selectedIndex, setSelectedIndex] = useState(null);
 
-    useEffect(() => {
-        dispatch(fetchSubcategoriesOfCategory(categoryId));
-    }, [dispatch]);
+
     
     const handleSubcategoryClick = (subcategoryId : number) => {
         if (subcategoryId) {

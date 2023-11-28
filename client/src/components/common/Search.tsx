@@ -66,7 +66,7 @@ const Search: FC<SearchProps> = ({defaultValue = ''}) => {
     return (
         <Container className='search-panel'>
 
-            <TextField fullWidth={true}
+            <TextField
                        type="text"
                        placeholder="Search for products..."
                        value={searchQuery || defaultValue}
@@ -77,6 +77,10 @@ const Search: FC<SearchProps> = ({defaultValue = ''}) => {
                        variant='outlined'
                        size="small"
                        ref={inputRef}
+                       InputProps={{
+                           className: 'search-field-input-props'
+
+                       }}
             />
             <button
                 onClick={handleSearch}
@@ -94,7 +98,11 @@ const Search: FC<SearchProps> = ({defaultValue = ''}) => {
                     >
                         <ListItemText
                             primary={product.name}
-                            className='search-results-text'/>
+                            primaryTypographyProps={{
+                            className:'search-results-text'
+                        }}
+                        />
+
                     </ListItem>
                 ))}
             </List>

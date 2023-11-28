@@ -18,10 +18,10 @@ const CategoriesDropdown = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (categories.length === 0) {
+
             dispatch(fetchCategories());
-        }
-    }, [dispatch, categories])
+
+    }, [])
 
     const handleCategoryClick = (e: MouseEvent<HTMLElement>, categoryId: number) => {
         if (selectedCategoryId === categoryId) {

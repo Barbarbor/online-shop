@@ -3,50 +3,87 @@
 .search-panel {
   margin-top:15%;
   margin-bottom: 55px;
-
+  left:25%;
+  position: relative;
+  @media(max-width: 400px){
+    margin-top:60px;
+  }
   .search-input {
-    left:25%;
+
     position: relative;
-    width: 700px/1152px * 100% ;
+    width: 700px/1152px * 100%;
     z-index: 1000;
     background-color: white;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-    font-size:0.1em;
   }
+
+
 
   .search-results-list {
 
-
+    margin-top:-6px;
     position: absolute;
     z-index: 999;
     background-color: white;
-    left:30%;
-    top:29.5%;
-    margin-bottom: 25px;
-    width: 700px/1152px * 100%;
 
+
+    width: 665px/1152px * 100%;
+    max-width:670.83px;
 
     .search-results-item {
-      height:40px;
 
-      width: 100%;
-      max-width: 800px;
+
       border: 1px solid #ccc;
       border-radius: 5px;
 
+      @media(min-width: 1001px) {
+        height:40px;
+
+        margin-top:1px;
+        .search-results-text{font-size:16px;}
+      }
+      @media( (max-width: 1000px) and (min-width: 701px )) {
+        height:35px;
+        margin-top:2px;
+        .search-results-text{font-size:15px;}
+      }
+      @media(max-width: 702px) {
+        height:30px;
+
+        margin-top:3px;
+        .search-results-text{font-size:12px;}
+      }
+      @media(max-width: 400px) {
+        height:20px;
+
+        margin-top:4px;
+        .search-results-text{font-size:10px;}
+      }
     }
   }
 
   .search-button{
     position: relative;
-    left:26%;
-    height:40px;
+    margin-left:5px;
     background-color:$search-button-color;
     border:1px solid $search-button-border-color;
     border-radius: 5px;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
     z-index: 1000;
+    @media(min-width: 1001px) {
+        height:40px;
+    }
+    @media( (max-width: 1000px) and (min-width: 701px )) {
+      height:38.56px;
+    }
+    @media(max-width: 702px) {
+      height:34.25px;
+    }
+    @media(max-width: 400px) {
+      height:31.38px;
+    }
   }
+
   .search-button:hover{
     background-color: $search-button-hover-color;
   }
@@ -54,3 +91,17 @@
 .MuiFormControl-root{
   border-radius: 5px;
 }
+.search-panel .search-field-input-props{
+  @media(min-width: 1001px) {
+    font-size:16px;
+  }
+  @media( (max-width: 1000px) and (min-width: 701px )) {
+    font-size: 15px;
+  }
+    @media(max-width: 702px) {
+      font-size: 12px;
+    }
+  @media(max-width: 400px){
+    font-size:10px;
+  }
+  }
