@@ -27,8 +27,8 @@ const SubcategoryManagement = () => {
         dispatch(deleteCategories(selectedRows));
     }
 
-    const handleSelectedRowsChange = (udpatedSelectedRows : GridRowSelectionModel) => {
-        setSelectedRows(udpatedSelectedRows as number[]);
+    const handleSelectedRowsChange = (updatedSelectedRows : GridRowSelectionModel) => {
+        setSelectedRows(updatedSelectedRows as number[]);
     }
 
     const columns : GridColDef[] = [

@@ -2,7 +2,8 @@ import React, { FC } from "react";
 import { Link } from 'react-router-dom';
 
 import CategoriesDropdown from "./CategoriesDropdown";
-
+import Login from "../auth/Login";
+import Register from "../auth/Register";
 import { AppBar, List, ListItem, ListItemText } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -40,7 +41,12 @@ const NavPanel : FC = () => {
                             {!isMobile?( <ListItemText disableTypography={true} className='nav-panel-item-text-icon'>Liked</ListItemText>):(<div></div>)}
                         </ListItem>
                 </Link>
-
+             <ListItem>
+                 <Login/>
+             </ListItem>
+                <ListItem>
+                    <Register/>
+                </ListItem>
             </List>
         </AppBar>
     );

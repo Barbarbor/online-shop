@@ -8,7 +8,7 @@ import { fetchCartItems, removeFromCart } from '../../store/modules/Cart/cartAct
 import CartItemCard from '../common/CartItemCard';
 import OrderCard from '../common/OrderCard';
 
-import { CircularProgress } from '@mui/material';
+import { CircularProgress,Container } from '@mui/material';
 import '../../styles/Cart.scss';
 
 
@@ -24,11 +24,7 @@ const Cart : FC = () => {
         dispatch(removeFromCart(product))
     }
 
-    if(isLoading) {
-        return(
-            <CircularProgress color="inherit" />
-        )
-    }
+
 
     return (
         <div>
@@ -49,10 +45,8 @@ const Cart : FC = () => {
                 }
             })}
             </div>
-
-            <div className='order-create-card'>
                 <OrderCard cartItems={cartItems} total={total}/>
-            </div>
+
             </div>
         </div>
   )

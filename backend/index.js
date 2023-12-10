@@ -5,11 +5,9 @@ const cors = require('cors');
 const fileUpload = require('express-fileupload');
 const jwt = require('jsonwebtoken');
 const PORT = process.env.PORT || 3001;
-const jwtAuth = require('./auth/authMiddleware');
+const bodyParser = require('body-parser');
 const authRoutes = require('./Routes/authRoutes');
-const loginRoutes = require('./Routes/loginRoutes');
-const registrationRoutes = require('./Routes/registrationRoutes');
-const methodOverride = require('method-override');
+const tokenVerificationRoute = require('./Routes/tokenVerificationRoute');
 // Import your API routes
 const cartitemRoutes = require('./Routes/cartitemRoutes');
 const categoryRoutes = require('./Routes/categoryRoutes');
@@ -22,23 +20,18 @@ const userRoutes = require('./Routes/userRoutes');
 const mediaUploadRouter = require('./mediaUpload');
 const searchRoutes = require('./Routes/searchRoutes');
 // Start the server
-
 const uploadRoutes = require('./Routes/uploadRoutes');
 // Start the server
-app.use('/auth', authRoutes);
-app.use('/auth', loginRoutes);
-app.use('/auth', registrationRoutes);
-
-// Protected route with JWT authentication
-app.get('/api/protected', jwtAuth, (req, res) => {
-    // Only authenticated users can access this route
-    res.json({ message: 'Protected route', user: req.user });
-});
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '../frontend/public')));
 app.use(fileUpload({}));
 app.use(express.json());
 app.use(cors());
+
+app.use('/auth', authRoutes);
+app.use('/auth', tokenVerificationRoute);
 app.use('/api',mediaUploadRouter);
 
 

@@ -1,0 +1,37 @@
+@import 'form';
+
+.register-form {
+  @extend .form;
+  margin-right: 80px;
+
+
+    .register-form-username-label {
+
+    }
+
+    .register-form-username-input {
+
+
+  }
+    .register-form-email-label {
+
+    }
+
+    .register-form-email-input {
+
+
+    }
+    .register-form-password-label {
+
+    }
+
+    .register-form-password-input {
+
+
+    }
+  .register-form-submit-button {
+    @extend .button-submit;
+    margin-bottom: 5px;
+
+  }
+}

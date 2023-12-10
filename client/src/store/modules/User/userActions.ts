@@ -1,44 +1,30 @@
 import { IUser } from './../../../models/IUser';
-import { AuthActionTypes, SetAuthActions, SetErrorAction, SetIsLoadingAction, SetUserAction } from "../../types/User";
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch } from '../../store';
+import {HOST} from '../../../constants';
 import axios from 'axios';
-
-export const AuthActionCreators = {
-    setUser: (user: IUser) : SetUserAction => ({type: AuthActionTypes.SET_USER, payload: user}),
-    setIsAuth: (auth: boolean) : SetAuthActions => ({type: AuthActionTypes.SET_AUTH, payload: auth}),
-    setIsLoading: (loading: boolean) : SetIsLoadingAction => ({type: AuthActionTypes.SET_IS_LOADING, payload: loading}),
-    setIsError: (error: string) : SetErrorAction => ({type: AuthActionTypes.SET_ERROR, payload: error}),
-    login: (username: string, password: string) => async (dispacth: AppDispatch) => {
+import {IUserLogin} from "./../../../models/IUser";
+import {IUserRegister} from "./../../../models/IUser";
+export const userLogin = async (loginData:IUserLogin) =>{
         try {
-            dispacth(AuthActionCreators.setIsLoading(true));
+                const response = await axios.post(`${HOST}/auth/login`, loginData);
+                const {user, token} = response.data;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                localStorage.setItem('token', token);
 
-            setTimeout(async () => {
-                const response = await axios.get<IUser[]>('./users.json');
-                const fooUser = response.data.find(user => user.username === username && user.password === password)
-                if (fooUser) {
-                    localStorage.setItem('auth', 'true');
-                    localStorage.setItem('username', fooUser.username);
-                    dispacth(AuthActionCreators.setIsAuth(true));
-                    dispacth(AuthActionCreators.setUser(fooUser));
-                } else {
-                    dispacth(AuthActionCreators.setIsError('Некорректный логин или пароль'));
-                }
-                dispacth(AuthActionCreators.setIsLoading(false));
-            }, 1000)
-            
-        } catch (e) {
-            dispacth(AuthActionCreators.setIsError('Произошла ошибка при логине :('));
+                return token;
         }
-    },
-    logout: () => async (dispacth: AppDispatch) => {
-        try {
-            localStorage.removeItem('auth');
-            localStorage.removeItem('username');
-            dispacth(AuthActionCreators.setUser({} as IUser));
-            dispacth(AuthActionCreators.setIsAuth(false));
-
-        } catch (e) {
-
+        catch (error:any){
+                return {error:error};
         }
-    }
- }
+};
+export const userRegister = async (registerData:IUserRegister) => {
+        try{
+                const response = await axios.post(`${HOST}/auth/register`,registerData);
+                const user = response.data.user;
+                return user;
+        }
+        catch(error:any){
+                return {error:error};
+        }
+}

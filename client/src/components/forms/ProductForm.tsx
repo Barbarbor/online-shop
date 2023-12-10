@@ -51,10 +51,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, categories, subcate
             />
             <InputLabel>Category</InputLabel>
             <Select
-                defaultValue={''}
+                defaultValue={0}
                 size='small'
                 className='product-form-category-select'
-                {...register('category', { required: true })}
+                {...register('CategoryId', { required: true })}
                 onChange={(e) => onSelectedCategory(Number(e.target.value))}
             >
                 <MenuItem disabled={true} value="select_category"> Select Category</MenuItem>
@@ -73,7 +73,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, categories, subcate
                 defaultValue={''}
                 size='small'
                 className='product-form-subcategory-select'
-                {...register('subcategory', { required: true })}>
+                {...register('SubcategoryId', { required: true })}>
                 <MenuItem disabled={true} value="select_subcategory"> Select Subcategory</MenuItem>
                 {subcategories.map((subcategory) => (
 

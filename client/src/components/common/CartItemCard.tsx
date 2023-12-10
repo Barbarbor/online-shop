@@ -59,8 +59,8 @@ const CartItemCard : FC<CartItemCardProps> = ({cartItem, product, liked}) => {
                 className="card-media"
             />
             <div className="card-content">
-                <CardContent>
-                    <Typography variant="body1" style={{ maxWidth: '300px' }}>
+                <CardContent className='card-content-text'>
+                    <Typography variant="body1" className='card-content-text-typography'>
                         {product.name}
                     </Typography>
                 </CardContent>
@@ -76,7 +76,7 @@ const CartItemCard : FC<CartItemCardProps> = ({cartItem, product, liked}) => {
                 </div>
                 <div className='quantity-control'>
                     <button className='decrease-button' onClick={handleDecreaseQuantity}>-</button>
-                    <TextField inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} size='small' className='quantity-input-field' onChange={handleUpdateQuantity} value={quantity} defaultValue={1}> </TextField>
+                    <TextField inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', className:'font-size' }} size='small' className='quantity-input-field' onChange={handleUpdateQuantity} value={quantity} defaultValue={1}> </TextField>
                     <button className='increase-button' onClick={handleIncreaseQuantity}>+</button>
                 </div>
             </div>
