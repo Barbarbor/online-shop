@@ -2,17 +2,19 @@ import React, { FC, useState } from 'react';
 import { IProduct } from '../../models/IProduct';
 import { useAppDispatch } from '../../hooks/redux';
 import { likeProduct, unlikeProduct } from '../../store/modules/Like/likeActions';
-
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import '../../styles/globals.scss';
 import useMediaQuery from "@mui/material/useMediaQuery";
-
+import {useUser} from "../../hooks/useUser";
+import Login from "../auth/Login";
 interface LikeProps {
   product: IProduct;
   isLiked: boolean;
 }
 
 const Like: FC<LikeProps> = ({ product, isLiked }) => {
+    const {currentUser} = useUser();
+
     const [liked, setLiked] = useState(isLiked);
     const dispatch = useAppDispatch();
     let iconSize;
@@ -34,17 +36,26 @@ const Like: FC<LikeProps> = ({ product, isLiked }) => {
         iconSize = 12;
     }
     const handleLikeClick = () => {
-        dispatch(likeProduct(product.id));
-        setLiked(true);
+        if(currentUser) {
+            const userId = currentUser.id;
+            dispatch(likeProduct(product.id,userId));
+            setLiked(true);
+        }
+        else{
+            alert("You need to be log in to like ");
+        }
     };
 
     const handleUnlikeClick = () => {
-        dispatch(unlikeProduct(product.id));
-        setLiked(false);
+        if(currentUser) {
+            const userId = currentUser.id;
+            dispatch(unlikeProduct(product.id,userId));
+            setLiked(false);
+        }
     };
 
     return (
-        <button 
+        <button
             className="button-like-icon"
             onClick={liked ? handleUnlikeClick : handleLikeClick}
             >

@@ -17,18 +17,42 @@ interface ProductFormProps {
 const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, categories, subcategories, onSelectedCategory}) => {
     const { register, handleSubmit, reset } = useForm<IProduct>();
     const [category, setCategory] = useState<number>();
-    
+    const [photoUrl, setPhotoUrl] = useState<string | null>(null);
     const handleFormSubmit: SubmitHandler<IProduct> = async (data) => {
         // For file uploads, ensure you handle them appropriately in the parent component
-        
+        if (photoUrl) {
+            data.photography_url = photoUrl;
+        }
         // const selectedCategoryId = data.categoryId;
         // onSelectedCategory(selectedCategoryId);
         // const selectedSubcategoryId = data.subcategoryId;
         // Submit data to the parent component
+        console.log(`PHOTO URL: ${data.photography_url}`);
         onSubmit(data);
 
         // Reset the form after submission
         reset();
+    };
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onloadend = () => {
+                // reader.result содержит содержимое файла в формате base64
+                const base64String = reader.result as string;
+
+                // Собираем URL изображения, добавляя его к конечной точке сервера
+                const url = `http://localhost:3000/media/${file.name}`;
+
+                // Устанавливаем сгенерированный URL в состояние
+                setPhotoUrl(url);
+            };
+
+            // Читаем файл как Data URL
+            reader.readAsDataURL(file);
+        }
     };
 
     return (
@@ -93,11 +117,14 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, categories, subcate
                 size='small'
                 {...register('description', { required: true })}
             />
+            <InputLabel>Product photo</InputLabel>
             <input
                 className='product-form-photo'
                 type="file"
                 accept="image/*"
                 {...register('photography_url', { required: true })}
+                onChange={handleFileChange}
+
             />
             <button type="submit" className='product-form-submit-button'>Add Product</button>
         </form>

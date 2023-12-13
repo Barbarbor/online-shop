@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 
 import { ICartItem } from '../../models/ICartItem';
-
+import {useUser} from "../../hooks/useUser";
 import { useAppDispatch } from '../../hooks/redux'
 import { createOrder } from '../../store/modules/Order/orderActions';
 
@@ -16,9 +16,15 @@ interface OrderCardProps {
 }
 
 const OrderCard : FC<OrderCardProps> = ({cartItems, total}) => {
+    const {currentUser} = useUser();
     const dispatch = useAppDispatch();
     const handleCreateOrder = () => {
-        dispatch(createOrder(cartItems, total));
+        if(currentUser){
+            const userId = currentUser.id;
+            dispatch(createOrder(cartItems, total,userId));
+            alert("Order created successfully!");
+        }
+
     }
     let fontSize;
     const isDesktop = useMediaQuery('(min-width:1001px)');

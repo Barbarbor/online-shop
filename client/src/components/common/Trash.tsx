@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-
+import {useUser} from "../../hooks/useUser";
 import { ICartItem } from "../../models/ICartItem";
 
 import { useAppDispatch } from "../../hooks/redux";
@@ -10,10 +10,11 @@ import '../../styles/globals.scss';
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface TrashProps {
-    cartItem: ICartItem
+    cartItem: ICartItem;
+    userId:number;
 }
 
-const Trash : FC<TrashProps> = ({cartItem}) => {
+const Trash : FC<TrashProps> = ({cartItem,userId}) => {
     let iconSize;
     const isDesktop = useMediaQuery('(min-width:1001px)');
     const isTablet = useMediaQuery('(max-width:1000px) and (min-width:701px)');
@@ -34,7 +35,7 @@ const Trash : FC<TrashProps> = ({cartItem}) => {
     }
     const dispatch = useAppDispatch();
     const handleRemoveFromCart = () => {
-        dispatch(removeFromCart(cartItem));
+        dispatch(removeFromCart(cartItem,userId));
     };
     return (
         <button className="button-like-icon" id='trash'>

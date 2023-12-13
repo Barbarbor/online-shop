@@ -9,6 +9,7 @@ import SubcategoryProducts from './pages/SubcategoryProducts';
 import CategoryManagement from './admin/CategoryManagement';
 import ProductManagement from './admin/ProductManagement';
 import SubcategoryManagement from './admin/SubcategoryManagement';
+import Login from "./auth/Login";
 const AppRouter = () => {
     return (
         <BrowserRouter>
@@ -29,6 +30,7 @@ const AppRouter = () => {
                     path="/category/:subcategoryId"
                     element={<SubcategoryProducts  />}
                 />
+
             </Routes>
         </BrowserRouter>
     )

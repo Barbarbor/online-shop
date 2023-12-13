@@ -2,7 +2,10 @@
 
 .register-form {
   @extend .form;
-  margin-right: 80px;
+  margin-right: 8px;
+  margin-left:10px;
+  position: relative;
+  top:20%;
 
 
     .register-form-username-label {
@@ -11,7 +14,7 @@
 
     .register-form-username-input {
 
-
+    margin-bottom:20px;
   }
     .register-form-email-label {
 
@@ -19,7 +22,7 @@
 
     .register-form-email-input {
 
-
+      margin-bottom:20px;
     }
     .register-form-password-label {
 
@@ -33,5 +36,29 @@
     @extend .button-submit;
     margin-bottom: 5px;
 
+    position: relative;
+    left:35%;
+    margin-top:18px;
   }
+}
+.register-panel{
+  border:1px solid black;
+  position: absolute;
+  z-index: 5000;
+  top:30%;
+  right:50%;
+  width:425px;
+  height:450px;
+  align-items: center;
+  .register-panel-to-login{
+    cursor: pointer;
+    color: #2364ff;
+    &:hover{
+      color: #1c51d3;
+    }
+  }
+}
+.button-register{
+  background: transparent;
+  border:none;
 }

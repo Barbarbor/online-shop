@@ -5,7 +5,7 @@ export interface IProduct {
     id: number,
     name: string,
     price: number,
-    photography_url: File,
+    photography_url: string,
     category: ICategory,
     subcategory: ISubcategory ,
     CategoryId: number | null,

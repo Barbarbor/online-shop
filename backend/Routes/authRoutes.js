@@ -48,7 +48,7 @@ authRoutes.post('/login', async(req,res) =>{
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Неверный пароль' });
         }
-        const token = jwt.sign({ userId: user.id, email: user.email }, secretKey, { expiresIn: '1h' });
+        const token = jwt.sign({ id: user.id, email: user.email, username:user.username }, secretKey, { expiresIn: '1h' });
         res.status(200).json({token:token,user:user});
     } catch (error) {
         console.error(error);

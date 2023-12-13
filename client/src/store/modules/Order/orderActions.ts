@@ -6,14 +6,14 @@ import { orderSlice } from "./reducers/orderReducer";
 import { IOrder } from "../../../models/IOrder";
 import { IOrderItem } from "../../../models/IOrderItem";
 
-export const createOrder = (cartItems: ICartItem[], total: number) => async (dispatch: AppDispatch) => {
+export const createOrder = (cartItems: ICartItem[], total: number, userId: number) => async (dispatch: AppDispatch) => {
     try {
         dispatch(orderSlice.actions.createOrderRequest())
         // Create the order
         const orderResponse = await axios.post<IOrder>(`${HOST}/api/orders`, {
             order_date: 1,
             status: 'PAID',
-            UserId: 1, // Replace with user authentication when available
+            UserId: userId, // Replace with user authentication when available
             total:total,
         });
 

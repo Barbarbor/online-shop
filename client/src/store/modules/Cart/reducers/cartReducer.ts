@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { CartState } from "../../../types/Cart";
+import { ICart } from "../../../types/Cart";
 import { IProduct } from "../../../../models/IProduct";
 import { ICartItem } from "../../../../models/ICartItem";
 
-const initialState : CartState = {
-    items: [],
+const initialState : ICart = {
+    cartitems: [],
     products: [],
     total: 0,
     isLoading: false,
@@ -21,25 +21,36 @@ export const cartSlice = createSlice({
         },
         cartItemsActionSuccess(state, action: PayloadAction<{cartItems: ICartItem[]; products: IProduct[]}>) {
             const {cartItems, products} = action.payload;
-            state.items = cartItems;
+            state.cartitems = cartItems;
             state.products = products;
             state.isLoading = false;
             state.error = '';
-            state.total = products.reduce((total, product) => total + product.price, 0);
+            state.total = cartItems.reduce((total, cartItem) => {
+                // Находим соответствующий продукт
+                const product = products.find((p) => p.id === cartItem.ProductId);
+
+                // Если продукт найден, умножаем его цену на количество в корзине
+                if (product) {
+                    total += product.price * cartItem.quantity;
+                }
+
+                return total;
+            }, 0);
         },
         addToCartSuccess(state, action: PayloadAction<{ cartItem: ICartItem; product: IProduct }>) {
             const { cartItem, product } = action.payload;
-            state.items.push(cartItem);
+            state.cartitems.push(cartItem);
             state.total += product.price;
             state.products.push(product);
             state.isLoading = false;
             state.error = '';
         },
         updateQuantity(state, action: PayloadAction<ICartItem>) {
-            const itemIndex = action.payload.id;
-            state.items[itemIndex].quantity = action.payload.quantity;
+            console.log("We are here)");
+            const itemIndex = state.cartitems.findIndex(item => item.id == action.payload.id);
+            state.cartitems[itemIndex].quantity = action.payload.quantity;
 
-            state.total = state.items.reduce((total, cartItem) => {
+            state.total = state.cartitems.reduce((total, cartItem) => {
                 const product = state.products.find(p => p.id === cartItem.ProductId);
                 if (product) {
                     total += product.price * cartItem.quantity
@@ -49,11 +60,11 @@ export const cartSlice = createSlice({
         },
         removeFromCartSuccess(state, action: PayloadAction<{ cartitemId: number; productId: number }>) {
             const { cartitemId, productId } = action.payload;
-            state.items = state.items.filter(item => item.id !== cartitemId);
+            state.cartitems = state.cartitems.filter(item => item.id !== cartitemId);
             const removedProduct = state.products.find(product => product.id === productId);
             state.products = state.products.filter(product => product.id !== productId);
             if (removedProduct) {
-              state.total -= removedProduct.price;
+                state.total -= removedProduct.price;
             }
             state.isLoading = false;
             state.error = null;

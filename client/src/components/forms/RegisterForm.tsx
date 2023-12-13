@@ -23,6 +23,15 @@ const RegisterForm: React.FC = () => {
                 placeholder="vasya.pupkin@mail.ru"
                 {...register('email', { required: true })}
             />
+
+            <InputLabel  className='register-form-username-label'>Username</InputLabel>
+            <TextField
+                className='register-form-username-input'
+                size='small'
+                id='username'
+                placeholder="Vasya_Pupkin"
+                {...register('username', { required: true })}
+            />
             <InputLabel  className='register-form-paswword-label'>Password</InputLabel>
             <TextField
                 className='register-form-password-input'
@@ -32,16 +41,7 @@ const RegisterForm: React.FC = () => {
                 type='password'
                 {...register('password', { required: true })}
             />
-            <InputLabel  className='register-form-username-label'>Username</InputLabel>
-            <TextField
-                className='register-form-username-input'
-                size='small'
-                id='username'
-                placeholder="Vasya_Pupkin"
-                {...register('username', { required: true })}
-            />
-
-            <button type="submit" className='register-form-submit-button'>Login</button>
+            <button type="submit" className='register-form-submit-button'>Register</button>
         </form>
     );
 };

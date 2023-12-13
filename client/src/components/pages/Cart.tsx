@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react'
-
+import {useUser} from "../../hooks/useUser";
 import { ICartItem } from '../../models/ICartItem';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
@@ -10,21 +10,56 @@ import OrderCard from '../common/OrderCard';
 
 import { CircularProgress,Container } from '@mui/material';
 import '../../styles/Cart.scss';
+import {RootState} from "../../store/store";
 
 
 const Cart : FC = () => {
+    const {currentUser} = useUser();
+    let userId:number;
+    if(currentUser){
+        userId = currentUser.id;
+    }
+    else{
+        userId = 1;
+    }
     const dispatch = useAppDispatch();
-    const {items: cartItems, products, total, isLoading} = useAppSelector(state => state.cartReducer);
+
+    console.log(`CurrentUser:${currentUser}`);
+// Проверка наличия объекта и его свойств
+    const { cartitems: cartItems, products, total } = useAppSelector( (state) => state.cartReducer);
 
     useEffect(() => {
-        dispatch(fetchCartItems());
-    }, [dispatch]);
+        const fetchData = async () => {
+            // Проверяем, есть ли текущий пользователь
+            if (currentUser) {
+                try {
+                    // Выполняем fetchCartItems только если есть текущий пользователь
+                    dispatch(fetchCartItems(currentUser.id));
+                } catch (error) {
+                    console.error('Ошибка при загрузке корзины:', error);
+                }
+            }
+        };
+
+        fetchData(); // Вызываем функцию загрузки данных
+
+    }, [currentUser]);
     
     const handleRemoveFromCart = (product: ICartItem) => {
-        dispatch(removeFromCart(product))
+        dispatch(removeFromCart(product,userId))
     }
 
 
+    if(!currentUser) {
+        return (
+            <div style={{right: '50%', top: '50%', position: 'absolute'}}> To watch the cart, you should be log in</div>
+        )
+    }
+    if(cartItems.length == 0){
+        return(
+            <div style={{right:'50%',top:'50%',position:'absolute'}}> No items in Cart</div>
+        )
+    }
 
     return (
         <div>
@@ -40,6 +75,7 @@ const Cart : FC = () => {
                             product={product}
                             cartItem={cartItem}
                             liked={true}
+                            userId={userId}
                         />
                     );
                 }

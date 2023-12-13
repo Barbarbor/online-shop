@@ -10,6 +10,7 @@ import { productsSearchedSlice } from './reducers/productsSearchedReducer';
 import { productManagementSlice } from './reducers/productManagementReducer';
 import { ICategory } from '../../../models/ICategory';
 import { ISubcategory } from '../../../models/ISubcategory';
+import {productsFilteredSlice} from "./reducers/productsFilteredReducer";
 
 export const fetchAllProducts = () => async (dispatch: AppDispatch) => {
     try {
@@ -67,11 +68,12 @@ export const fetchProductById = (productId : number) => async (dispatch: AppDisp
 
 export const fetchSubcategoryProducts = (subcategoryId : number) =>async (dispatch:AppDispatch) => {
     try {
-        dispatch(productsGlobalSlice.actions.fetchAllProductsRequest());
+        dispatch(productsFilteredSlice.actions.subcategoryProductsFetching());
         const response = await axios.get<IProduct[]>(`${HOST}/api/products/subcategory/${subcategoryId}`);
-        dispatch(productsGlobalSlice.actions.fetchAllProductsSuccess(response.data));
+        const products = response.data;
+        dispatch(productsFilteredSlice.actions.subcategoryProductsFetchingSuccess(products));
     } catch (e: any) {
-        dispatch(productsGlobalSlice.actions.fetchAllProductsFailure(e.message));
+        dispatch(productsFilteredSlice.actions.subcategoryProductsFetchingError(e.message));
     }
 }
 
@@ -79,6 +81,7 @@ export const fetchLikedProducts = (userId : number) =>async (dispatch:AppDispatc
     try {
         dispatch(productsLikedSlice.actions.likedProductsFetching());
         const response = await axios.get<IProduct[]>(`${HOST}/api/likes?UserId=${userId}`);
+
         dispatch(productsLikedSlice.actions.likedProductsFetchingSuccess(response.data));
     } catch (e: any) {
         dispatch(productsLikedSlice.actions.likedProductsFetchingError(e.message));
@@ -86,11 +89,18 @@ export const fetchLikedProducts = (userId : number) =>async (dispatch:AppDispatc
 }
 
 // Отладить!
-export const fetchSearchedProducts = (searchQuery : string) =>async (dispatch:AppDispatch) => {
+export const fetchSearchedProducts = (searchQuery : string, returnValue=false) =>async (dispatch:AppDispatch) => {
     try {
-        dispatch(productsSearchedSlice.actions.searchedProductsFetching());
-        const response = await axios.get<IProduct[]>(`${HOST}/api/product/search?searchQuery=${searchQuery}`);
-        dispatch(productsSearchedSlice.actions.searchedProductsFetchingSuccess(response.data));
+        if(!returnValue) {
+            dispatch(productsSearchedSlice.actions.searchedProductsFetching());
+            const response = await axios.get<IProduct[]>(`${HOST}/api/product/search?searchQuery=${searchQuery}`);
+            dispatch(productsSearchedSlice.actions.searchedProductsFetchingSuccess(response.data));
+        }
+        else{
+            const response = await axios.get<IProduct[]>(`${HOST}/api/product/search?searchQuery=${searchQuery}`);
+            const searchedProducts = response.data;
+            return searchedProducts;
+        }
     } catch (e: any) {
         dispatch(productsSearchedSlice.actions.searchedProductsFetchingError(e.message));
     }
@@ -103,7 +113,7 @@ export const addProduct = (productData : IProduct) =>async (dispatch:AppDispatch
             name: productData.name,
             description: productData.description,
             price: productData.price,
-            photography_url: productData.photography_url.name,
+            photography_url: productData.photography_url,
             CategoryId: productData.CategoryId,
             SubcategoryId: productData.SubcategoryId,
           }

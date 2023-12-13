@@ -17,24 +17,25 @@ interface CartItemCardProps {
     cartItem: ICartItem;
     product: IProduct;
     liked: boolean;
+    userId: number;
 }
 
-const CartItemCard : FC<CartItemCardProps> = ({cartItem, product, liked}) => {
+const CartItemCard : FC<CartItemCardProps> = ({cartItem, product, liked,userId}) => {
     const [quantity, setQuantity] = useState(cartItem.quantity);
     const dispatch = useAppDispatch();
 
     const handleIncreaseQuantity = () => {
         setQuantity(quantity + 1);
-        dispatch(updateQuantity(cartItem, quantity + 1));
+        dispatch(updateQuantity(cartItem, quantity + 1,userId));
     }
 
     const handleDecreaseQuantity = () => {
         if (quantity > 1) {
             setQuantity(quantity - 1);
-            dispatch(updateQuantity(cartItem, quantity - 1));
+            dispatch(updateQuantity(cartItem, quantity - 1,userId));
         }
         else {
-            dispatch(removeFromCart(cartItem));
+            dispatch(removeFromCart(cartItem,userId));
         }  
     }
 
@@ -42,11 +43,11 @@ const CartItemCard : FC<CartItemCardProps> = ({cartItem, product, liked}) => {
         const value = parseInt(event.target.value, 10);
         if (isNaN(value) || value <= 0) {
             setQuantity(1);
-            dispatch(updateQuantity(cartItem, 1));
+            dispatch(updateQuantity(cartItem, 1,userId));
         }
         else {
             setQuantity(value);
-            dispatch(updateQuantity(cartItem, value));
+            dispatch(updateQuantity(cartItem, value,userId));
         }
     }
 
@@ -54,7 +55,7 @@ const CartItemCard : FC<CartItemCardProps> = ({cartItem, product, liked}) => {
         <Card className="card-container" raised={true}>
             <CardMedia
                 component="img"
-                image="media/iphone14.png"
+                image={product.photography_url}
                 alt="Product"
                 className="card-media"
             />
@@ -66,7 +67,7 @@ const CartItemCard : FC<CartItemCardProps> = ({cartItem, product, liked}) => {
                 </CardContent>
                 <div className="card-icons">
                     <Like product={product} isLiked={liked}/>
-                    <Trash cartItem={cartItem}/>
+                    <Trash cartItem={cartItem} userId={userId}/>
                 </div>
             </div>
 

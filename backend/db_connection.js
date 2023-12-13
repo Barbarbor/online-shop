@@ -10,4 +10,4 @@ try {
 } catch (e) {
     console.log('Невозможно выполнить подключение к БД: ', e)
 }
-module.exports = sequelize
+module.exports = sequelize;

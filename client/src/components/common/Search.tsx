@@ -3,7 +3,7 @@ import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import { IProduct } from '../../models/IProduct';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import { fetchSearchedProducts } from '../../store/modules/Product/productActions';
 
 
@@ -16,13 +16,14 @@ interface SearchProps {
 }
 
 const Search: FC<SearchProps> = ({defaultValue = ''}) => {
-    const [searchQuery, setSearchQuery] = useState<string>('');
+
+    const [searchQuery, setSearchQuery] = useState<string>(defaultValue);
+
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
-    const {products: searchedProducts} = useAppSelector(state => state.productsSearchedReducer);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const inputRef = useRef<HTMLInputElement | null>(null);
-
+    const [productsSearched,setProductsSearched] = useState<IProduct[] >([]);
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
           if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
@@ -48,14 +49,17 @@ const Search: FC<SearchProps> = ({defaultValue = ''}) => {
 
     const handleListItemClick = (product: IProduct) => {
         setSearchQuery(product.name);
-        handleCloseDropdown();
         handleInputChange({ target: { value: product.name } } as ChangeEvent<HTMLInputElement>);
+        handleCloseDropdown();
       };
 
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = async (event: ChangeEvent<HTMLInputElement>) => {
         const query = event.target.value;
         setSearchQuery(query);
-        dispatch(fetchSearchedProducts(query));
+        const products = await dispatch(fetchSearchedProducts(query,true));
+        if(products) {
+            setProductsSearched(products);
+        }
         setShowDropdown(query !== '');
     }
 
@@ -69,8 +73,8 @@ const Search: FC<SearchProps> = ({defaultValue = ''}) => {
             <TextField
                        type="text"
                        placeholder="Search for products..."
-                       value={searchQuery || defaultValue}
-
+                       value={searchQuery}
+                       defaultValue={defaultValue}
                        onChange={handleInputChange}
                        onSelect={() => setShowDropdown(searchQuery !== '')}
                        className='search-input'
@@ -90,7 +94,7 @@ const Search: FC<SearchProps> = ({defaultValue = ''}) => {
 
             </button>
             <List hidden={!showDropdown} className='search-results-list'>
-                {searchedProducts.map((product) => (
+                {productsSearched.map((product) => (
                     <ListItem divider button
                               className='search-results-item'
                               onClick={() => handleListItemClick(product)}

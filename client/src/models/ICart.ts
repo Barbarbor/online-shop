@@ -8,3 +8,6 @@ export interface ICart {
     isLoading: false;
     error: null;
 }
+export interface CartStateMultiple {
+    users: Record<number, ICart>;
+}

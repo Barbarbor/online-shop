@@ -9,9 +9,15 @@ const LoginForm: React.FC = () => {
     const {register, handleSubmit } = useForm<IUserLogin>();
 
     const onSubmit: SubmitHandler<IUserLogin> = async (data:IUserLogin) => {
-        const token = await userLogin(data);
-        console.log(`token:${token}`);
-        console.log(localStorage.getItem('token'));
+        try {
+            const token = await userLogin(data);
+            console.log(`token:${token}`);
+            console.log(localStorage.getItem('token'));
+
+        }
+        catch(error){
+            alert("Error while login. Try again");
+        }
     };
 
     return (

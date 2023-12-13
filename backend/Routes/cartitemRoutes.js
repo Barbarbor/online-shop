@@ -25,13 +25,13 @@ cartitemRoutes.post('/cartitems', async (req, res) => {
         return res.status(500).json({ error: 'Unable to add cart item' });
     }
         });
-cartitemRoutes.get('/cartitems', async (req, res) => {
+cartitemRoutes.get('/cartitems/:userId', async (req, res) => {
     try {
-
+        const {userId} = req.params;
 
         // Find all cart items for the user
         const cartItems = await CartItem.findAll({
-            order: [['id', 'ASC']] // Sort by id in ascending order
+            order: [['id', 'ASC']], where:{UserId:userId}
         });
         const productIds = cartItems.map( (cartitem) => cartitem.ProductId );
         const products = await Product.findAll({where:{id:productIds}});
@@ -42,12 +42,17 @@ cartitemRoutes.get('/cartitems', async (req, res) => {
         return res.status(500).json({ error: 'Unable to fetch cart items' });
     }
 });
-cartitemRoutes.delete('/cartitems/:cartItemId', async (req, res) => {
+cartitemRoutes.delete('/cartitems/:userId/:cartItemId', async (req, res) => {
     try {
-        const { cartItemId } = req.params;
+        const {userId, cartItemId } = req.params;
 
         // Find the cart item by its ID and delete it
-        const cartItem = await CartItem.findByPk(cartItemId);
+        const cartItem = await CartItem.findOne({
+            where:{
+                id:cartItemId,
+                UserId: userId,
+            }
+        });
 
         if (!cartItem) {
             return res.status(404).json({ error: 'Cart item not found' });
@@ -61,11 +66,16 @@ cartitemRoutes.delete('/cartitems/:cartItemId', async (req, res) => {
         return res.status(500).json({ error: 'Unable to delete cart item' });
     }
 });
-cartitemRoutes.put('/cartitems/:cartItemId', async(req,res) =>{
+cartitemRoutes.put('/cartitems/:userId/:cartItemId', async(req,res) =>{
     try {
-        const {cartItemId} = req.params;
+        const {userId,cartItemId} = req.params;
         const {updatedQuantity} = req.body;
-        const cartItem = await CartItem.findByPk(cartItemId);
+        const cartItem = await CartItem.findOne({
+            where: {
+                id: cartItemId,
+                UserId: userId,
+            }
+        });
         if (!cartItem) {
             return res.status(404).json({error: 'CartItem not found'});
         }

@@ -3,7 +3,7 @@ const  User  = require('../models/User');
 const secretKey = '001f-bbcd-3f4e-111a';
 
 const authenticateToken = (req, res, next) => {
-    const token = req.header('Authorization');
+    const token = req.body;
 
     // Проверка, предоставлен ли токен
     if (!token) {

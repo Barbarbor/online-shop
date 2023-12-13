@@ -2,10 +2,11 @@
 
 .search-panel {
   margin-top:15%;
+
   margin-bottom: 55px;
   left:25%;
   position: relative;
-  @media(max-width: 400px){
+  @media(max-width: 554px){
     margin-top:60px;
   }
   .search-input {

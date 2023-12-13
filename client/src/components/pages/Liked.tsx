@@ -1,23 +1,36 @@
 import React, { useEffect } from 'react'
-
+import {useUser} from "../../hooks/useUser";
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchLikedProducts } from '../../store/modules/Product/productActions';
 import { fetchCartItems } from '../../store/modules/Cart/cartActions';
 import Grid from '@mui/material/Unstable_Grid2';
 import ProductCard from '../common/ProductCard';
 import {Container} from "@mui/material";
+import {RootState} from "../../store/store";
 
 const Liked = () => {
-    const userId = 1;
+    let userId:number;
+    const{currentUser} = useUser();
+    if(currentUser){
+        userId = currentUser.id;
+    }
+    else{
+        userId = 1;
+    }
+
     const {products: likedProducts} = useAppSelector(state => state.productsLikedReducer);
-    const {products: cartProducts} = useAppSelector(state => state.cartReducer)
+    const { products:cartProducts} = useAppSelector((state) => state.cartReducer);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(fetchLikedProducts(userId));
-        dispatch(fetchCartItems());
-    }, [dispatch, userId])
-    
+        dispatch(fetchCartItems(userId));
+    }, [dispatch])
+    if(!currentUser) {
+        return (
+            <div style={{right:'50%',top:'50%',position:'absolute'}}> To watch the liked products, you should be log in</div>
+        )
+    }
     return (
         <Container sx={{marginTop:'100px',marginBottom:'25px'}}>
             <Grid container columns={1} spacing={4}>

@@ -12,3 +12,8 @@ export interface IUserRegister {
     password:string;
     username:string;
 }
+export interface IUserCurrent {
+    username:string;
+    id:number;
+    email:string;
+}

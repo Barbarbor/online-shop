@@ -1,6 +1,8 @@
 import { configureStore, combineReducers} from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist'
+import {CartStateMultiple, ICart} from "../models/ICart";
 import storage from 'redux-persist/lib/storage'
+
 import storageSession from 'redux-persist/lib/storage/session'
 import { authReducer } from './modules/User/reducers/userManagementReducer';
 import productReducer from './modules/Product/reducers/productReducer';
@@ -47,5 +49,5 @@ export const store = configureStore({
     reducer: persistedReducer
 });
 export const persistor = persistStore(store);
-export type RootState = ReturnType<typeof rootReducer>
+export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch

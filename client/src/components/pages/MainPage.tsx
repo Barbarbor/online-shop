@@ -1,18 +1,33 @@
 import React, { useEffect, ChangeEvent } from 'react'
-
+import {useUser} from "../../hooks/useUser";
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchAllProducts, fetchLikedProducts, fetchLimitedProducts, setProductsCurrentPage } from '../../store/modules/Product/productActions';
 import { fetchCartItems } from '../../store/modules/Cart/cartActions';
-
+import {CartStateMultiple} from "../../store/types/Cart";
 import Grid from '@mui/material/Unstable_Grid2';
 import {CircularProgress, Container, Pagination} from "@mui/material";
 import ProductCard from '../common/ProductCard';
 import Search from '../common/Search';
 import useMediaQuery from "@mui/material/useMediaQuery"
+import {RootState} from "../../store/store";
+
+
 const MainPage = () => {
-    const userId = 1;
+    const {currentUser} = useUser();
+    let userId:number;
+    if(currentUser){
+        userId = currentUser.id;
+
+
+    }
+    else{
+        userId = 1;
+    }
     const {products: productList, isLoading, error, limit, page, totalCount} = useAppSelector(state => state.productsGlobalReducer);
-    const {products: cartProducts } = useAppSelector(state => state.cartReducer);
+
+// Проверка наличия объекта и свойства products
+    const{products: cartProducts} = useAppSelector( (state) => state.cartReducer)
+
     const {products: likedProducts} = useAppSelector(state => state.productsLikedReducer);
     const dispatch = useAppDispatch();
     const isDesktop = useMediaQuery('(min-width:1001px)');
@@ -23,15 +38,25 @@ const MainPage = () => {
     };
 
     useEffect(() => {
-        //if(!productList)
+        const fetchData = async () => {
+            // Проверяем, есть ли текущий пользователь
+            if (currentUser) {
+                try {
+                    // Выполняем fetchCartItems только если есть текущий пользователь
+                    dispatch(fetchCartItems(currentUser.id));
+                } catch (error) {
+                    console.error('Ошибка при загрузке корзины:', error);
+                }
+            }
+        };
             dispatch(fetchLimitedProducts(page, limit));
 
         //if(!cartProducts)
-            dispatch(fetchCartItems());
-       // if(!likedProducts)
+            fetchData();
+            // if(!likedProducts)
             dispatch(fetchLikedProducts(userId))
 
-    }, [dispatch, userId, page])
+    }, [dispatch,page,currentUser])
 
     return (
         <div>
@@ -48,8 +73,9 @@ const MainPage = () => {
                                     product={product}
                                     isLiked={likedProducts
                                             .some(likedProduct => likedProduct.id === product.id)}
+
                                     inCart={cartProducts
-                                            .some(cartProduct => cartProduct.id === product.id)} />
+                                        .some(cartProduct => cartProduct.id === product.id)} />
                             </Grid>
                         ))
                     )}
