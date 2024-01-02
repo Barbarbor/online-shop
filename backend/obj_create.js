@@ -5,10 +5,10 @@ const CartItem = require('./models/CartItem');
 const Order = require('./models/Order');
 const OrderItem = require('./models/OrderItem');
 const Like = require('./models/Like');
-Product.sync({ force: true })
+sequelize.sync({ force: true })
     .then(() => {
-        console.log('Таблица была успешно пересоздана.');
+        console.log('Таблица была успешно создана.');
     })
     .catch((error) => {
-        console.error('Ошибка при пересоздании таблицы:', error);
+        console.error('Ошибка при создании таблицы:', error);
     });

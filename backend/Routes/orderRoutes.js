@@ -19,10 +19,11 @@ orderRoutes.post('/orders', async (req, res) => {
         return res.status(500).json({ error: 'Unable to add an order' });
     }
 });
-orderRoutes.get('/orders', async (req, res) => {
+orderRoutes.get('/orders/:userId', async (req, res) => {
     try {
+        const {userId} = req.params;
         // Find all orders
-        const orders = await Order.findAll();
+        const orders = await Order.findAll({where:{UserId:userId}});
 
         return res.status(200).json(orders);
     } catch (error) {

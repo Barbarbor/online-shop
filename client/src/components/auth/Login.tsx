@@ -45,7 +45,7 @@ const Login : FC<LoginProps> = ({defaultShowModalState=false}) => {
         <Paper className='login-panel' >
                 <h2 style={{position:'absolute',right:'42%',top:'5%'}}> Login</h2>
             <LoginForm/>
-           <span style={{bottom:'-27%',position:'relative',left:'20%'}}> Don't have an account? <span className='login-panel-to-register' onClick={handleShowModalRegister}>Register </span> </span>
+           <span style={{bottom:'-27%',position:'relative',left:"5%", fontSize:'14px'}}> Don't have an account? <span className='login-panel-to-register' onClick={handleShowModalRegister}>Register </span> </span>
         </Paper>
         </Box>
         </Modal>

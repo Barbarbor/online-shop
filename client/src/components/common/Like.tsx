@@ -27,13 +27,13 @@ const Like: FC<LikeProps> = ({ product, isLiked }) => {
 
     }
     else if(isTablet) {
-        iconSize = 20;
+        iconSize = 24;
     }
     else if(isMobile) {
-        iconSize = 16;
+        iconSize = 24;
     }
     else if(isSmallMobile) {
-        iconSize = 12;
+        iconSize = 24;
     }
     const handleLikeClick = () => {
         if(currentUser) {

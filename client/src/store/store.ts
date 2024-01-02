@@ -1,6 +1,5 @@
 import { configureStore, combineReducers} from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist'
-import {CartStateMultiple, ICart} from "../models/ICart";
 import storage from 'redux-persist/lib/storage'
 
 import storageSession from 'redux-persist/lib/storage/session'
@@ -17,7 +16,7 @@ import productsLikedReducer from './modules/Product/reducers/productsLikedReduce
 import productsFilteredReducer from './modules/Product/reducers/productsFilteredReducer';
 import productManagementReducer from './modules/Product/reducers/productManagementReducer';
 import productsSearchedReducer from './modules/Product/reducers/productsSearchedReducer';
-
+import orderReducer from "./modules/Order/reducers/orderReducer";
 const persistConfig = {
     key: 'root',
     storage: storageSession,
@@ -42,6 +41,8 @@ export const rootReducer = combineReducers({
     likeReducer,
     
     cartReducer,
+
+    orderReducer,
 })
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

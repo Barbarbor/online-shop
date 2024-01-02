@@ -25,13 +25,13 @@ const Trash : FC<TrashProps> = ({cartItem,userId}) => {
 
     }
     else if(isTablet) {
-        iconSize = 20;
+        iconSize = 24;
     }
     else if(isMobile) {
-        iconSize = 16;
+        iconSize = 24;
     }
     else if(isSmallMobile) {
-        iconSize = 12;
+        iconSize = 24;
     }
     const dispatch = useAppDispatch();
     const handleRemoveFromCart = () => {

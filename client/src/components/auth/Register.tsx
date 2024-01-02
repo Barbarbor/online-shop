@@ -46,7 +46,7 @@ const Register : FC<RegisterProps> = ({defaultShowModalState = false}) => {
                 <Paper className='register-panel'>
                     <h2 style={{position:'absolute',right:'36%',top:'5%'}}>Register</h2>
                 <RegisterForm/>
-                 <span style={{bottom:'-27%',position:'relative',left:'20%'}}> Already have an account? <span className='register-panel-to-login' onClick={handleShowLoginModal}> Login </span> </span>
+                 <span style={{bottom:'-27%',position:'relative',left:'5%'}}> Already have an account? <span className='register-panel-to-login' onClick={handleShowLoginModal}> Login </span> </span>
                 </Paper>
             </Box>
         </Modal>

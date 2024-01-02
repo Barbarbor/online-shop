@@ -3,17 +3,20 @@
 .login-form {
   @extend .form;
   margin-right: 8px;
-  margin-left:10px;
+  margin-left: 10px;
   position: relative;
-  top:20%;
+  top: 20%;
+  text-align: left; // Выравниваем текст по центру
 
-    .login-form-email-label {
+  .login-form-email-label {
 
-    }
+  }
 
-    .login-form-email-input {
-      margin-bottom: 30px;
-    }
+  .login-form-email-input {
+    margin-bottom: 15px;
+    // Растягиваем поле ввода на всю ширину
+  }
+
   .login-form-password-label {
 
   }
@@ -24,29 +27,44 @@
 
   .login-form-submit-button {
     @extend .button-submit;
-    margin-bottom: 5px;
-    position: relative;
-    left:35%;
-    margin-top:18px;
+    margin-top: 18px;
   }
 }
-.login-panel{
-  border:1px solid black;
+
+.login-panel {
+  border: 1px solid black;
   position: absolute;
   z-index: 5000;
-  top:30%;
-  right:50%;
-  width:425px;
-  height:400px;
-  .login-panel-to-register{
+  top: 50%; // Положение по вертикали теперь 50%
+  right: 50%;
+  width: 70%;
+  max-width: 425px;
+  height: 400px;
+  transform: translate(50%, -50%);
+  box-sizing: border-box;
+
+  .login-panel-to-register {
     cursor: pointer;
     color: #2364ff;
-    &:hover{
+    &:hover {
       color: #1c51d3;
     }
   }
 }
-.button-login{
+
+.button-login {
   background: transparent;
-  border:none;
+  border: none;
+}
+
+@media screen and (max-width: 600px) {
+  .login-panel {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .login-form-submit-button {
+    font-size: 14px; // Уменьшаем размер шрифта на узких экранах
+  }
 }

@@ -2,7 +2,7 @@
 const sequelize = new Sequelize('shop-database', 'alexxpain', '123derebez', {
 
     host: 'localhost',
-    dialect: 'postgres'/* 'mysql' | 'mariadb' | 'postgres' | 'mssql' */
+    dialect: 'postgres'
 })
 try {
     sequelize.authenticate()

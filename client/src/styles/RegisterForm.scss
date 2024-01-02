@@ -3,62 +3,79 @@
 .register-form {
   @extend .form;
   margin-right: 8px;
-  margin-left:10px;
+  margin-left: 10px;
   position: relative;
-  top:20%;
+  top: 20%;
+  text-align: left; // Изменено на выравнивание по левому краю
 
+  .register-form-username-label {
 
-    .register-form-username-label {
-
-    }
-
-    .register-form-username-input {
-
-    margin-bottom:20px;
   }
-    .register-form-email-label {
 
-    }
+  .register-form-username-input {
+    margin-bottom: 15px;
+    width: 100%;
+  }
 
-    .register-form-email-input {
+  .register-form-email-label {
 
-      margin-bottom:20px;
-    }
-    .register-form-password-label {
+  }
 
-    }
+  .register-form-email-input {
+    margin-bottom: 15px;
+    width: 100%;
+  }
 
-    .register-form-password-input {
+  .register-form-password-label {
 
+  }
 
-    }
+  .register-form-password-input {
+
+  }
+
   .register-form-submit-button {
     @extend .button-submit;
-    margin-bottom: 5px;
-
-    position: relative;
-    left:35%;
-    margin-top:18px;
+    margin-top: 18px;
   }
 }
-.register-panel{
-  border:1px solid black;
+
+.register-panel {
+  border: 1px solid black;
   position: absolute;
   z-index: 5000;
-  top:30%;
-  right:50%;
-  width:425px;
-  height:450px;
-  align-items: center;
-  .register-panel-to-login{
+  top: 50%;
+  right: 50%;
+  width: 70%;
+  max-width: 425px;
+  height: 450px;
+  transform: translate(50%, -50%);
+  box-sizing: border-box;
+
+
+  .register-panel-to-login {
     cursor: pointer;
     color: #2364ff;
-    &:hover{
+    margin-top: auto;
+    &:hover {
       color: #1c51d3;
     }
   }
 }
-.button-register{
+
+.button-register {
   background: transparent;
-  border:none;
+  border: none;
+}
+
+@media screen and (max-width: 600px) {
+  .register-panel {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .register-form-submit-button {
+    font-size: 14px;
+  }
 }

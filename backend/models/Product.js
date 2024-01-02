@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../db_connection'); // Import your Sequelize instance
+const sequelize = require('../db_connection');
 const Product = sequelize.define('Product', {
 
     name: DataTypes.STRING,
@@ -8,14 +8,14 @@ const Product = sequelize.define('Product', {
     photography_url: DataTypes.STRING,
     CategoryId: {
         type: DataTypes.INTEGER,
-        allowNull: false, // This ensures that CategoryId cannot be null
+        allowNull: false,
     },
     SubcategoryId: {
         type: DataTypes.INTEGER,
         allowNull: false,
     }
-    // other fields like category_id, subcategory_id, created_at, and updated_at can be added here
 });
-// Define associations
+
 
 module.exports = Product;
+

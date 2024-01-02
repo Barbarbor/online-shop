@@ -14,6 +14,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 const NavPanel : FC = () => {
     const isMobile = useMediaQuery('(max-width:700px) and (min-width:401px)');
     const isSmallMobile = useMediaQuery('(max-width:400px)');
@@ -41,7 +42,12 @@ const NavPanel : FC = () => {
                 <CategoriesDropdown />
                  {!isMobile && !isSmallMobile? (<ListItemText disableTypography={true}  className='nav-panel-item-text-icon'>Categories</ListItemText>) :(<div></div>)}
             </ListItem>
-
+                <Link to={'/orders'} className='link-style'>
+                    <ListItem className='nav-panel-item nav-panel-item-right'>
+                        <ShoppingBagIcon sx={{fontSize:iconSize}}/>
+                        {!isMobile && !isSmallMobile?(<ListItemText disableTypography={true} className='nav-panel-item-text-icon'>Orders</ListItemText>):(<div></div>)}
+                    </ListItem>
+                </Link>
                 <Link to={'/cart'} className='link-style'>
                         <ListItem className='nav-panel-item nav-panel-item-right' >
                             <ShoppingCartIcon sx={{fontSize:iconSize}}

@@ -41,7 +41,7 @@ const ProductCard : FC<ProductCardProps> = ({product, isLiked, inCart}) => {
     }
 
     return (
-        <Card className='product-card-container' raised={true} onClick={handleNavigationByClick}>
+        <Card className='product-card-container' onClick={handleNavigationByClick}>
             <div className='product-card-like-icon' onClick={(e) => handleChildClick(e)}>
             <Like product={product} isLiked={isLiked} />
             </div>

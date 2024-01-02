@@ -1,12 +1,13 @@
 @import "colors";
 .product-card-container {
   width:250px;
-  border: 1px solid black;
+  border: 1px solid #e7e6e6;
   display: flex;
   flex-direction: column;
   height:250px/279px * 100%;
   position: relative;
-
+  background: none !important;
+  box-shadow: none !important;
   .product-card-like-icon{
     margin: 3px 3px 0 auto;
   }

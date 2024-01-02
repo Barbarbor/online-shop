@@ -7,6 +7,12 @@
   justify-content: center;
   border: none;
   border-radius: 8px;
+  width:30px;
+  height:30px;
+
+}
+
+.temp{
   @media(min-width: 1001px) {
     width:30px;
     height:30px;
@@ -25,12 +31,4 @@
     width:18px;
     height:18px;
   }
-
-}
-
-.button-like-icon:hover {
-  background-color: $button-color-hover;
-}
-#trash {
-  margin-left: 10px;
 }
