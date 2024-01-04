@@ -17,10 +17,14 @@ const Orders = () => {
             dispatch(fetchOrders(userId));
         }
     }, [currentUser, dispatch]);
-
+    if(!currentUser)
+        return(
+            <div style={{right:'50%',top:'50%',position:'absolute'}}> To watch orders, you should to be log in</div>
+        )
+    else
     return (
         <Container className="orders-container">
-            <h2>Список заказов</h2>
+
             {ordersList.map((order) => (
                 <Order
                     key={order.order.id}

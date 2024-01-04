@@ -19,12 +19,16 @@ const SearchResults = () => {
     const {products: likedProducts} = useAppSelector(state => state.productsLikedReducer);
     const dispatch = useAppDispatch();
     useEffect(() => {
-        if(searchQuery)
-            dispatch(fetchSearchedProducts(searchQuery));
-        if(currentUser){
-            dispatch(fetchLikedProducts(currentUser.id));
-            dispatch(fetchCartItems(currentUser.id));
+        const fetchData = async( ) => {
+            if (currentUser) {
+                await dispatch(fetchLikedProducts(currentUser.id));
+                await dispatch(fetchCartItems(currentUser.id));
+                if (searchQuery)
+                    await dispatch(fetchSearchedProducts(searchQuery));
+            } else if (searchQuery)
+                await dispatch(fetchSearchedProducts(searchQuery));
         }
+        fetchData();
 
     }, []);
     if (isLoading) {
@@ -32,15 +36,13 @@ const SearchResults = () => {
             <CircularProgress color="inherit" />
         )
     }
-
+    else
     return (
         <div>
             <NavPanel/>
             <Container>
                 <Search defaultValue={searchQuery}/>
-                {searchedProducts.length === 0 ? (
-                    <p>0 products were found for your request.</p>
-                ) : (
+                { (searchedProducts.length != 0) ? (
                     <Grid container columns={2}>
                         {searchedProducts.map((product) => (
                             <Grid component="div" xs={1} sx={{height:'246px'}}>
@@ -55,6 +57,9 @@ const SearchResults = () => {
                             </Grid>
                         ))}
                     </Grid>
+                ) : (
+                    <p>0 products were found for your request.</p>
+
                 )}
             </Container>
         </div>

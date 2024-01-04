@@ -5,10 +5,12 @@ const CartItem = require('./models/CartItem');
 const Order = require('./models/Order');
 const OrderItem = require('./models/OrderItem');
 const Like = require('./models/Like');
-sequelize.sync({ force: true })
-    .then(() => {
-        console.log('Таблица была успешно создана.');
-    })
-    .catch((error) => {
-        console.error('Ошибка при создании таблицы:', error);
-    });
+for (let i=0;i<10;i++)
+    Product.create({
+    name:'aa',
+    description:'aa',
+    price:10,
+    CategoryId:1,
+    SubcategoryId:2,
+    photography_url:"adsada",
+})

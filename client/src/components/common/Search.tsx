@@ -43,8 +43,10 @@ const Search: FC<SearchProps> = ({defaultValue = ''}) => {
     
 
     const handleSearch = () => {
-        dispatch(fetchSearchedProducts(searchQuery));
-        navigate(`/search-results/${searchQuery}`);
+        if(searchQuery) {
+            dispatch(fetchSearchedProducts(searchQuery));
+            navigate(`/search-results/${searchQuery}`);
+        }
     }
 
     const handleListItemClick = (product: IProduct) => {
@@ -89,6 +91,7 @@ const Search: FC<SearchProps> = ({defaultValue = ''}) => {
             <button
                 onClick={handleSearch}
                 className='search-button'
+
             >
                 <SearchIcon htmlColor='white'/>
 

@@ -26,7 +26,7 @@ const SubcategoryProducts = () => {
             dispatch(fetchLikedProducts(currentUser.id));
             dispatch(fetchCartItems(currentUser.id));
         }
-    }, [])
+    }, [subcategoryId])
 
     if (isLoading) {
         return (

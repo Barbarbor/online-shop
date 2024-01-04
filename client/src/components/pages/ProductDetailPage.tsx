@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import {useUser} from "../../hooks/useUser";
-import { useParams } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchProductById } from '../../store/modules/Product/productActions';
 import {addToCart, fetchCartItems} from '../../store/modules/Cart/cartActions';
@@ -12,6 +12,7 @@ import '../../styles/ProductDetail.scss';
 
 
 const ProductDetailPage = () => {
+    const navigate = useNavigate();
     const {currentUser} = useUser();
     const { productId } = useParams<string>();
     const dispatch = useAppDispatch();
@@ -35,7 +36,10 @@ const ProductDetailPage = () => {
         }
         else {
             const userId = currentUser.id;
+            if(!inCart)
             dispatch(addToCart(product,userId));
+            else
+                navigate('/cart');
         }
     }
 

@@ -1,8 +1,6 @@
 import { configureStore, combineReducers} from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
 
-import storageSession from 'redux-persist/lib/storage/session'
+
 import { authReducer } from './modules/User/reducers/userManagementReducer';
 import productReducer from './modules/Product/reducers/productReducer';
 import categoryReducer from './modules/Category/reducers/categoryReducer';
@@ -17,10 +15,6 @@ import productsFilteredReducer from './modules/Product/reducers/productsFiltered
 import productManagementReducer from './modules/Product/reducers/productManagementReducer';
 import productsSearchedReducer from './modules/Product/reducers/productsSearchedReducer';
 import orderReducer from "./modules/Order/reducers/orderReducer";
-const persistConfig = {
-    key: 'root',
-    storage: storageSession,
-}
 
 export const rootReducer = combineReducers({
     categoryReducer,
@@ -44,11 +38,9 @@ export const rootReducer = combineReducers({
 
     orderReducer,
 })
-const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
-    reducer: persistedReducer
+    reducer: rootReducer
 });
-export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch

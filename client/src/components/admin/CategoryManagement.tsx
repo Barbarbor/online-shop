@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import CategoryForm from '../forms/CategoryForm';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { SubmitHandler } from 'react-hook-form';
 import { ICategory } from '../../models/ICategory';
 import { addCategory, deleteCategories, fetchManagementCategories } from '../../store/modules/Category/categoryActions';
 import '../../styles/CategoryForm.scss';
 import NavPanel from "../common/NavPanel";
+import {Link} from "react-router-dom";
 const CategoryManagement = () => {
     const {categories, isLoading} = useAppSelector(state => state.categoryManagementReducer);
     const [selectedRows, setSelectedRows] = useState<number[]>([]);
@@ -32,13 +34,17 @@ const CategoryManagement = () => {
     const columns : GridColDef[] = [
         {field:'id',headerName:'Id', width:90, type:'number'},
         {field:'name',headerName:'Name', width:200},
-        {field:'createdAt',headerName:'Creation Date',width:200},
-        {field:'updatedAt',headerName:'Updated Date',width:200}
+
+
     ]
+
 
     return (
         <div className="category-management" style={{marginTop:'100px',}}>
-            <NavPanel/>
+            <Link to='/admin' style={{display:'flex',flexDirection:'column',textDecoration:'none', marginRight:'30px'}} >
+                <ArrowBackIcon/>
+                Dashboard
+                </Link>
             <CategoryForm onSubmit={handleAddCategory} />
             <div className='category-management-table'>
                 <button

@@ -28,9 +28,10 @@ export const subcategoryManagementSlice = createSlice({
             state.subcategories.push(action.payload);
         },
         deleteSubcategoriesActionSuccess(state, action: PayloadAction<number[]>) {
+            const newSubcategories = state.subcategories.filter(subcategory => !action.payload.includes(subcategory.id));
             state.isLoading = false;
             state.isError = '';
-            state.subcategories.filter(subcategory => !action.payload.includes(subcategory.id));
+            state.subcategories = newSubcategories;
         },
         subcategoryActionError(state, action: PayloadAction<string>) {
             state.isLoading = false;

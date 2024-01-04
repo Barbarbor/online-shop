@@ -10,7 +10,8 @@ import { fetchManagementSubcategories, fetchSubcategories, fetchSubcategoriesOfC
 import { IProduct } from '../../models/IProduct';
 import NavPanel from "../common/NavPanel";
 import '../../styles/ProductForm.scss';
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import {Link} from 'react-router-dom';
 interface ProductManagementProps {}
 
 const ProductManagement: React.FC<ProductManagementProps> = () => {
@@ -49,18 +50,20 @@ const ProductManagement: React.FC<ProductManagementProps> = () => {
     const columns: GridColDef[] = [
         { field: 'id', headerName: 'Id', width: 90, type: 'number' },
         { field: 'name', headerName: 'Name', width: 200 },
-        { field: 'photography_url', headerName: "Photo URL", width: 200 },
         { field: 'price', headerName: "Price", width: 90, type: "number" },
-        { field: "CategoryId", headerName: "Category Id", width: 90, type: "number" },
-        { field: "SubcategoryId", headerName: "Subcategory Id", width: 90, type: "number" },
-        { field: 'createdAt', headerName: 'Creation Date', width: 200 }
+        { field: "CategoryId", headerName: "Category Id", width: 100, type: "number" },
+        { field: "SubcategoryId", headerName: "Subcategory Id", width: 120, type: "number" },
+
 
     ];
 
     return (
 
         <div className="product-management">
-            <NavPanel/>
+            <Link to='/admin' style={{display:'flex',flexDirection:'column',textDecoration:'none', marginRight:'30px'}} >
+                <ArrowBackIcon/>
+                Dashboard
+            </Link>
             <ProductForm onSubmit={handleAddProduct} categories={categories} subcategories={subcategories} onSelectedCategory={handleSelectCategory}  />
             <div className='product-management-table'>
                 <button

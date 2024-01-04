@@ -15,6 +15,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 const NavPanel : FC = () => {
     const isMobile = useMediaQuery('(max-width:700px) and (min-width:401px)');
     const isSmallMobile = useMediaQuery('(max-width:400px)');
@@ -42,6 +43,12 @@ const NavPanel : FC = () => {
                 <CategoriesDropdown />
                  {!isMobile && !isSmallMobile? (<ListItemText disableTypography={true}  className='nav-panel-item-text-icon'>Categories</ListItemText>) :(<div></div>)}
             </ListItem>
+                <Link to={'/admin'} className='link-style'>
+                <ListItem id='categories-icon' className='nav-panel-item nav-panel-item-right' hidden={currentUser?.id != 19}>
+                    <AdminPanelSettingsIcon sx={{fontSize:iconSize}}/>
+                    {!isMobile && !isSmallMobile? (<ListItemText disableTypography={true}  className='nav-panel-item-text-icon'>Admin</ListItemText>) :(<div></div>)}
+                </ListItem>
+                </Link>
                 <Link to={'/orders'} className='link-style'>
                     <ListItem className='nav-panel-item nav-panel-item-right'>
                         <ShoppingBagIcon sx={{fontSize:iconSize}}/>

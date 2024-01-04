@@ -4,7 +4,7 @@ import { ICartItem } from '../../models/ICartItem';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { fetchCartItems, removeFromCart } from '../../store/modules/Cart/cartActions';
-
+import {fetchLikedProducts} from "../../store/modules/Product/productActions";
 import CartItemCard from '../common/CartItemCard';
 import OrderCard from '../common/OrderCard';
 
@@ -27,14 +27,16 @@ const Cart : FC = () => {
     console.log(`CurrentUser:${currentUser}`);
 // Проверка наличия объекта и его свойств
     const { cartitems: cartItems, products, total } = useAppSelector( (state) => state.cartReducer);
-
+    const {products:likedProducts} = useAppSelector( (state) => state.productsLikedReducer);
     useEffect(() => {
         const fetchData = async () => {
             // Проверяем, есть ли текущий пользователь
             if (currentUser) {
                 try {
                     // Выполняем fetchCartItems только если есть текущий пользователь
-                    dispatch(fetchCartItems(currentUser.id));
+                    dispatch(fetchLikedProducts(currentUser.id)).then(()=> dispatch(fetchCartItems(currentUser.id)) );
+
+
                 } catch (error) {
                     console.error('Ошибка при загрузке корзины:', error);
                 }
@@ -43,7 +45,7 @@ const Cart : FC = () => {
 
         fetchData(); // Вызываем функцию загрузки данных
 
-    }, [currentUser]);
+    }, []);
     
     const handleRemoveFromCart = (product: ICartItem) => {
         dispatch(removeFromCart(product,userId))
@@ -74,7 +76,7 @@ const Cart : FC = () => {
                             key={cartItem.id} // Add a unique key
                             product={product}
                             cartItem={cartItem}
-                            liked={true}
+                            liked={likedProducts.some( (item) => item.id == cartItem.ProductId)}
                             userId={userId}
                         />
                     );

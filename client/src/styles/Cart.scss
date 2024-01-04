@@ -50,9 +50,14 @@
         .card-content-text-typography{
           max-width:75px;
           overflow: hidden;
-
+          white-space: normal;
           text-overflow: ellipsis;
-          height:100px;
+          overflow-wrap: break-word; /* Добавьте это свойство для переноса слов */
+          word-wrap: break-word; /* Добавьте это свойство для поддержки старых браузеров */
+          height: 100px; /* Уберите фиксированную высоту */
+          display: -webkit-box;
+          -webkit-line-clamp: 4; /* Ограничивает количество отображаемых строк */
+          -webkit-box-orient: vertical;
         }
       }
 
