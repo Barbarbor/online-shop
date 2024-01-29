@@ -1,5 +1,7 @@
 Title: Online-shop
+
 Information about the project:
+
 This project is the implementation of an online store written in React. 
 On it, the user can register and interact with the product catalog (search products, order products, like, etc.). 
 Here are some technologies used in this project:
