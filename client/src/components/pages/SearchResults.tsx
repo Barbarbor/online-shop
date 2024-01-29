@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import {useEffect} from 'react'
 
 import { useAppSelector,useAppDispatch } from '../../hooks/redux'
 import { useParams } from 'react-router-dom';

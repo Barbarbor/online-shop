@@ -1,12 +1,10 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { IProduct } from '../../models/IProduct';
 import { useAppDispatch } from '../../hooks/redux';
 import { likeProduct, unlikeProduct } from '../../store/modules/Like/likeActions';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import '../../styles/globals.scss';
 import useMediaQuery from "@mui/material/useMediaQuery";
 import {useUser} from "../../hooks/useUser";
-import Login from "../auth/Login";
 interface LikeProps {
   product: IProduct;
   isLiked: boolean;
@@ -14,7 +12,6 @@ interface LikeProps {
 
 const Like: FC<LikeProps> = ({ product, isLiked }) => {
     const {currentUser} = useUser();
-
     const [liked, setLiked] = useState(isLiked);
     const dispatch = useAppDispatch();
     let iconSize;

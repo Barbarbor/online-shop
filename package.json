@@ -24,6 +24,7 @@
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "pg": "^8.11.3",
+    "react-query": "^3.39.3",
     "sequelize": "^6.33.0",
     "sequelize-cli": "^6.6.1"
   }

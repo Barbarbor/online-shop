@@ -1,12 +1,10 @@
-import React, {useState,useEffect, FC} from 'react';
-import { useAppDispatch,useAppSelector } from '../../hooks/redux';
+import {useState, FC} from 'react';
+import {useAppDispatch} from '../../hooks/redux';
 import {useUser} from "../../hooks/useUser";
 import {useNavigate} from "react-router-dom";
 import '../../styles/ProductCard.scss';
 import { IProduct } from '../../models/IProduct';
 import { addToCart } from '../../store/modules/Cart/cartActions';
-import {ICartItem} from "../../models/ICartItem";
-import '../../styles/ProductCard.scss';
 
 interface AddToCartProps {
     product: IProduct;

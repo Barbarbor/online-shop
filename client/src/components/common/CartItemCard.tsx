@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useState } from 'react'
 
 import { ICartItem } from '../../models/ICartItem';
 import { IProduct } from '../../models/IProduct';
@@ -10,7 +10,6 @@ import Like from './Like';
 import Trash from './Trash';
 
 import { Card, CardContent, CardMedia, TextField, Typography } from '@mui/material';
-import '../../styles/Cart.scss';
 
 
 interface CartItemCardProps {

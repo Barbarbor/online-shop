@@ -1,4 +1,4 @@
-import React, { useEffect, ChangeEvent } from 'react'
+import React, { useEffect, ChangeEvent, useMemo } from 'react'
 import {useUser} from "../../hooks/useUser";
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchAllProducts, fetchLikedProducts, fetchLimitedProducts, setProductsCurrentPage } from '../../store/modules/Product/productActions';
@@ -24,7 +24,7 @@ const MainPage = () => {
         userId = 1;
     }
     const {products: productList, isLoading, error, limit, page, totalCount} = useAppSelector(state => state.productsGlobalReducer);
-
+    const isProductsFetched = useAppSelector((state) => state.productsGlobalReducer.products.length > 0)
 // Проверка наличия объекта и свойства products
     const{products: cartProducts} = useAppSelector( (state) => state.cartReducer)
 
@@ -43,12 +43,14 @@ const MainPage = () => {
             if (currentUser) {
                 try {
                     // Выполняем fetchCartItems только если есть текущий пользователь
+
                     dispatch(fetchCartItems(currentUser.id));
                 } catch (error) {
                     console.error('Ошибка при загрузке корзины:', error);
                 }
             }
         };
+
             dispatch(fetchLimitedProducts(page, limit));
 
         //if(!cartProducts)
@@ -56,7 +58,7 @@ const MainPage = () => {
             // if(!likedProducts)
             dispatch(fetchLikedProducts(userId))
 
-    }, [dispatch,page,currentUser])
+    }, [page,currentUser])
 
     return (
         <div>

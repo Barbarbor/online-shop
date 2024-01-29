@@ -9,6 +9,7 @@ import {userLogin} from "../../store/modules/User/userActions";
 import LoginForm from "../forms/LoginForm";
 import Register from "./Register";
 import LoginIcon from "@mui/icons-material/Login";
+import CloseIcon from '@mui/icons-material/Close';
 interface  LoginProps {
     defaultShowModalState: boolean;
 }
@@ -44,8 +45,10 @@ const Login : FC<LoginProps> = ({defaultShowModalState=false}) => {
         <Box>
         <Paper className='login-panel' >
                 <h2 style={{position:'absolute',right:'42%',top:'5%'}}> Login</h2>
+            <CloseIcon sx={{float:'right'}} onClick={() => setShowModal(false)}/>
             <LoginForm/>
            <span style={{bottom:'-27%',position:'relative',left:"5%", fontSize:'14px'}}> Don't have an account? <span className='login-panel-to-register' onClick={handleShowModalRegister}>Register </span> </span>
+
         </Paper>
         </Box>
         </Modal>

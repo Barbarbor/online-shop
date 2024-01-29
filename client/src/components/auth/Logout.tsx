@@ -7,7 +7,7 @@ const Logout : FC = () => {
     const {currentUser, logoutUser} = useUser();
     const handleLogout =  () =>{
         logoutUser();
-        window.location.reload();
+
     }
     return(
         <div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import {useUser} from "../../hooks/useUser";
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchLikedProducts } from '../../store/modules/Product/productActions';
@@ -6,7 +6,7 @@ import { fetchCartItems } from '../../store/modules/Cart/cartActions';
 import Grid from '@mui/material/Unstable_Grid2';
 import ProductCard from '../common/ProductCard';
 import {Container} from "@mui/material";
-import {RootState} from "../../store/store";
+
 
 const Liked = () => {
     let userId:number;

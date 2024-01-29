@@ -3,11 +3,10 @@ import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react'
 import { IProduct } from '../../models/IProduct';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useNavigate, } from 'react-router-dom';
 import { fetchSearchedProducts } from '../../store/modules/Product/productActions';
 
-
-import {TextField,List,ListItemButton,ListItemText,ListItem,Container} from "@mui/material";
+import {TextField,List,ListItemText,ListItem,Container} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import '../../styles/Search.scss';
 

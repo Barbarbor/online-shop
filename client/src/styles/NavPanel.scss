@@ -22,7 +22,9 @@
         padding: 0 3px;
       }
       padding: 0 15px;
-
+      &:hover{
+        color: #424242;
+      }
       &.nav-panel-item-left{
         margin-right:auto;
 

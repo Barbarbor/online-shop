@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, SetStateAction, useEffect } from 'react';
+import { FC,useState, ChangeEvent, SetStateAction } from 'react';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 import { IProduct } from '../../models/IProduct';
 
@@ -14,7 +14,7 @@ interface ProductFormProps {
     onSelectedCategory: (categoryId : number) => void;
 }
 
-const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, categories, subcategories, onSelectedCategory}) => {
+const ProductForm: FC<ProductFormProps> = ({ onSubmit, categories, subcategories, onSelectedCategory}) => {
     const { register, handleSubmit, reset } = useForm<IProduct>();
     const [category, setCategory] = useState<number>();
     const [photoUrl, setPhotoUrl] = useState<string | null>(null);

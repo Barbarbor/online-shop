@@ -1,4 +1,4 @@
-import React, { MouseEvent, useEffect, useState } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { fetchCategories } from '../../store/modules/Category/categoryActions';
@@ -7,7 +7,6 @@ import { fetchSubcategoriesOfCategory } from '../../store/modules/Subcategory/su
 import {Drawer, List, ListItem, ListItemText} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import SubcategoriesDropdown from './SubcategoriesDropdown';
-import '../../styles/Categories.scss';
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const CategoriesDropdown = () => {

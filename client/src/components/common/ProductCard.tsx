@@ -1,4 +1,4 @@
-import React, { FC, useState, MouseEvent } from 'react'
+import { FC, MouseEvent } from 'react'
 
 import { IProduct } from '../../models/IProduct';
 
@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { addToCart } from '../../store/modules/Cart/cartActions';
 import {useUser} from "../../hooks/useUser";
 import Like from './Like';
-import { Card, Button,CardMedia, CardContent,CardHeader,Typography } from '@mui/material';
-import '../../styles/ProductCard.scss';
+import { Card, CardMedia } from '@mui/material';
+
 import AddToCart from './AddToCart';
 
 

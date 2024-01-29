@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { userTokenVerify, userLogout } from '../store/modules/User/userActions';
 import {IUserCurrent} from "../models/IUser";
 interface UserContextType {

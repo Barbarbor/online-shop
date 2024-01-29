@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import React, { useEffect } from "react";
+import  {useEffect } from "react";
 
 import {fetchLikedProducts, fetchSubcategoryProducts} from "../../store/modules/Product/productActions";
 import {useUser} from "../../hooks/useUser";

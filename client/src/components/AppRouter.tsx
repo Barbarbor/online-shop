@@ -23,10 +23,10 @@ const AppRouter = () => {
             <Routes>
                 <Route path="/" element={<MainPage />} />
                 <Route path="/product/:productId" element={<ProductDetailPage />} />
-                <Route path="/admin" element={currentUser?.id == 19? ( <AdminPage/>) : (<div/>)} />
-                <Route path={"/admin/categories"} element={currentUser?.id == 19? (<CategoryManagement/>) :(<div/>)} />
-                <Route path={"/admin/subcategories"} element={currentUser?.id == 19? (<SubcategoryManagement/> ) : ( <div/>)} />
-                <Route path={"/admin/products"} element={currentUser?.id == 19? ( <ProductManagement/>) : (<div/>)} />
+                <Route path="/admin" element={currentUser?.id == 1? ( <AdminPage/>) : (<div/>)} />
+                <Route path={"/admin/categories"} element={currentUser?.id == 1? (<CategoryManagement/>) :(<div/>)} />
+                <Route path={"/admin/subcategories"} element={currentUser?.id == 1? (<SubcategoryManagement/> ) : ( <div/>)} />
+                <Route path={"/admin/products"} element={currentUser?.id == 1? ( <ProductManagement/>) : (<div/>)} />
 
                 <Route path={"/cart"} element={<Cart/>} />
                 <Route path={"/liked"} element={<Liked/>} />

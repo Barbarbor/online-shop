@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import {useUser} from "../../hooks/useUser";
 import { ICartItem } from '../../models/ICartItem';
 
@@ -8,9 +8,8 @@ import {fetchLikedProducts} from "../../store/modules/Product/productActions";
 import CartItemCard from '../common/CartItemCard';
 import OrderCard from '../common/OrderCard';
 
-import { CircularProgress,Container } from '@mui/material';
 import '../../styles/Cart.scss';
-import {RootState} from "../../store/store";
+
 
 
 const Cart : FC = () => {

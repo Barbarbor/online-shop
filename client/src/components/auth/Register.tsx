@@ -8,6 +8,7 @@ import Login from './Login';
 import {IUserRegister} from "../../models/IUser";
 import {userLogin} from "../../store/modules/User/userActions";
 import RegisterForm from "../forms/RegisterForm";
+import CloseIcon from "@mui/icons-material/Close";
 interface RegisterProps{
     defaultShowModalState: boolean;
 }
@@ -45,6 +46,7 @@ const Register : FC<RegisterProps> = ({defaultShowModalState = false}) => {
             <Box>
                 <Paper className='register-panel'>
                     <h2 style={{position:'absolute',right:'36%',top:'5%'}}>Register</h2>
+                    <CloseIcon sx={{float:'right'}} onClick={() => setShowModal(false)}/>
                 <RegisterForm/>
                  <span style={{bottom:'-27%',position:'relative',left:'5%'}}> Already have an account? <span className='register-panel-to-login' onClick={handleShowLoginModal}> Login </span> </span>
                 </Paper>

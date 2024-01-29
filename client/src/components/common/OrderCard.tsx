@@ -5,8 +5,8 @@ import {useUser} from "../../hooks/useUser";
 import { useAppDispatch } from '../../hooks/redux'
 import { createOrder } from '../../store/modules/Order/orderActions';
 
-import {AppBar, Card} from '@mui/material';
-import '../../styles/Cart.scss';
+import {Card} from '@mui/material';
+
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 

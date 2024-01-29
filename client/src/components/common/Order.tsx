@@ -1,8 +1,7 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { IOrder } from '../../models/IOrder';
 import { IOrderItem } from '../../models/IOrderItem';
 import { Container, Typography } from '@mui/material';
-import '../../styles/Order.scss';
 import {IProduct} from "../../models/IProduct"; // Подключаем стили
 import {ImageList, ImageListItem} from "@mui/material";
 import {useNavigate} from "react-router-dom";

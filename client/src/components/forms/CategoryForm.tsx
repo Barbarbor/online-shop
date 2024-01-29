@@ -1,4 +1,4 @@
-import React from 'react';
+import {FC} from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ICategory } from '../../models/ICategory';
 import { InputLabel, TextField } from '@mui/material';
@@ -7,7 +7,7 @@ interface CategoryFormProps {
     onSubmit: SubmitHandler<ICategory>;
 }
 
-const CategoryForm: React.FC<CategoryFormProps> = ({ onSubmit }) => {
+const CategoryForm: FC<CategoryFormProps> = ({ onSubmit }) => {
     const { register, handleSubmit, formState: { errors } } = useForm<ICategory>();
 
     const onFormSubmit = (data: ICategory) => {

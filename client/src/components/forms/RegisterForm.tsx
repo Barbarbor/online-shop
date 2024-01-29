@@ -1,11 +1,11 @@
-import React from 'react';
-import { useForm, Controller, SubmitHandler, FieldValues } from 'react-hook-form';
+import {FC} from 'react';
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 import {InputLabel, TextField} from "@mui/material";
 import {IUserRegister} from "../../models/IUser";
 import {userLogin} from "../../store/modules/User/userActions";
 import {userRegister} from "../../store/modules/User/userActions";
 import '../../styles/RegisterForm.scss';
-const RegisterForm: React.FC = () => {
+const RegisterForm: FC = () => {
     const {register, handleSubmit } = useForm<IUserRegister>();
 
     const onSubmit: SubmitHandler<IUserRegister> = async (data:IUserRegister) => {

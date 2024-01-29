@@ -1,4 +1,4 @@
-import React from 'react';
+import {FC}from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import '../../styles/SubcategoryForm.scss';
@@ -10,7 +10,7 @@ interface SubcategoryFormProps {
     categories: { id: number; name: string }[];
 }
 
-const SubcategoryForm: React.FC<SubcategoryFormProps> = ({ onSubmit, categories }) => {
+const SubcategoryForm: FC<SubcategoryFormProps> = ({ onSubmit, categories }) => {
     const { register, handleSubmit, reset } = useForm<ISubcategory>();
 
     const handleFormSubmit: SubmitHandler<ISubcategory> = (data) => {

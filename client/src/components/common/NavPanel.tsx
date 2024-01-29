@@ -1,6 +1,6 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { Link } from 'react-router-dom';
-import {useUser} from "../../hooks/useUser";
+import { useUser } from "../../hooks/useUser";
 import CategoriesDropdown from "./CategoriesDropdown";
 import Login from "../auth/Login";
 import Logout from "../auth/Logout";
@@ -16,65 +16,68 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-const NavPanel : FC = () => {
+
+// ... (ваш импорт и код)
+
+const NavPanel: FC = () => {
     const isMobile = useMediaQuery('(max-width:700px) and (min-width:401px)');
     const isSmallMobile = useMediaQuery('(max-width:400px)');
-    const {currentUser, logoutUser} = useUser();
-    let iconSize:number;
-    if(isSmallMobile){
-        iconSize=20;
-    }
-    else{
-        iconSize=24;
-    }
-    console.log(currentUser);
+    const { currentUser, logoutUser } = useUser();
+    const iconSize = isSmallMobile ? 20 : 24;
+
+    const renderNavItem = (to: string, icon: JSX.Element, text: string, className: string) => (
+        <Link to={to} className='link-style'>
+            <ListItem className={`nav-panel-item ${className}`}>
+                {icon}
+
+                {!isMobile && !isSmallMobile && (
+                    <ListItemText disableTypography={true} className='nav-panel-item-text-icon'>
+                        {text}
+
+
+                    </ListItemText>
+                )}
+            </ListItem>
+        </Link>
+    );
+
+    const renderAuthNavItems = () => {
+        if (currentUser) {
+            return(
+                <>
+                {currentUser.id == 1 ? (renderNavItem('/admin', <AdminPanelSettingsIcon
+                    sx={{fontSize: iconSize}}/>, 'Admin', 'nav-panel-item-right') ) : null }
+                {renderNavItem('/', <AccountCircleIcon
+                    sx={{fontSize: iconSize}}/>, currentUser.username, 'nav-panel-item-right')}
+                 </>
+        )
+        }
+
+    };
+
     return (
         <AppBar className='nav-panel'>
             <List className='nav-panel-list'>
-                <Link to={'/'} className='link-style'>
-                    <ListItem className='nav-panel-item nav-panel-item-left'>
-                        <HomeIcon sx={{fontSize:iconSize}}
-                        />
-                        {!isMobile && !isSmallMobile? ( <ListItemText disableTypography={true}  className='nav-panel-item-text-icon' >Home</ListItemText>) : (<div></div>)}
-
-                    </ListItem>
-                </Link>
-             <ListItem id='categories-icon' className='nav-panel-item nav-panel-item-left'>
-                <CategoriesDropdown />
-                 {!isMobile && !isSmallMobile? (<ListItemText disableTypography={true}  className='nav-panel-item-text-icon'>Categories</ListItemText>) :(<div></div>)}
-            </ListItem>
-                <Link to={'/admin'} className='link-style'>
-                <ListItem id='categories-icon' className='nav-panel-item nav-panel-item-right' hidden={currentUser?.id != 19}>
-                    <AdminPanelSettingsIcon sx={{fontSize:iconSize}}/>
-                    {!isMobile && !isSmallMobile? (<ListItemText disableTypography={true}  className='nav-panel-item-text-icon'>Admin</ListItemText>) :(<div></div>)}
+                {renderNavItem('/', <HomeIcon sx={{ fontSize: iconSize }} />, 'Home', 'nav-panel-item-left')}
+                <ListItem id='categories-icon' className='nav-panel-item nav-panel-item-left'>
+                    <CategoriesDropdown />
+                    {!isMobile && !isSmallMobile && (
+                        <ListItemText disableTypography={true} className='nav-panel-item-text-icon'>
+                            Categories
+                        </ListItemText>
+                    )}
                 </ListItem>
-                </Link>
-                <Link to={'/orders'} className='link-style'>
-                    <ListItem className='nav-panel-item nav-panel-item-right'>
-                        <ShoppingBagIcon sx={{fontSize:iconSize}}/>
-                        {!isMobile && !isSmallMobile?(<ListItemText disableTypography={true} className='nav-panel-item-text-icon'>Orders</ListItemText>):(<div></div>)}
-                    </ListItem>
-                </Link>
-                <Link to={'/cart'} className='link-style'>
-                        <ListItem className='nav-panel-item nav-panel-item-right' >
-                            <ShoppingCartIcon sx={{fontSize:iconSize}}
-                            />
-                            {!isMobile && !isSmallMobile?(<ListItemText disableTypography={true} className='nav-panel-item-text-icon'>Cart</ListItemText>):(<div></div>)}
-                        </ListItem>
-                </Link>
-                <Link to={'/liked'} className='link-style'>
-                        <ListItem className='nav-panel-item nav-panel-item-right'>
-                            <FavoriteIcon sx={{fontSize:iconSize}}/>
-                            {!isMobile && !isSmallMobile?( <ListItemText disableTypography={true} className='nav-panel-item-text-icon'>Liked</ListItemText>):(<div></div>)}
-                        </ListItem>
-                </Link>
+                {renderNavItem('/orders', <ShoppingBagIcon sx={{ fontSize: iconSize }} />, 'Orders', 'nav-panel-item-right')}
+                {renderNavItem('/cart', <ShoppingCartIcon sx={{ fontSize: iconSize }} />, 'Cart', 'nav-panel-item-right')}
+                {renderNavItem('/liked', <FavoriteIcon sx={{ fontSize: iconSize }} />, 'Liked', 'nav-panel-item-right')}
+                {renderAuthNavItems()}
                 {!currentUser ? (
 
                     <ListItem className='nav-panel-item nav-panel-item-right'>
                         <LoginIcon sx={{fontSize:iconSize}}/>
                         <Login defaultShowModalState={false}/>
                         {!isMobile && !isSmallMobile?(<span style={{marginTop:'4px',marginLeft:'5px'}}>Login </span>):(<div></div>)}
-                        </ListItem>
+                    </ListItem>
 
                 ) :(<div></div>) }
 
@@ -87,13 +90,6 @@ const NavPanel : FC = () => {
                 ): (
                     <div></div>
                 )}
-                {currentUser ? (
-                    <ListItem className='nav-panel-item nav-panel-item-right'>
-                        <AccountCircleIcon sx={{fontSize:iconSize}}/>
-                        {!isMobile && !isSmallMobile? ( <ListItemText style={{marginTop:'4px'}}> {currentUser.username}</ListItemText> ):(<div></div>)}
-
-                    </ListItem>
-                ): (<div></div>) }
             </List>
         </AppBar>
     );
