@@ -6,6 +6,7 @@ Here are some technologies used in this project:
 
 -Database:
     PostgreSQL
+
 -Server:
     Express.js
     bcrypto
