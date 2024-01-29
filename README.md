@@ -37,5 +37,6 @@ o	React-hook-form
 o	SCSS (CSS preproc)
 
 Project plans:
+
 In the future, it would be good to optimize the client (reduce the size of the bundle, reduce the number of rerenderings, caching requests to the server). 
 Also develop the functionality of the application (add user reviews, product ratings, improve order processing.
