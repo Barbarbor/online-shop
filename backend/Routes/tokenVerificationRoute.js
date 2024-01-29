@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const authenticateToken = require('../middleware/authenticateToken'); // Путь к вашему middleware
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const secretKey = '001f-bbcd-3f4e-111a';
