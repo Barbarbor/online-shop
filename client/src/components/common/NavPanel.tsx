@@ -17,8 +17,6 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
-// ... (ваш импорт и код)
-
 const NavPanel: FC = () => {
     const isMobile = useMediaQuery('(max-width:700px) and (min-width:401px)');
     const isSmallMobile = useMediaQuery('(max-width:400px)');
